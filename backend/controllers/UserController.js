@@ -2,7 +2,9 @@ import User from "../models/UserModel.js";
 
 export const getUsers = async(req, res) => {
     try{
-        const response = await User.findAll();
+        const response = await User.findAll({
+            attributes: ['id', 'username', 'password']
+        });
         res.status(200).json(response);
     } catch (error) {
         console.log(error.message);
@@ -12,6 +14,7 @@ export const getUsers = async(req, res) => {
 export const getUsersById = async(req, res) => {
     try{
         const response = await User.findOne({
+            attributes: ['id', 'username', 'password'],
             where:{
                 id: req.params.id
             }

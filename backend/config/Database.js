@@ -10,7 +10,7 @@
 
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize('crud_db', 'postgres', '123', {
+const db = new Sequelize('financial_report', 'postgres', '123', {
     host: 'localhost',
     dialect: 'postgres', // Menggunakan PostgreSQL
     port: 5432, // Port default PostgreSQL
