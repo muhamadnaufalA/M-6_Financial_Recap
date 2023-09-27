@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
+import User from "./UserModel.js";
 
 const {DataTypes} = Sequelize;
 
@@ -16,8 +17,11 @@ const Wallet = db.define('wallets', {
     freezeTableName: true
 });
 
+User.hasMany(Wallet);
+Wallet.belongsTo(User);
+
 export default Wallet;
 
 (async() => {
-    await db.sync();
+    await db.sync( { force: true } );
 });

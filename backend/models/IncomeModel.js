@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 import User from "./UserModel.js";
+import Wallet from "./WalletModel.js";
 
 const {DataTypes} = Sequelize;
 
@@ -25,8 +26,11 @@ const Income = db.define('incomes', {
 User.hasMany(Income);
 Income.belongsTo(User);
 
+Wallet.hasMany(Income);
+Income.belongsTo(Wallet);
+
 export default Income;
 
 (async() => {
-    await db.sync();
+    await db.sync( { force: true } );
 });

@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
+import User from "./UserModel.js";
 
 const {DataTypes} = Sequelize;
 
@@ -16,8 +17,11 @@ const Category = db.define('categories', {
     freezeTableName: true
 });
 
+User.hasMany(Category);
+Category.belongsTo(User);
+
 export default Category;
 
 (async() => {
-    await db.sync();
+    await db.sync( { force: true } );
 });

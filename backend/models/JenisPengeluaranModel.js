@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
+import User from "./UserModel.js";
 
 const {DataTypes} = Sequelize
 
@@ -14,10 +15,13 @@ const JenisPengeluaran = db.define('jenis_pengeluaran', {
     }
 }, {
     freezeTableName: true
-})
+});
+
+User.hasMany(JenisPengeluaran);
+JenisPengeluaran.belongsTo(User);
 
 export default JenisPengeluaran;
 
 (async() => {
-    await db.sync();
+    await db.sync( { force: true } );
 });
