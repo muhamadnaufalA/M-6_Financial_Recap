@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
+import User from "./UserModel.js";
 
 const {DataTypes} = Sequelize;
 
@@ -13,12 +14,16 @@ const Income = db.define('incomes', {
         allowNull: false
     },
     tanggal_pemasukan: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.STRING(16),
         allowNull: false
     }
 }, {
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: false
 });
+
+User.hasMany(Income);
+Income.belongsTo(User);
 
 export default Income;
 
