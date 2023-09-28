@@ -29,3 +29,29 @@ export const getIncomeByUserId = async(req, res) => {
         console.log(error.message);
     }
 }
+
+export const updateIncome = async(req, res) => {
+    try {
+        await Income.update(req.body, {
+            where: {
+                id: req.params.id
+            }
+        })
+        res.status(200).json( { message: "Income updated" } );
+    } catch(error) {
+        console.log(error.message);
+    }
+}
+
+export const deleteIncome = async(req, res) => {
+    try {
+        await Income.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.status(200).json( { message: "Income deleted" } );
+    } catch(error) {
+        console.log(error.message);
+    }
+}
