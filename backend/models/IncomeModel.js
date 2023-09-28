@@ -32,5 +32,5 @@ Income.belongsTo(Wallet);
 export default Income;
 
 (async() => {
-    await db.sync( { force: true } );
+    await db.sync();
 });

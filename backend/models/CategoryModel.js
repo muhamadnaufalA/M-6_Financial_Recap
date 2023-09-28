@@ -23,5 +23,5 @@ Category.belongsTo(User);
 export default Category;
 
 (async() => {
-    await db.sync( { force: true } );
+    await db.sync();
 });
