@@ -8,8 +8,8 @@ POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "username": "Ghani",
-    "password": "Ghani@gmail.com" 
+    "username": "capek",
+    "password": "capek@gmail.com" 
 }
 
 ###
@@ -23,3 +23,6 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:5000/users/3
+
+###
+GET http://localhost:5000/incomes
