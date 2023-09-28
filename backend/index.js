@@ -2,9 +2,9 @@ import express from "express";
 import cors from "cors";
 import UserRoute from "./routes/UserRoute.js";
 import IncomeRoute from "./routes/IncomeRoutes.js";
+import WalletRoute from "./routes/WalletRoute.js";
 
 import Outcome from "./models/OutcomeModel.js";
-import Wallet from "./models/WalletModel.js";
 import Category from "./models/CategoryModel.js";
 import JenisPengeluaran from "./models/JenisPengeluaranModel.js";
 
@@ -13,9 +13,9 @@ app.use(cors());
 app.use(express.json());
 app.use(UserRoute);
 app.use(IncomeRoute);
+app.use(WalletRoute);
 
 app.use(Outcome);
-app.use(Wallet);
 app.use(Category);
 app.use(JenisPengeluaran);
 
