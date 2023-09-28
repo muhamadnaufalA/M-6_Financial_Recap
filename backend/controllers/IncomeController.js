@@ -13,7 +13,7 @@ export const createIncome = async(req, res) => {
 export const getIncome = async(req, res) => {
     try {
         const response = await Income.findAll({
-            attributes: ['id_income', 'name', 'nominal', 'date']
+            attributes: ['name', 'balance', 'tanggal_pemasukan']
         });
         res.status(200).json(response);
     } catch(error) {
