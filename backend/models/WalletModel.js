@@ -23,5 +23,5 @@ Wallet.belongsTo(User);
 export default Wallet;
 
 (async() => {
-    await db.sync( { force: true } );
+    await db.sync();
 });

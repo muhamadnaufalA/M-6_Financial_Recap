@@ -23,5 +23,5 @@ JenisPengeluaran.belongsTo(User);
 export default JenisPengeluaran;
 
 (async() => {
-    await db.sync( { force: true } );
+    await db.sync();
 });

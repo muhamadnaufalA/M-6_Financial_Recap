@@ -39,5 +39,5 @@ Outcome.belongsTo(Wallet);
 export default Outcome;
 
 (async() => {
-    await db.sync( { force: true } );
+    await db.sync();
 });
