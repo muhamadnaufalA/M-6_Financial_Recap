@@ -17,7 +17,7 @@ PATCH  http://localhost:5000/users/2
 Content-Type: application/json
 
 {
-    "username": "Fardan",
+    "username": "FardanAl",
     "password": "fardan@gmail.com"
 }
 
@@ -26,3 +26,59 @@ DELETE http://localhost:5000/users/3
 
 ###
 GET http://localhost:5000/incomes
+
+###
+POST http://localhost:5000/users/1/Outcomes
+Content-Type: application/json
+
+{
+    "name": "TopUp",
+    "nominal": "100000" ,
+    "tanggal_pengeluaran": "5-26-2023"
+}
+
+###
+GET http://localhost:5000/users/1/Outcomes
+
+###
+GET http://localhost:5000/users/1/Outcomes/3
+
+###
+PATCH http://localhost:5000/users/1/Outcomes/4
+Content-Type: application/json
+
+{
+    "name": "TopUp",
+    "nominal": "50000" ,
+    "tanggal_pengeluaran": "5-26-2023"
+}
+
+###
+DELETE http://localhost:5000/users/1/Outcomes/3
+
+
+
+
+###
+POST http://localhost:5000/users/1/Incomes
+Content-Type: application/json
+
+{
+    "name": "Gajian3",
+    "balance": "3000000" ,
+    "tanggal_pemasukan": "6-26-2023"
+}
+
+###
+GET http://localhost:5000/users/1/Incomes
+
+###
+PATCH http://localhost:5000/Incomes/1
+Content-Type: application/json
+
+{
+    "name": "Gajian",
+    "balance": "1000000" ,
+    "tanggal_pemasukan": "5-26-2023"
+}
+
