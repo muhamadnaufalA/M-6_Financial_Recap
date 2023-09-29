@@ -19,6 +19,7 @@ export const getIncomeByUserId = async(req, res) => {
                 userId: req.params.id
             },
             attributes: [
+                'id',
                 'name', 
                 'balance', 
                 'tanggal_pemasukan'
