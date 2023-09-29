@@ -28,12 +28,12 @@ DELETE http://localhost:5000/users/3
 GET http://localhost:5000/incomes
 
 ###
-POST http://localhost:5000/users/1/Outcomes
+POST http://localhost:5000/users/2/Outcomes
 Content-Type: application/json
 
 {
-    "name": "TopUp",
-    "nominal": "100000" ,
+    "name": "Jajan Fardan2",
+    "nominal": "3000" ,
     "tanggal_pengeluaran": "5-26-2023"
 }
 
@@ -41,20 +41,21 @@ Content-Type: application/json
 GET http://localhost:5000/users/1/Outcomes
 
 ###
-GET http://localhost:5000/users/1/Outcomes/3
+GET http://localhost:5000/users/2/Outcomes/6
 
 ###
-PATCH http://localhost:5000/users/1/Outcomes/4
+PUT http://localhost:5000/users/1/Outcomes/5
 Content-Type: application/json
 
 {
     "name": "TopUp",
     "nominal": "50000" ,
     "tanggal_pengeluaran": "5-26-2023"
+    
 }
 
 ###
-DELETE http://localhost:5000/users/1/Outcomes/3
+DELETE http://localhost:5000/users/1/Outcomes/4
 
 
 

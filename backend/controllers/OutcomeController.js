@@ -35,7 +35,8 @@ export const getOutcomeByOutcomeId = async(req, res) => {
     try {
         const response = await Outcome.findOne({
             where: {
-                id: req.params.id
+                id: req.params.id,
+                userId: req.params.userId
             },
             attributes: [
                 'id',
@@ -54,7 +55,8 @@ export const updateOutcome = async(req, res) => {
     try {
         await Outcome.update(req.body, {
             where: {
-                id: req.params.id
+                id: req.params.id,
+                userId: req.params.userId
             }
         })
         res.status(200).json( { message: "Outcome updated" } );
@@ -67,7 +69,8 @@ export const deleteOutcome = async(req, res) => {
     try {
         await Outcome.destroy({
             where: {
-                id: req.params.id
+                id: req.params.id,
+                userId: req.params.userId
             }
         });
         res.status(200).json( { message: "Outcome deleted" } );

@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.post('/users/:id/Outcomes', createOutcome);
 router.get('/users/:id/Outcomes', getAllOutcomeUser);
-router.get('/users/:id/Outcomes/:id', getOutcomeByOutcomeId);
-router.put('/users/:id/Outcomes/:id', updateOutcome);
-router.delete('/users/:id/Outcomes/:id', deleteOutcome);
+router.get('/users/:userId/Outcomes/:id', getOutcomeByOutcomeId);
+router.put('/users/:userId/Outcomes/:id', updateOutcome);
+router.delete('/users/:userId/Outcomes/:id', deleteOutcome);
 
 export default router;
