@@ -1,4 +1,5 @@
 import User from "../models/UserModel.js";
+import bcrypt from 'bcrypt';
 
 export const getUsers = async(req, res) => {
     try{
@@ -25,12 +26,45 @@ export const getUsersById = async(req, res) => {
     }
 }
 
+//REGISTER
 export const createUser = async(req, res) => {
+    // Harus nya ada code exception untuk existing akun disini//
+
+    const { username, password, confPassword } = req.body;
+    if (password !== confPassword){
+        return res.status(400).json({msg: "Password and Confirmation Password does not match"});
+    }
+    const salt = await bcrypt.genSalt();
+    const hashPassword = await bcrypt.hash(password, salt);
+    
     try{
-        await User.create(req.body);
-        res.status(201).json({msg: "User Created"});
+        await User.create({
+            username: username,
+            password: hashPassword
+        });
+        res.status(201).json({msg: "Register Success"});
     } catch (error) {
         console.log(error.message);
+    }
+}
+
+//LOGIN
+export const loginUser = async (req,res) => {
+    
+    try {
+        const user = await User.findAll({
+            where: {
+              username: req.body.username,
+            },
+          });
+        const match = await bcrypt.compare(req.body.password, user[0].password);
+        if(!match){
+            return res.status(400).json({msg:"Wrong Password"});
+        }
+        
+        res.json({msg:"Login Success"});
+    } catch (error) {
+        res.status(404).json({msg: "Username Not FOUND"});
     }
 }
 

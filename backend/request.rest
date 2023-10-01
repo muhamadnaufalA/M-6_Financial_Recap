@@ -8,8 +8,18 @@ POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "username": "capek",
-    "password": "capek@gmail.com" 
+    "username": "ghani",
+    "password": "1234",
+    "confPassword": "1234"
+}
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "ghani",
+    "password": "1234"
 }
 
 ###
