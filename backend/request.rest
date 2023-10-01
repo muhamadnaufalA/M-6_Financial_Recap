@@ -49,7 +49,7 @@ Content-Type: application/json
 
 {
     "name": "TopUp",
-    "nominal": "50000" ,
+    "nominal": "85000" ,
     "tanggal_pengeluaran": "5-26-2023"
     
 }
