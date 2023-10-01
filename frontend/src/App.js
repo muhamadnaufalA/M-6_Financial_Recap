@@ -1,16 +1,25 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom"
-import UserList from "./components/UserList";
-import AddUser from "./components/AddUser";
-import EditUser from "./components/EditUser";
+import {BrowserRouter, Switch, Route} from "react-router-dom"
 
-function App() {
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Dashboard from "./components/Dashboard";
+import Navbar from "./components/Navbar";
+
+function App() { 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<UserList/>}/>
-        <Route path="add" element={<AddUser/>}/>
-        <Route path="edit/:id" element={<EditUser/>}/>
-      </Routes>
+      <Switch>
+        <Route exact path="/">
+          <Login/>
+        </Route>
+        <Route exact path="/register">
+          <Register/>
+        </Route>
+        <Route exact path="/dashboard">
+          <Navbar/>
+          <Dashboard/>
+        </Route>
+      </Switch>
     </BrowserRouter>
   );
 }

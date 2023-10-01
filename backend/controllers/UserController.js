@@ -28,7 +28,16 @@ export const getUsersById = async(req, res) => {
 
 //REGISTER
 export const createUser = async(req, res) => {
-    // Harus nya ada code exception untuk existing akun disini//
+    const existingUser = await User.findAll({
+        where: {
+          username: req.body.username,
+        },
+      });
+    
+      if (existingUser[0]) {
+        // Username already exists; return an error response
+        return res.status(400).json({ msg: 'Username already taken' });
+      }
 
     const { username, password, confPassword } = req.body;
     if (password !== confPassword){
@@ -62,7 +71,7 @@ export const loginUser = async (req,res) => {
             return res.status(400).json({msg:"Wrong Password"});
         }
         
-        res.json({msg:"Login Success"});
+        res.status(200).json({msg:"Login Success"});
     } catch (error) {
         res.status(404).json({msg: "Username Not FOUND"});
     }
