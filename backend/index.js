@@ -6,6 +6,7 @@ import UserRoute from "./routes/UserRoute.js";
 import IncomeRoute from "./routes/IncomeRoute.js";
 import WalletRoute from "./routes/WalletRoute.js";
 import OutcomeRoute from "./routes/OutcomeRoute.js";
+import jenisPengeluaranRoute from "./routes/JenisPengeluaranRoute.js";
 
 // IMPORT MODELS //
 import Income from "./models/IncomeModel.js";
@@ -23,6 +24,7 @@ app.use(UserRoute);
 app.use(IncomeRoute);
 app.use(WalletRoute);
 app.use(OutcomeRoute);
+app.use(jenisPengeluaranRoute);
 
 app.use(User);
 app.use(Income);
