@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -47,12 +47,6 @@ const Login = () => {
                         </div>
                         <div className="field mt-5">
                             <button className='button is-success is-fullwidth'>Login</button>
-                        </div>
-                        <div className="field mt-3">
-                            <p className="has-text-centered">
-                                Don't have an account? {' '}
-                                <Link to="/register">Register here</Link>
-                            </p>
                         </div>
                     </form>
                 </div>
