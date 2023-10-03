@@ -27,7 +27,7 @@ const Navbar = () => {
             <div className="navbar-end">
             <div className="navbar-item">
                 <div className="buttons">
-                <a className="button is-light">
+                <a href="/" className="button is-light">
                     Log Out
                 </a>
                 </div>
