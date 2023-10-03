@@ -93,3 +93,53 @@ Content-Type: application/json
     "tanggal_pemasukan": "5-26-2023"
 }
 
+
+
+###
+POST http://localhost:5000/users/1/JenisPengeluaran
+Content-Type: application/json
+
+{
+    "nama": "Contoh",
+    "persentase": 10
+}
+
+###
+GET http://localhost:5000/users/1/JenisPengeluaran
+
+###
+PUT http://localhost:5000/jenispengeluaran/1
+Content-Type: application/json
+
+{
+    "nama": "Contoh",
+    "persentase": 100
+}
+
+###
+DELETE http://localhost:5000/jenispengeluaran/1
+
+
+###
+POST http://localhost:5000/users/1/category
+Content-Type: application/json
+
+{
+    "name": "Contoh2",
+    "budget": 300000
+}
+
+###
+GET http://localhost:5000/users/1/category
+
+###
+PUT http://localhost:5000/category/2
+Content-Type: application/json
+
+{
+    "nama": "Contoh3",
+    "persentase": 100
+}
+
+###
+DELETE http://localhost:5000/jenispengeluaran/1
