@@ -26,10 +26,20 @@ const Income = () => {
   const addIncomeFunc = async(e) => {
     e.preventDefault();
     try {
+        // definisikan tanggal baru
+        // const date = new Date(tanggalPemasukan);
+        // console.log(date);
+        
+        // console.log(tanggalPemasukan);
+
+        // tanggalPemasukan = date.toISOString();
+
+        console.log(tanggalPemasukan);
+        
         await axios.post(`http://localhost:5000/users/${UserId}/incomes`,{
             name: name,
             balance: parseInt(balance),
-            tanggalPemasukan: tanggalPemasukan
+            tanggal_pemasukan: tanggalPemasukan
             
         });
 
@@ -122,7 +132,7 @@ const Income = () => {
                   <td>{income.balance}</td>
                   <td>{income.tanggal_pemasukan}</td>
                    <td>
-                    <Link to={`editIncome/${income.id}`} className="button is-small is-info">Edit</Link>
+                    {/* <Link to={`editIncome/${income.id}`} className="button is-small is-info">Edit</Link> */}
                     <button onClick={() => deleteIncome(income.id)} className="button is-small is-danger">Delete</button>
                   </td>
                 </tr>

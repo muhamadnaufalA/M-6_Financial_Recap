@@ -75,7 +75,7 @@ Content-Type: application/json
 {
     "name": "Gajian3",
     "balance": "3000000" ,
-    "tanggal_pemasukan": "6-26-2023"
+    "tanggal_pemasukan": "2021-6-26"
 }
 
 ###

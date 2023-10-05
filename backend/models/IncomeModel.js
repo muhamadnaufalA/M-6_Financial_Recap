@@ -16,7 +16,7 @@ const Income = db.define('incomes', {
     },
     tanggal_pemasukan: {
         type: DataTypes.DATEONLY,
-        allowNull: true
+        allowNull: false
     }
 }, {
     freezeTableName: true,

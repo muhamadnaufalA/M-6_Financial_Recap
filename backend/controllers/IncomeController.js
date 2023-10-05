@@ -3,9 +3,11 @@ import Income from "../models/IncomeModel.js";
 export const createIncome = async(req, res) => {
     try {
         req.body.userId = req.params.id;
-        await Income.create(req.body);
+        console.log(req.params.tanggal_pemasukan);
+        const response = await Income.create(req.body);
         res.status(201).json({
-            message: "Income created"
+            message: "Income created",
+            data: response
         });
     } catch(error) {
         console.log(error.message);
