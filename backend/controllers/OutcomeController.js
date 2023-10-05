@@ -56,7 +56,6 @@ export const updateOutcome = async(req, res) => {
         await Outcome.update(req.body, {
             where: {
                 id: req.params.id,
-                userId: req.params.userId
             }
         })
         res.status(200).json( { message: "Outcome updated" } );
@@ -70,7 +69,6 @@ export const deleteOutcome = async(req, res) => {
         await Outcome.destroy({
             where: {
                 id: req.params.id,
-                userId: req.params.userId
             }
         });
         res.status(200).json( { message: "Outcome deleted" } );

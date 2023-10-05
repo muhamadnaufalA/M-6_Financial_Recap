@@ -71,7 +71,7 @@ export const loginUser = async (req,res) => {
             return res.status(400).json({msg:"Wrong Password"});
         }
         
-        res.status(200).json({msg:"Login Success"});
+        res.status(200).json({userId: user[0].id, msg:"Login Success"});
     } catch (error) {
         res.status(404).json({msg: "Username Not FOUND"});
     }

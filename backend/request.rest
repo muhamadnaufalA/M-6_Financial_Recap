@@ -68,8 +68,6 @@ Content-Type: application/json
 DELETE http://localhost:5000/users/1/Outcomes/4
 
 
-
-
 ###
 POST http://localhost:5000/users/1/Incomes
 Content-Type: application/json
