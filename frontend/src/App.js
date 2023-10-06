@@ -6,12 +6,6 @@ import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar";
 import Income from "./components/Income";
 import EditIncome from "./components/EditIncome";
-// // Import pages
-// import Dashboard from './template1/pages/Dashboard';
-
-// import './template1/css/style.css';
-
-// import './template1/charts/ChartjsConfig';
 
 function App() { 
   return (
