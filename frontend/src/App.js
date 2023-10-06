@@ -5,6 +5,7 @@ import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar";
 import Income from "./components/Income";
+import EditIncome from "./components/EditIncome";
 // // Import pages
 // import Dashboard from './template1/pages/Dashboard';
 
@@ -29,6 +30,10 @@ function App() {
         <Route exact path="/income">
           <Navbar/>
           <Income/>
+        </Route>
+        <Route exact path="/editIncome/:id">
+          <Navbar/>
+          <EditIncome/>
         </Route>
       </Switch>
     </BrowserRouter>

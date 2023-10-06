@@ -33,6 +33,25 @@ export const getIncomeByUserId = async(req, res) => {
     }
 }
 
+export const getIncomeById = async(req, res) => {
+    try {
+        const response = await Income.findOne({
+            where: {
+                id: req.params.id,
+            },
+            attributes: [
+                'id',
+                'name', 
+                'balance', 
+                'tanggal_pemasukan'
+            ]
+        });
+        res.status(200).json(response);
+    } catch(error) {
+        console.log(error.message);
+    }
+}
+
 export const updateIncome = async(req, res) => {
     try {
         await Income.update(req.body, {

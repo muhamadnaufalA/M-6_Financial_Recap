@@ -4,11 +4,11 @@ import Cookies from 'js-cookie';
 import { useHistory, Link} from 'react-router-dom';
 
 const Income = () => {
+  const [incomes, setIncome] = useState([]);
   const [name, setName] = useState('');
   const [balance, setBalance] = useState('');
   const [tanggalPemasukan, setTanggalPemasukan] = useState('');
   const [msg, setMsg] = useState('');
-  const [incomes, setIncome] = useState([]);
   const history = useHistory();
 
   // Get UserId with Cookie
@@ -26,14 +26,6 @@ const Income = () => {
   const addIncomeFunc = async(e) => {
     e.preventDefault();
     try {
-        // definisikan tanggal baru
-        // const date = new Date(tanggalPemasukan);
-        // console.log(date);
-        
-        // console.log(tanggalPemasukan);
-
-        // tanggalPemasukan = date.toISOString();
-
         console.log(tanggalPemasukan);
         
         await axios.post(`http://localhost:5000/users/${UserId}/incomes`,{
@@ -132,7 +124,7 @@ const Income = () => {
                   <td>{income.balance}</td>
                   <td>{income.tanggal_pemasukan}</td>
                    <td>
-                    {/* <Link to={`editIncome/${income.id}`} className="button is-small is-info">Edit</Link> */}
+                    <Link to={`editIncome/${income.id}`} className="button is-small is-info">Edit</Link>
                     <button onClick={() => deleteIncome(income.id)} className="button is-small is-danger">Delete</button>
                   </td>
                 </tr>

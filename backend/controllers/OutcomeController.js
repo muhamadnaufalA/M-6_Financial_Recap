@@ -31,12 +31,11 @@ export const getAllOutcomeUser = async(req, res) => {
     }
 }
 
-export const getOutcomeByOutcomeId = async(req, res) => {
+export const getOutcomeById = async(req, res) => {
     try {
         const response = await Outcome.findOne({
             where: {
                 id: req.params.id,
-                userId: req.params.userId
             },
             attributes: [
                 'id',
