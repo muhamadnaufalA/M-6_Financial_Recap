@@ -26,11 +26,11 @@ export default function OutcomeTable() {
     }
 
     return (
-        <section className="hero has-background-grey-light is-fullheight is-fullwidth">
+        <section className="hero has-background-white is-fullheight is-fullwidth">
             {/* TABEL */}
-            <div className="columns mt-5 is-centered">
-                <div className="column is-half">
-                    <table className="table is-striped is-fullwidth">
+            <div className="columns ml-5 mr-5 is-centered">
+                <div className="column">
+                    <table className="table is-striped is-fullwidth box">
                         <thead>
                             <tr>
                                 <th>No</th>

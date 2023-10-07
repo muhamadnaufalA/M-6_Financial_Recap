@@ -46,11 +46,11 @@ export default function OutcomeForm() {
     };
 
     return (
-        <section className="hero has-background-grey-light is-fullheight is-fullwidth">
+        <section className="hero has-background-white is-fullheight is-fullwidth">
             <div className="hero-body">
                 <div className="container">
                     <div className="columns is-centered">
-                        <div className="column is-4">
+                        <div className="column">
                             <form onSubmit={handleSubmit} className="box">
                                 <p className="has-text-center">{msg}</p>
                                 <div className="field mt-5">
