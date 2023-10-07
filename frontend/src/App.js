@@ -22,20 +22,6 @@ function App() {
           <Register/>
         </Route>
 
-        <Route exact path="/income">
-          <div className="wrapper">
-            <Sidebar/>
-            <div className="main">
-              <Navbar/>
-              <main className="content">
-                  <div className="container-fluid p-0">
-                    <Income/>
-                  </div>
-              </main>
-            </div>
-          </div>
-        </Route>
-
          {/* Dashboard */}
           <Route exact path="/dashboard">
           <div className="wrapper">
@@ -51,10 +37,35 @@ function App() {
               </div>
             </div>
           </Route>
-       
+
+        {/* Income Page */}
+        <Route exact path="/income">
+          <div className="wrapper">
+            <Sidebar/>
+            <div className="main">
+              <Navbar/>
+              <main className="content">
+                  <div className="container-fluid p-0">
+                    <Income/>
+                  </div>
+              </main>
+            </div>
+          </div>
+        </Route>
+
+        {/* Edit Income Page */}
         <Route exact path="/editIncome/:id">
-          <Navbar/>
-          <EditIncome/>
+          <div className="wrapper">
+            <Sidebar/>
+              <div className="main">
+                <Navbar/>
+                <main className="content">
+                  <div className="container-fluid p-0">
+                    <EditIncome/>
+                  </div>
+                </main>
+              </div>
+          </div>
         </Route>
 
       </Switch>
