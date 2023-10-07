@@ -14,6 +14,20 @@ Content-Type: application/json
 }
 
 ###
+GET http://localhost:5000/users/11/wallets
+
+###
+POST http://localhost:5000/users/11/wallets
+Content-Type: application/json
+
+{
+    "name": "DJAGO",
+    "balance": "40000"
+}
+
+
+
+###
 POST http://localhost:5000/login
 Content-Type: application/json
 

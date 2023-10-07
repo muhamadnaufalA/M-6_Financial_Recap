@@ -1,4 +1,5 @@
 import Income from "../models/IncomeModel.js";
+import Wallet from "../models/WalletModel.js"; // Import model Wallet
 
 export const createIncome = async(req, res) => {
     try {
@@ -24,7 +25,14 @@ export const getIncomeByUserId = async(req, res) => {
                 'id',
                 'name', 
                 'balance', 
-                'tanggal_pemasukan'
+                'tanggal_pemasukan',
+                'walletId'
+            ],
+            include: [
+                {
+                    model: Wallet,
+                    attributes: ['name'] // Ambil atribut 'name' dari tabel Wallet
+                }
             ]
         });
         res.status(200).json(response);
@@ -43,7 +51,14 @@ export const getIncomeById = async(req, res) => {
                 'id',
                 'name', 
                 'balance', 
-                'tanggal_pemasukan'
+                'tanggal_pemasukan',
+                'walletId'
+            ],
+            include: [
+                {
+                    model: Wallet,
+                    attributes: ['name'] // Ambil atribut 'name' dari tabel Wallet
+                }
             ]
         });
         res.status(200).json(response);

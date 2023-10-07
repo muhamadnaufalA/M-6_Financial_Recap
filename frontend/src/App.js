@@ -1,9 +1,9 @@
 import {BrowserRouter, Switch, Route} from "react-router-dom"
 
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Income from "./components/Income";
-import EditIncome from "./components/EditIncome";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Income from "./pages/Income";
+import EditIncome from "./pages/EditIncome";
 import Outcome from "./pages/Outcome";
 
 import Dashboard from "./pages/Dashboard";
@@ -50,6 +50,7 @@ function App() {
                     <Income/>
                   </div>
               </main>
+              <Footer/>
             </div>
           </div>
         </Route>
@@ -65,6 +66,7 @@ function App() {
                     <EditIncome/>
                   </div>
                 </main>
+                <Footer/>
               </div>
           </div>
         </Route>
@@ -80,6 +82,7 @@ function App() {
                     <Outcome/>
                   </div>
               </main>
+              <Footer/>
             </div>
           </div>
         </Route>
