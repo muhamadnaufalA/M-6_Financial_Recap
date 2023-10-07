@@ -26,7 +26,7 @@ function Sidebar() {
                     </li>
 
                     <li className="sidebar-item">
-                        <a className="sidebar-link" href="pages-sign-in.html">
+                        <a className="sidebar-link" href="/outcome">
                             <i className="align-middle" data-feather="log-in"></i> 
                             <span className="align-middle">Outcome</span>
                         </a>

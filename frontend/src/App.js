@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Income from "./components/Income";
 import EditIncome from "./components/EditIncome";
+import Outcome from "./pages/Outcome";
 
 import Dashboard from "./pages/Dashboard";
 import Sidebar from "./components/Sidebar";
@@ -65,6 +66,21 @@ function App() {
                   </div>
                 </main>
               </div>
+          </div>
+        </Route>
+
+        {/* Outcome Page */}
+        <Route exact path="/outcome">
+          <div className="wrapper">
+            <Sidebar/>
+            <div className="main">
+              <Navbar/>
+              <main className="content">
+                  <div className="container-fluid p-0">
+                    <Outcome/>
+                  </div>
+              </main>
+            </div>
           </div>
         </Route>
 
