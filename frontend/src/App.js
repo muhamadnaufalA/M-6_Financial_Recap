@@ -2,10 +2,13 @@ import {BrowserRouter, Switch, Route} from "react-router-dom"
 
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Dashboard from "./components/Dashboard";
-import Navbar from "./components/Navbar";
 import Income from "./components/Income";
 import EditIncome from "./components/EditIncome";
+
+import Dashboard from "./pages/Dashboard";
+import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() { 
   return (
@@ -14,21 +17,46 @@ function App() {
         <Route exact path="/">
           <Login/>
         </Route>
+
         <Route exact path="/register">
           <Register/>
         </Route>
-        <Route exact path="/dashboard">
-          <Navbar/>
-          <Dashboard/>
-        </Route>
+
         <Route exact path="/income">
-          <Navbar/>
-          <Income/>
+          <div className="wrapper">
+            <Sidebar/>
+            <div className="main">
+              <Navbar/>
+              <main className="content">
+                  <div className="container-fluid p-0">
+                    <Income/>
+                  </div>
+              </main>
+            </div>
+          </div>
         </Route>
+
+         {/* Dashboard */}
+          <Route exact path="/dashboard">
+          <div className="wrapper">
+            <Sidebar/>
+              <div className="main">
+                <Navbar/>
+                <main className="content">
+                  <div className="container-fluid p-0">
+                    <Dashboard/>
+                  </div>
+                </main>
+                <Footer/>
+              </div>
+            </div>
+          </Route>
+       
         <Route exact path="/editIncome/:id">
           <Navbar/>
           <EditIncome/>
         </Route>
+
       </Switch>
     </BrowserRouter>
   );
