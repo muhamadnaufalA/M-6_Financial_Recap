@@ -37,7 +37,8 @@ export default function OutcomeForm() {
                 categoryId: formData.category,
                 walletId: formData.wallet,
             });
-            history.push("/dashboard");
+            // history.push("/dashboard");
+            window.location.reload();
         } catch (error) {
             if(error.response){
                 setMsg(error.response.data.msg);
@@ -105,9 +106,9 @@ export default function OutcomeForm() {
                                             onChange={handleChange}
                                         >
                                             <option value="Pilih jenis pengeluaran">Pilih jenis pengeluaran</option>
-                                            <option value="1">Savings</option>
-                                            <option value="2">Wants</option>
                                             <option value="3">Needs</option>
+                                            <option value="4">Wants</option>
+                                            <option value="5">Savings</option>
                                         </select>
                                     </div>
                                 </div>

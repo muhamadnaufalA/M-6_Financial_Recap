@@ -33,26 +33,17 @@ export const getAllOutcomeUser = async(req, res) => {
             include: [
               {
                 model: Wallet, 
-                attributes: ['name'], 
-                where: {
-                  id: 1 // Harus diperbaiki
-                },
+                attributes: ['name'],
                 required: false
               },
               {
                 model: Category,
                 attributes: ['name'],
-                where: {
-                  id: 1 // Harus diperbaiki
-                },
                 required: false 
               },
               {
                 model: JenisPengeluaran,
                 attributes: ['nama'],
-                where: {
-                  id: 3 // Harus diperbaiki
-                },
                 required: false
               }
             ]
