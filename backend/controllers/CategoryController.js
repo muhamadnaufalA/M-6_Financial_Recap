@@ -25,6 +25,24 @@ export const getCategoryByUserId = async(req, res) => {
     }
 }
 
+export const getCategoryById = async(req, res) => {
+    try {
+        const response = await Category.findOne({
+            where: {
+                id: req.params.id,
+            },
+            attributes: [
+                'id',
+                'name', 
+                'budget'
+            ]
+        });
+        res.status(200).json(response);
+    } catch(error) {
+        console.log(error.message);
+    }
+}
+
 export const updateCategory = async(req, res) => {
     try {
         await Category.update(req.body, {
