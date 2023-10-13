@@ -14,15 +14,15 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/users/11/wallets
+GET http://localhost:5000/users/28/wallets
 
 ###
-POST http://localhost:5000/users/11/wallets
+POST http://localhost:5000/users/30/wallets
 Content-Type: application/json
 
 {
-    "name": "DJAGO",
-    "balance": "40000"
+    "name": "BCA",
+    "balance": "0"
 }
 
 

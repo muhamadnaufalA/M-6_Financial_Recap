@@ -1,17 +1,27 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useHistory, useParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const EditIncome = () => {
   const [name, setName] = useState("");
   const [balance, setBalance] = useState("");
   const [tanggal_pemasukan, setTanggalPemasukan] = useState("");
+  const [idWallet, setWalletId] = useState('');
   const {id} = useParams();
   const history = useHistory();
+  const [wallets, setListWallet] = useState([]);
+  const UserId = Cookies.get("userId");
 
   useEffect(() => {
     getIncomeById();
+    getListWalletFunc();
   }, []);
+
+  const getListWalletFunc = async () =>{
+    const response = await axios.get(`http://localhost:5000/users/${UserId}/wallets`);
+    setListWallet(response.data);
+  }
 
   const UpdateIncome = async (e) =>{
     e.preventDefault();
@@ -19,7 +29,8 @@ const EditIncome = () => {
         await axios.patch(`http://localhost:5000/incomes/${id}`, {
             name,
             balance: parseInt(balance),
-            tanggal_pemasukan
+            tanggal_pemasukan,
+            walletId: parseInt(idWallet)
         });
         history.push("/dashboard");
     }catch (error){
@@ -71,6 +82,27 @@ const EditIncome = () => {
                         />
                     </div>
                 </div>
+
+                <div className="field mt-5">
+                  <label className="label">Jenis Wallet</label>
+                  <div className="control">
+                    <select
+                      className="input"
+                      id="wallet"
+                      name="wallet"
+                      value={idWallet} // Ini harus menjadi nilai yang sesuai dengan wallet yang dipilih
+                      onChange={(e) => setWalletId(e.target.value)}
+                    >
+                      <option value="Pilih wallet">Pilih wallet</option>
+                      {wallets.map((wallet) => (
+                        <option key={wallet.id} value={wallet.id}>
+                          {wallet.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
                 <div className="field">
                     <button type='submit' className='button is-success'>
                         Update
