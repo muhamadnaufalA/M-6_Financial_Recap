@@ -1,4 +1,7 @@
+import Category from "../models/CategoryModel.js";
+import JenisPengeluaran from "../models/JenisPengeluaranModel.js";
 import Outcome from "../models/OutcomeModel.js";
+import Wallet from "../models/WalletModel.js";
 
 export const createOutcome = async(req, res) => {
     try {
@@ -22,7 +25,27 @@ export const getAllOutcomeUser = async(req, res) => {
                 'id',
                 'name', 
                 'nominal', 
-                'tanggal_pengeluaran'
+                'tanggal_pengeluaran',
+                'jenisPengeluaranId',
+                'categoryId',
+                'walletId'
+            ],
+            include: [
+              {
+                model: Wallet, 
+                attributes: ['name'],
+                required: false
+              },
+              {
+                model: Category,
+                attributes: ['name'],
+                required: false 
+              },
+              {
+                model: JenisPengeluaran,
+                attributes: ['nama'],
+                required: false
+              }
             ]
         });
         res.status(200).json(response);

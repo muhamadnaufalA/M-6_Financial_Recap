@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useHistory, Link} from 'react-router-dom';
 
 export default function OutcomeTable() {
     const UserId = Cookies.get("userId");
@@ -50,9 +49,9 @@ export default function OutcomeTable() {
                                     <td>{outcome.name}</td>
                                     <td>{outcome.nominal}</td>
                                     <td>{outcome.tanggal_pengeluaran}</td>
-                                    <td>{outcome.jenisPengeluaranId}</td>
-                                    <td>{outcome.categoryId}</td>
-                                    <td>{outcome.walletId}</td>
+                                    <td>{outcome.jenis_pengeluaran.nama}</td>
+                                    <td>{outcome.category.name}</td>
+                                    <td>{outcome.wallet.name}</td>
                                     <td>
                                         {/* <Link to={`editIncome/${outcome.id}`} className="button is-small is-info">Edit</Link> */}
                                         <button onClick={() => deleteOutcome(outcome.id)} className="button is-small is-danger">Delete</button>
