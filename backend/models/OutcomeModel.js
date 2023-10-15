@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 import User from "./UserModel.js";
-import JenisPengeluaran from "./JenisPengeluaranModel.js";
+import BudgetRule from "./BudgetRuleModel.js";
 import Category from "./CategoryModel.js";
 import Wallet from "./WalletModel.js";
 
@@ -27,8 +27,8 @@ const Outcome = db.define('outcomes', {
 User.hasMany(Outcome);
 Outcome.belongsTo(User);
 
-JenisPengeluaran.hasMany(Outcome);
-Outcome.belongsTo(JenisPengeluaran);
+BudgetRule.hasMany(Outcome);
+Outcome.belongsTo(BudgetRule);
 
 Category.hasMany(Outcome);
 Outcome.belongsTo(Category);

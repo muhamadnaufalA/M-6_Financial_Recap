@@ -36,7 +36,7 @@ export default function OutcomeTable() {
                                 <th>Nama</th>
                                 <th>Nominal</th>
                                 <th>Tanggal Pengeluaran</th>
-                                <th>Jenis Pengeluaran</th>
+                                <th>Budget Rule</th>
                                 <th>Category</th>
                                 <th>Wallet</th>
                                 <th>Actions</th>
@@ -49,7 +49,7 @@ export default function OutcomeTable() {
                                     <td>{outcome.name}</td>
                                     <td>{outcome.nominal}</td>
                                     <td>{outcome.tanggal_pengeluaran}</td>
-                                    <td>{outcome.jenis_pengeluaran.nama}</td>
+                                    <td>{outcome.budgetrule.name}</td>
                                     <td>{outcome.category.name}</td>
                                     <td>{outcome.wallet.name}</td>
                                     <td>
