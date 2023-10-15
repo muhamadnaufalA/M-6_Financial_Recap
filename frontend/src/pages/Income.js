@@ -12,7 +12,7 @@ const Income = () => {
   const [idWallet, setWalletId] = useState('');
   const [wallets, setListWallet] = useState([]);
 
-  const [msg, setMsg] = useState('');
+  const [msg, setMsg] = useState(''); 
   const history = useHistory();
 
   // Get UserId with Cookie
@@ -44,7 +44,8 @@ const Income = () => {
             walletId: parseInt(idWallet)
         });
 
-        history.push("/dashboard");
+        // history.push("/dashboard");
+        window.location.reload();
     } catch (error) {
         if(error.response){
             setMsg(error.response.data.msg);

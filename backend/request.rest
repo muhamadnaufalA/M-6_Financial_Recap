@@ -17,12 +17,31 @@ Content-Type: application/json
 GET http://localhost:5000/users/28/wallets
 
 ###
-POST http://localhost:5000/users/30/wallets
+POST http://localhost:5000/users/1/wallets
 Content-Type: application/json
 
 {
     "name": "BCA",
     "balance": "0"
+}
+
+###
+POST http://localhost:5000/users/1/category
+Content-Type: application/json
+
+{
+    "name": "Food",
+    "budget": "1000000",
+    "budgetruleId": 1
+}
+
+###
+POST http://localhost:5000/users/1/budgetrule
+Content-Type: application/json
+
+{
+    "name": "lain",
+    "percentage": "20"
 }
 
 

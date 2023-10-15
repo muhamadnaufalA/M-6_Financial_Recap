@@ -7,7 +7,7 @@ function Footer() {
             <div className="row text-muted">
                 <div className="col-6 text-start">
                     <p className="mb-0">
-                        <a className="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> - <a className="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin Template</strong></a>								&copy;
+                        <a className="text-muted" href="https://adminkit.io/" target="_blank"><strong>Financial Recap</strong></a> - <a className="text-muted" href="https://adminkit.io/" target="_blank"><strong>Kelompok M-6 3A</strong></a>								&copy;
                     </p>
                 </div>
                 <div className="col-6 text-end">

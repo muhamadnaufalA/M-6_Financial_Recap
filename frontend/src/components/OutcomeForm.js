@@ -72,6 +72,9 @@ export default function OutcomeForm() {
 
     return (
         <section className="hero has-background-white is-fullheight is-fullwidth">
+            <h1 className="h2 mb-3 text-center">
+                <strong>Outcome</strong>
+            </h1>
             <div className="hero-body">
                 <div className="container">
                     <div className="columns is-centered">

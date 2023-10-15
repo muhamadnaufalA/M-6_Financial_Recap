@@ -25,11 +25,11 @@ export default function OutcomeTable() {
     }
 
     return (
-        <section className="hero has-background-white is-fullheight is-fullwidth">
+        <section className="hero has-background-white is-fullwidth">
             {/* TABEL */}
-            <div className="columns ml-5 mr-5 is-centered">
+            <div className="columns mt-5 is-centered">
                 <div className="column">
-                    <table className="table is-striped is-fullwidth box">
+                    <table className="table is-striped is-fullwidth">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -51,7 +51,7 @@ export default function OutcomeTable() {
                                     <td>{outcome.tanggal_pengeluaran}</td>
                                     <td>{outcome.budgetrule.name}</td>
                                     <td>{outcome.category.name}</td>
-                                    <td>{outcome.wallet.name}</td>
+                                    <td>{outcome.wallet ? outcome.wallet.name : 'Belum ditentukan'}</td>
                                     <td>
                                         {/* <Link to={`editIncome/${outcome.id}`} className="button is-small is-info">Edit</Link> */}
                                         <button onClick={() => deleteOutcome(outcome.id)} className="button is-small is-danger">Delete</button>
