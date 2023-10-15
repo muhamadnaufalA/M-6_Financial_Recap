@@ -34,7 +34,10 @@ const Login = () => {
             <div className="columns is-centered">
                 <div className="column is-10-mobile is-6-tablet is-4-desktop">
                 <form onSubmit={LoginFunc} className="box">
-                    <p className="has-text-centered">{msg}</p>
+                    <h1 className="h2 mb-3 text-center">
+                        <strong>Login</strong>
+                    </h1>
+                    <p className="has-text-centered has-text-danger">{msg}</p>
                     <div className="field">
                     <label className="label">Username</label>
                     <div className="control">
