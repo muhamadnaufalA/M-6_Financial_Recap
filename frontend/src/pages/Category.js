@@ -124,35 +124,40 @@ const Category = () => {
       </div>
 
       {/* TABEL */}
-      <div className="columns mt-5 is-centered">
-        <div className="column">
-          <table className="table is-striped is-fullwidth">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Budget</th>
-                <th>Budget Rule</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {categories.map((category, index) => (
-                <tr key={category.id}>
-                  <td>{index + 1}</td>
-                  <td>{category.name}</td>
-                  <td>{formatRupiah(category.budget)}</td>
-                  <td>{category.budgetrule.name}</td>
-                  <td>
-                    <Link to={`editCategory/${category.id}`} className="button is-small is-info">Edit</Link>
-                    <button onClick={() => deleteCategory(category.id)} className="button is-small is-danger">Delete</button>
-                  </td>
+      <div className="hero has-background-white is-fullwidth">
+        <div className="columns mt-5 is-centered">
+          <div className="column">
+            <table className="table is-striped is-fullwidth">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Name</th>
+                  <th>Budget</th>
+                  <th>Budget Rule</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {categories.map((category, index) => (
+                  <tr key={category.id}>
+                    <td>{index + 1}</td>
+                    <td>{category.name}</td>
+                    <td>{formatRupiah(category.budget)}</td>
+                    <td>{category.budgetrule.name}</td>
+                    <td>
+                      <div className="buttons">
+                        <Link to={`editCategory/${category.id}`} className="button is-small is-info">Edit</Link>
+                        <button onClick={() => deleteCategory(category.id)} className="button is-small is-danger">Delete</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
+      
     </section>
   );
   
