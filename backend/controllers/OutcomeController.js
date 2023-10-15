@@ -43,7 +43,7 @@ export const getAllOutcomeUser = async(req, res) => {
               },
               {
                 model: BudgetRule,
-                attributes: ['nama'],
+                attributes: ['name'],
                 required: false
               }
             ]

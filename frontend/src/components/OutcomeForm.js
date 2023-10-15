@@ -7,7 +7,7 @@ export default function OutcomeForm() {
     const UserId = Cookies.get("userId");
     const history = useHistory();
     const [wallets, setListWallet] = useState([]);
-    const [jenisPegeluaran, setListJenisPengeluaran] = useState([]);
+    const [budgetRules, setListBudgetRule] = useState([]);
     const [categories, setListCategory] = useState([]);
     const [msg, setMsg] = useState('');
 
@@ -36,7 +36,7 @@ export default function OutcomeForm() {
                 name: formData.outcomeName,
                 nominal: formData.amount,
                 tanggal_pengeluaran: formData.date,
-                jenisPengeluaranId: formData.outcomeType,
+                budgetruleId: formData.outcomeType,
                 categoryId: formData.category,
                 walletId: formData.wallet,
             });
@@ -51,8 +51,8 @@ export default function OutcomeForm() {
 
     useEffect(()=>{
         getListWalletFunc();
-        getListJenisPengeluaranFunc();
-        getListCategoryFunc(); 
+        getListCategoryFunc();
+        getListBudgetRuleFunc();
     }, []);
 
     const getListWalletFunc = async () =>{
@@ -60,9 +60,9 @@ export default function OutcomeForm() {
         setListWallet(response.data);
     }
 
-    const getListJenisPengeluaranFunc = async () =>{
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/jenispengeluaran`);
-        setListJenisPengeluaran(response.data);
+    const getListBudgetRuleFunc = async () =>{
+        const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
+        setListBudgetRule(response.data);
     }
 
     const getListCategoryFunc = async () =>{
@@ -120,7 +120,7 @@ export default function OutcomeForm() {
                                     </div>
                                 </div>
                                 <div className="field mt-5">
-                                    <label className="label">Jenis Pengeluaran</label>
+                                    <label className="label">Budget Rule</label>
                                     <div className="control">
                                         <select
                                             className="input"
@@ -129,10 +129,10 @@ export default function OutcomeForm() {
                                             value={formData.outcomeType}
                                             onChange={handleChange}
                                         >
-                                            <option value="Pilih jenis pengeluaran">Pilih jenis pengeluaran</option>
-                                            {jenisPegeluaran.map((jp) => (
-                                                <option key={jp.id} value={jp.id}>
-                                                    {jp.nama}
+                                            <option value="Pilih budget rule">Pilih budget rule</option>
+                                            {budgetRules.map((budgetRule) => (
+                                                <option key={budgetRule.id} value={budgetRule.id}>
+                                                    {budgetRule.name}
                                                 </option>
                                             ))}
                                         </select>
