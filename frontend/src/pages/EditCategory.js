@@ -37,7 +37,6 @@ const EditCategory = () => {
         const response = await axios.get(`http://localhost:5000/category/${id}`);
         setName(response.data.name);
         setBudget(response.data.budget);
-        setBudgetRuleId(response.data.budgetrule.id);
     }
 
     const getListBudgetRuleFunc = async () =>{

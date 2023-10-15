@@ -43,7 +43,7 @@ export const getCategoryById = async(req, res) => {
                 'id',
                 'name', 
                 'budget',
-                'budgetruleid'
+                'budgetruleId'
             ],
             include: [
                 {
