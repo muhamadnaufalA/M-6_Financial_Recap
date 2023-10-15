@@ -3,9 +3,9 @@ import { createBudgetRule, deleteBudgetRule, getBudgetRuleByUserId, updateBudget
 
 const router = express.Router();
 
-router.post('/users/:id/jenispengeluaran', createBudgetRule);
-router.get('/users/:id/jenispengeluaran', getBudgetRuleByUserId);
-router.put('/jenispengeluaran/:id', updateBudgetRule);
-router.delete('/jenispengeluaran/:id', deleteBudgetRule);
+router.post('/users/:id/budgetrule', createBudgetRule);
+router.get('/users/:id/budgetrule', getBudgetRuleByUserId);
+router.put('/budgetrule/:id', updateBudgetRule);
+router.delete('/budgetrule/:id', deleteBudgetRule);
 
 export default router;
