@@ -1,5 +1,5 @@
 import express from "express";
-import { createBudgetRule, deleteBudgetRule, getBudgetRuleByUserId, updateBudgetRule } from "../controllers/BudgetRuleController";
+import { createBudgetRule, deleteBudgetRule, getBudgetRuleByUserId, updateBudgetRule } from "../controllers/BudgetRuleController.js";
 
 const router = express.Router();
 

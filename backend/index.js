@@ -6,14 +6,14 @@ import UserRoute from "./routes/UserRoute.js";
 import IncomeRoute from "./routes/IncomeRoute.js";
 import WalletRoute from "./routes/WalletRoute.js";
 import OutcomeRoute from "./routes/OutcomeRoute.js";
-import JenisPengeluaranRoute from "./routes/JenisPengeluaranRoute.js";
+import BudgetRuleRoute from "./routes/BudgetRuleRoute.js";
 import CategoryRoute from "./routes/CategoryRoute.js";
 
 // IMPORT MODELS //
 import Income from "./models/IncomeModel.js";
 import Outcome from "./models/OutcomeModel.js";
 import Category from "./models/CategoryModel.js";
-import JenisPengeluaran from "./models/JenisPengeluaranModel.js";
+import BudgetRule from "./models/BudgetRuleModel.js";
 import User from "./models/UserModel.js"
 import Wallet from "./models/WalletModel.js";
 
@@ -26,14 +26,14 @@ app.use(UserRoute);
 app.use(IncomeRoute);
 app.use(WalletRoute);
 app.use(OutcomeRoute);
-app.use(JenisPengeluaranRoute);
+app.use(BudgetRuleRoute);
 app.use(CategoryRoute);
 
 app.use(User);
 app.use(Income);
 app.use(Outcome);
 app.use(Category);
-app.use(JenisPengeluaran);
+app.use(BudgetRule);
 app.use(Wallet);
 
 

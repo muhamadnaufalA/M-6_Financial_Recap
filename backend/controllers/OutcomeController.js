@@ -1,5 +1,5 @@
 import Category from "../models/CategoryModel.js";
-import JenisPengeluaran from "../models/JenisPengeluaranModel.js";
+import BudgetRule from "../models/BudgetRuleModel.js";
 import Outcome from "../models/OutcomeModel.js";
 import Wallet from "../models/WalletModel.js";
 
@@ -26,7 +26,7 @@ export const getAllOutcomeUser = async(req, res) => {
                 'name', 
                 'nominal', 
                 'tanggal_pengeluaran',
-                'jenisPengeluaranId',
+                'budgetruleId',
                 'categoryId',
                 'walletId'
             ],
@@ -42,7 +42,7 @@ export const getAllOutcomeUser = async(req, res) => {
                 required: false 
               },
               {
-                model: JenisPengeluaran,
+                model: BudgetRule,
                 attributes: ['nama'],
                 required: false
               }
