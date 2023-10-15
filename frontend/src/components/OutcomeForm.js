@@ -6,6 +6,9 @@ import { useHistory } from 'react-router-dom';
 export default function OutcomeForm() {
     const UserId = Cookies.get("userId");
     const history = useHistory();
+    const [wallets, setListWallet] = useState([]);
+    const [jenisPegeluaran, setListJenisPengeluaran] = useState([]);
+    const [categories, setListCategory] = useState([]);
     const [msg, setMsg] = useState('');
 
     const [formData, setFormData] = useState({
@@ -45,6 +48,27 @@ export default function OutcomeForm() {
             }
         }
     };
+
+    useEffect(()=>{
+        getListWalletFunc();
+        getListJenisPengeluaranFunc();
+        getListCategoryFunc(); 
+    }, []);
+
+    const getListWalletFunc = async () =>{
+        const response = await axios.get(`http://localhost:5000/users/${UserId}/wallets`);
+        setListWallet(response.data);
+    }
+
+    const getListJenisPengeluaranFunc = async () =>{
+        const response = await axios.get(`http://localhost:5000/users/${UserId}/jenispengeluaran`);
+        setListJenisPengeluaran(response.data);
+    }
+
+    const getListCategoryFunc = async () =>{
+        const response = await axios.get(`http://localhost:5000/users/${UserId}/category`);
+        setListCategory(response.data);
+    }
 
     return (
         <section className="hero has-background-white is-fullheight is-fullwidth">
@@ -106,14 +130,16 @@ export default function OutcomeForm() {
                                             onChange={handleChange}
                                         >
                                             <option value="Pilih jenis pengeluaran">Pilih jenis pengeluaran</option>
-                                            <option value="3">Needs</option>
-                                            <option value="4">Wants</option>
-                                            <option value="5">Savings</option>
+                                            {jenisPegeluaran.map((jp) => (
+                                                <option key={jp.id} value={jp.id}>
+                                                    {jp.nama}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>
                                 <div className="field mt-5">
-                                    <label className="label">Jenis Pengeluaran</label>
+                                    <label className="label">Kategori</label>
                                     <div className="control">
                                         <select
                                             className="input"
@@ -123,14 +149,16 @@ export default function OutcomeForm() {
                                             onChange={handleChange}
                                         >
                                             <option value="Pilih kategori">Pilih kategori</option>
-                                            <option value="1">Groceries</option>
-                                            <option value="2">Transportation</option>
-                                            <option value="3">Games</option>
+                                            {categories.map((category) => (
+                                                <option key={category.id} value={category.id}>
+                                                    {category.name}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>
                                 <div className="field mt-5">
-                                    <label className="label">Jenis Pengeluaran</label>
+                                    <label className="label">Wallet</label>
                                     <div className="control">
                                         <select
                                             className="input"
@@ -140,9 +168,11 @@ export default function OutcomeForm() {
                                             onChange={handleChange}
                                         >
                                             <option value="Pilih wallet">Pilih wallet</option>
-                                            <option value="1">Dompet</option>
-                                            <option value="2">Kartu Kredit</option>
-                                            <option value="3">BCA</option>
+                                            {wallets.map((wallet) => (
+                                                <option key={wallet.id} value={wallet.id}>
+                                                    {wallet.name}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>
