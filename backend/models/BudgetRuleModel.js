@@ -4,12 +4,12 @@ import User from "./UserModel.js";
 
 const {DataTypes} = Sequelize
 
-const JenisPengeluaran = db.define('jenis_pengeluaran', {
-    nama: {
+const BudgetRule = db.define('budgetrules', {
+    name: {
         type: DataTypes.STRING(32),
         allowNull: false
     },
-    persentase: {
+    percentage: {
         type: DataTypes.SMALLINT,
         allowNull: false
     }
@@ -17,10 +17,10 @@ const JenisPengeluaran = db.define('jenis_pengeluaran', {
     freezeTableName: true
 });
 
-User.hasMany(JenisPengeluaran);
-JenisPengeluaran.belongsTo(User);
+User.hasMany(BudgetRule);
+BudgetRule.belongsTo(User);
 
-export default JenisPengeluaran;
+export default BudgetRule;
 
 (async() => {
     await db.sync();
