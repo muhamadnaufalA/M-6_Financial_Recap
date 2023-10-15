@@ -108,24 +108,24 @@ Content-Type: application/json
 
 
 ###
-POST http://localhost:5000/users/1/JenisPengeluaran
+POST http://localhost:5000/users/1/budgetrule
 Content-Type: application/json
 
 {
-    "nama": "Contoh",
-    "persentase": 10
+    "name": "Contoh",
+    "percentage": 10
 }
 
 ###
-GET http://localhost:5000/users/1/JenisPengeluaran
+GET http://localhost:5000/users/1/budgetrule
 
 ###
-PUT http://localhost:5000/jenispengeluaran/1
+PUT http://localhost:5000/budgetrule/1
 Content-Type: application/json
 
 {
-    "nama": "Contoh",
-    "persentase": 100
+    "name": "Contoh",
+    "percentage": 10
 }
 
 ###

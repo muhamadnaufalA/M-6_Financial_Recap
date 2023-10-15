@@ -7,6 +7,8 @@ const Category = () => {
   const [categories, setCategory] = useState([]);
   const [name, setName] = useState('');
   const [budget, setBudget] = useState('');
+  const [budgetruleid, setBudgetRuleId] = useState('');
+  const [budgetRules, setListBudgetRule] = useState([]);
 
   const [msg, setMsg] = useState('');
   const history = useHistory();
@@ -16,6 +18,7 @@ const Category = () => {
 
   useEffect(()=>{
     getListCatFunc();
+    getListBudgetRuleFunc();
   }, []);
 
   const getListCatFunc = async () =>{
@@ -23,12 +26,18 @@ const Category = () => {
     setCategory(response.data);
   }
 
+  const getListBudgetRuleFunc = async () =>{
+    const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
+    setListBudgetRule(response.data);
+  }
+
   const addCatFunc = async(e) => {
     e.preventDefault();
     try {
         await axios.post(`http://localhost:5000/users/${UserId}/category`,{
             name: name,
-            budget: parseInt(budget)
+            budget: parseInt(budget),
+            budgetruleId: parseInt(budgetruleid)
         });
 
         history.push("/dashboard");
@@ -85,7 +94,23 @@ const Category = () => {
                     />
                   </div>
                 </div>
-
+                <div className="field mt-5">
+                  <label className="label">Budget Rule</label>
+                  <div className="control">
+                    <select
+                      className="input"
+                      value={budgetruleid}
+                      onChange={(e) => setBudgetRuleId(e.target.value)}
+                    >
+                      <option value="">Pilih budget rule</option>
+                      {budgetRules.map((budgetRule) => (
+                        <option key={budgetRule.id} value={budgetRule.id}>
+                          {budgetRule.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
                 <div className="field mt-5">
                   <button className="button is-success is-fullwidth">Tambahkan</button>
                 </div>
@@ -104,6 +129,7 @@ const Category = () => {
                 <th>No</th>
                 <th>Name</th>
                 <th>Budget</th>
+                <th>Budget Rule</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -113,7 +139,8 @@ const Category = () => {
                   <td>{index + 1}</td>
                   <td>{category.name}</td>
                   <td>{formatRupiah(category.budget)}</td>
-                   <td>
+                  <td>{category.budgetrule.name}</td>
+                  <td>
                     <Link to={`editCategory/${category.id}`} className="button is-small is-info">Edit</Link>
                     <button onClick={() => deleteCategory(category.id)} className="button is-small is-danger">Delete</button>
                   </td>
