@@ -19,8 +19,7 @@ const Income = db.define('incomes', {
         allowNull: false
     }
 }, {
-    freezeTableName: true,
-    timestamps: false
+    freezeTableName: true
 });
 
 User.hasMany(Income);

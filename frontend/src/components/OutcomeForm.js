@@ -6,6 +6,9 @@ import { useHistory } from 'react-router-dom';
 export default function OutcomeForm() {
     const UserId = Cookies.get("userId");
     const history = useHistory();
+    const [wallets, setListWallet] = useState([]);
+    const [budgetRules, setListBudgetRule] = useState([]);
+    const [categories, setListCategory] = useState([]);
     const [msg, setMsg] = useState('');
 
     const [formData, setFormData] = useState({
@@ -33,7 +36,7 @@ export default function OutcomeForm() {
                 name: formData.outcomeName,
                 nominal: formData.amount,
                 tanggal_pengeluaran: formData.date,
-                jenisPengeluaranId: formData.outcomeType,
+                budgetruleId: formData.outcomeType,
                 categoryId: formData.category,
                 walletId: formData.wallet,
             });
@@ -45,6 +48,27 @@ export default function OutcomeForm() {
             }
         }
     };
+
+    useEffect(()=>{
+        getListWalletFunc();
+        getListCategoryFunc();
+        getListBudgetRuleFunc();
+    }, []);
+
+    const getListWalletFunc = async () =>{
+        const response = await axios.get(`http://localhost:5000/users/${UserId}/wallets`);
+        setListWallet(response.data);
+    }
+
+    const getListBudgetRuleFunc = async () =>{
+        const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
+        setListBudgetRule(response.data);
+    }
+
+    const getListCategoryFunc = async () =>{
+        const response = await axios.get(`http://localhost:5000/users/${UserId}/category`);
+        setListCategory(response.data);
+    }
 
     return (
         <section className="hero has-background-white is-fullheight is-fullwidth">
@@ -96,7 +120,7 @@ export default function OutcomeForm() {
                                     </div>
                                 </div>
                                 <div className="field mt-5">
-                                    <label className="label">Jenis Pengeluaran</label>
+                                    <label className="label">Budget Rule</label>
                                     <div className="control">
                                         <select
                                             className="input"
@@ -105,15 +129,17 @@ export default function OutcomeForm() {
                                             value={formData.outcomeType}
                                             onChange={handleChange}
                                         >
-                                            <option value="Pilih jenis pengeluaran">Pilih jenis pengeluaran</option>
-                                            <option value="3">Needs</option>
-                                            <option value="4">Wants</option>
-                                            <option value="5">Savings</option>
+                                            <option value="Pilih budget rule">Pilih budget rule</option>
+                                            {budgetRules.map((budgetRule) => (
+                                                <option key={budgetRule.id} value={budgetRule.id}>
+                                                    {budgetRule.name}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>
                                 <div className="field mt-5">
-                                    <label className="label">Jenis Pengeluaran</label>
+                                    <label className="label">Kategori</label>
                                     <div className="control">
                                         <select
                                             className="input"
@@ -123,14 +149,16 @@ export default function OutcomeForm() {
                                             onChange={handleChange}
                                         >
                                             <option value="Pilih kategori">Pilih kategori</option>
-                                            <option value="1">Groceries</option>
-                                            <option value="2">Transportation</option>
-                                            <option value="3">Games</option>
+                                            {categories.map((category) => (
+                                                <option key={category.id} value={category.id}>
+                                                    {category.name}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>
                                 <div className="field mt-5">
-                                    <label className="label">Jenis Pengeluaran</label>
+                                    <label className="label">Wallet</label>
                                     <div className="control">
                                         <select
                                             className="input"
@@ -140,9 +168,11 @@ export default function OutcomeForm() {
                                             onChange={handleChange}
                                         >
                                             <option value="Pilih wallet">Pilih wallet</option>
-                                            <option value="1">Dompet</option>
-                                            <option value="2">Kartu Kredit</option>
-                                            <option value="3">BCA</option>
+                                            {wallets.map((wallet) => (
+                                                <option key={wallet.id} value={wallet.id}>
+                                                    {wallet.name}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>

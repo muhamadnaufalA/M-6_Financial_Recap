@@ -33,7 +33,8 @@ export const getIncomeByUserId = async(req, res) => {
                     model: Wallet,
                     attributes: ['name'] // Ambil atribut 'name' dari tabel Wallet
                 }
-            ]
+            ],
+            order: [['id', 'ASC']]
         });
         res.status(200).json(response);
     } catch(error) {
