@@ -1,53 +1,76 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { BiSolidLogIn } from 'react-icons/bi';
+import { BiSolidLogOut } from 'react-icons/bi';
+import { BiSolidCategory } from 'react-icons/bi';
+import { BiWallet } from 'react-icons/bi';
+import { BiBarChartAlt2 } from 'react-icons/bi';
+
 
 function Sidebar() {
-  const location = useLocation();
-
-  // Fungsi untuk menentukan apakah sidebar-item aktif
-  const isItemActive = (path) => {
-    return location.pathname === path ? "active" : "";
-  };
+  const currentPath = window.location.pathname;
 
   return (
     <nav id="sidebar" className="sidebar js-sidebar">
       <div className="sidebar-content js-simplebar">
         <a className="sidebar-brand" href="index.html">
-          <span className="align-middle">AdminKit</span>
+          <span className="align-middle">Financial Recap</span>
         </a>
         <ul className="sidebar-nav">
-          <li className="sidebar-header">
-            Pages
+          <li className="sidebar-header">Pages</li>
+          
+          <li className={`sidebar-item ${currentPath === '/dashboard' ? 'active' : ''}`}>
+            <a className="sidebar-link" href="/dashboard">
+            <i className="align-middle">
+                <BiBarChartAlt2 style={{ fontSize: '24px', marginRight: '5px', verticalAlign: 'middle', paddingLeft: '0px' }} />
+              </i>
+              <span className="align-middle">
+                Dashboard
+              </span>
+            </a>    
           </li>
-          <li className={`sidebar-item ${isItemActive("/dashboard")}`}>
-            <Link className="sidebar-link" to="/dashboard">
-              <i className="align-middle" data-feather="sliders"></i>
-              <span className="align-middle">Dashboard</span>
-            </Link>
+
+          <li className={`sidebar-item ${currentPath === '/income' ? 'active' : ''}`}>
+            <a className="sidebar-link" href="/income">
+              <i className="align-middle">
+                <BiSolidLogIn style={{ fontSize: '24px', marginRight: '5px', verticalAlign: 'middle', paddingLeft: '0px' }} />
+              </i>
+              <span className="align-middle">
+                Income
+              </span>
+            </a>
           </li>
-          <li className={`sidebar-item ${isItemActive("/income")}`}>
-            <Link className="sidebar-link" to="/income">
-              <i className="align-middle" data-feather="user"></i>
-              <span className="align-middle">Income</span>
-            </Link>
+
+          <li className={`sidebar-item ${currentPath === '/outcome' ? 'active' : ''}`}>
+            <a className="sidebar-link" href="/outcome">
+              <i className="align-middle">
+                <BiSolidLogOut style={{ fontSize: '24px', marginRight: '5px', verticalAlign: 'middle', paddingLeft: '0px' }} />
+              </i>
+              <span className="align-middle">
+                Outcome
+              </span>
+            </a>
           </li>
-          <li className={`sidebar-item ${isItemActive("/outcome")}`}>
-            <Link className="sidebar-link" to="/outcome">
-              <i className="align-middle" data-feather="log-in"></i>
-              <span className="align-middle">Outcome</span>
-            </Link>
+          
+          <li className={`sidebar-item ${currentPath === '/category' ? 'active' : ''}`}>
+            <a className="sidebar-link" href="/category">
+            <i className="align-middle">
+                <BiSolidCategory style={{ fontSize: '24px', marginRight: '5px', verticalAlign: 'middle', paddingLeft: '0px' }} />
+              </i>
+              <span className="align-middle">
+                Category
+              </span>
+            </a>
           </li>
-          <li className={`sidebar-item ${isItemActive("/category")}`}>
-            <Link className="sidebar-link" to="/category">
-              <i className="align-middle" data-feather="user-plus"></i>
-              <span className="align-middle">Category</span>
-            </Link>
-          </li>
-          <li className={`sidebar-item ${isItemActive("/wallet")}`}>
-            <Link className="sidebar-link" to="/wallet">
-              <i className="align-middle" data-feather="book"></i>
-              <span className="align-middle">Wallet</span>
-            </Link>
+          
+          <li className={`sidebar-item ${currentPath === '/wallet' ? 'active' : ''}`}>
+            <a className="sidebar-link" href="/wallet">
+              <i className="align-middle">
+                <BiWallet style={{ fontSize: '24px', marginRight: '5px', verticalAlign: 'middle', paddingLeft: '0px' }} />
+              </i>
+              <span className="align-middle">
+                Wallet
+              </span>
+            </a>
           </li>
         </ul>
       </div>

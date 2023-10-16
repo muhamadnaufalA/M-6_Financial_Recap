@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { BiEdit } from "react-icons/bi";
+import { BiTrash } from "react-icons/bi";
 
 export default function OutcomeTable() {
     const UserId = Cookies.get("userId");
@@ -25,11 +27,11 @@ export default function OutcomeTable() {
     }
 
     return (
-        <section className="hero has-background-white is-fullheight is-fullwidth">
+        <section className="hero has-background-white is-fullwidth">
             {/* TABEL */}
-            <div className="columns ml-5 mr-5 is-centered">
+            <div className="columns mt-5 is-centered">
                 <div className="column">
-                    <table className="table is-striped is-fullwidth box">
+                    <table className="table is-striped is-fullwidth">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -51,10 +53,14 @@ export default function OutcomeTable() {
                                     <td>{outcome.tanggal_pengeluaran}</td>
                                     <td>{outcome.budgetrule.name}</td>
                                     <td>{outcome.category.name}</td>
-                                    <td>{outcome.wallet.name}</td>
+                                    <td>{outcome.wallet ? outcome.wallet.name : 'Belum ditentukan'}</td>
                                     <td>
-                                        {/* <Link to={`editIncome/${outcome.id}`} className="button is-small is-info">Edit</Link> */}
-                                        <button onClick={() => deleteOutcome(outcome.id)} className="button is-small is-danger">Delete</button>
+                                        {/* <Link to={`editIncome/${outcome.id}`} className="button is-small is-info">
+                                        <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                                        </Link> */}
+                                        <button onClick={() => deleteOutcome(outcome.id)} className="button is-small is-danger">
+                                            <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                                        </button>
                                     </td>
                                 </tr>
                             ))}

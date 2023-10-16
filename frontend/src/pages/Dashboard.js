@@ -57,7 +57,7 @@ function Dashboard() {
 								<td>{recap.tanggal_pemasukan}</td>
 								<td>Outcome{index + 1}</td>
 								<td>{recap.name}</td>
-								<td><span className="badge bg-success">Rp {recap.balance.toLocaleString()}</span></td>
+								<td><span className="badge bg-danger">Rp {recap.nominal.toLocaleString()}</span></td>
 								<td>{recap.wallet ? recap.wallet.name : 'Belum ditentukan'}</td>
 							</tr>
 						))}
