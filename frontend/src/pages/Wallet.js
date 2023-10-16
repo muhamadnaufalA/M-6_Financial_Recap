@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useHistory, Link} from 'react-router-dom';
-
+import {Link} from 'react-router-dom';
+import { BiEdit } from "react-icons/bi";
+import { BiTrash } from "react-icons/bi";
 
 const Wallet = ()=> {
   const [wallets, setWallet] = useState([]);
-  const [name, setName] = useState('');
-  const [balance, setBalance] = useState('');  
+  const [name, setName] = useState(''); 
   const UserId = Cookies.get("userId");
   const [msg, setMsg] = useState('');
   useEffect(()=>{
@@ -48,8 +48,8 @@ const Wallet = ()=> {
     }
   }
     return (
-        <section className="hero has-background-white is-fullheight is-fullwidth">
-        <h1 className="h2 m-5 text-center">
+        <section className="hero has-background-white is-fullwidth">
+        <h1 className="h2 mt-3 mb-3 text-center">
             <strong>Wallet</strong>
         </h1>
         <div className="hero-body">
@@ -83,8 +83,8 @@ const Wallet = ()=> {
         
         {/* TABEL */}
         <div className="hero has-background-white is-fullwidth">
-          <div className="columns mt-5 is-centered">
-            <div className="column">
+          <div className="columns is-centered">
+            <div className="column is-two-thirds">
               <table className="table is-striped is-fullwidth">
                 <thead>
                   <tr>
@@ -101,18 +101,24 @@ const Wallet = ()=> {
                       <td>{wallet.name}</td>
                       <td>Rp {wallet.balance.toLocaleString()}</td>
                       <td>
-                      <div className="buttons">
-                        <Link to={`editWallet/${wallet.id}`} className="button is-small is-info">Edit</Link>
-                        <button onClick={() => deleteWallet(wallet.id)} className="button is-small is-danger">Delete</button>
-                      </div>
+                        <div className="buttons">
+                          <Link to={`editWallet/${wallet.id}`} className="button is-small is-info">
+                            <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                          </Link>
+                          <button onClick={() => deleteWallet(wallet.id)} className="button is-small is-danger">
+                            <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
+          </div>
         </div>
-        </div>
+
+
       </section>
   )
 }

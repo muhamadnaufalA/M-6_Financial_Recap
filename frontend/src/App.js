@@ -7,6 +7,8 @@ import EditIncome from "./pages/EditIncome";
 import Outcome from "./pages/Outcome";
 import Category from "./pages/Category";
 import EditCategory from "./pages/EditCategory";
+import Wallet from "./pages/Wallet";
+import EditWallet from "./pages/EditWallet";
 
 import Dashboard from "./pages/Dashboard";
 import Sidebar from "./components/Sidebar";
@@ -86,6 +88,70 @@ function App() {
               </main>
               <Footer/>
             </div>
+          </div>
+        </Route>
+
+        {/* Category Page */}
+        <Route exact path="/category">
+          <div className="wrapper">
+            <Sidebar/>
+            <div className="main">
+              <Navbar/>
+              <main className="content">
+                  <div className="container-fluid p-0">
+                    <Category/>
+                  </div>
+              </main>
+              <Footer/>
+            </div>
+          </div>
+        </Route>
+
+        {/* Edit Category Page */}
+        <Route exact path="/editCategory/:id">
+          <div className="wrapper">
+            <Sidebar/>
+              <div className="main">
+                <Navbar/>
+                <main className="content">
+                  <div className="container-fluid p-0">
+                    <EditCategory/>
+                  </div>
+                </main>
+                <Footer/>
+              </div>
+          </div>
+        </Route>
+
+        {/* Wallet Page */}
+        <Route exact path="/wallet">
+          <div className="wrapper">
+            <Sidebar/>
+              <div className="main">
+                <Navbar/>
+                <main className="content">
+                  <div className="container-fluid p-0">
+                  <Wallet/>
+                  </div>
+                </main>
+                <Footer/>
+              </div>
+          </div>
+        </Route>
+
+        {/* Edit Wallet Page */}
+        <Route exact path="/editWallet/:id">
+          <div className="wrapper">
+            <Sidebar/>
+              <div className="main">
+                <Navbar/>
+                <main className="content">
+                  <div className="container-fluid p-0">
+                  <EditWallet/>
+                  </div>
+                </main>
+                <Footer/>
+              </div>
           </div>
         </Route>
 
