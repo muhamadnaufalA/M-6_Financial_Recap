@@ -21,7 +21,7 @@ POST http://localhost:5000/users/1/wallets
 Content-Type: application/json
 
 {
-    "name": "BCA",
+    "name": "BRI",
     "balance": "0"
 }
 
@@ -113,6 +113,9 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/users/1/Incomes
+
+###
+GET http://localhost:5000/users/1/report
 
 ###
 PATCH http://localhost:5000/Incomes/1

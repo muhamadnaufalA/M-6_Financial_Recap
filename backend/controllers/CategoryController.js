@@ -2,6 +2,17 @@ import Category from "../models/CategoryModel.js"
 import BudgetRule from "../models/BudgetRuleModel.js";
 
 export const createCategory = async(req, res) => {
+    const existingCategory = await Category.findAll({
+        where: {
+          name: req.body.name,
+        },
+    });
+    
+    if (existingCategory[0]) {
+      // Username already exists; return an error response
+      return res.status(400).json({ msg: 'Category already exist' });
+    }
+
     try {
         req.body.userId = req.params.id;
         await Category.create(req.body);
@@ -25,7 +36,8 @@ export const getCategoryByUserId = async(req, res) => {
                     attributes: ['name'],
                     required: false
                   }
-            ]
+            ],
+            order: [['id', 'ASC']]
         });
         res.status(200).json(response);
     } catch(error) {

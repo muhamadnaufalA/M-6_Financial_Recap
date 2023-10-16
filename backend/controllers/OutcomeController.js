@@ -46,7 +46,8 @@ export const getAllOutcomeUser = async(req, res) => {
                 attributes: ['name'],
                 required: false
               }
-            ]
+            ],
+            order: [['id', 'ASC']]
         });
         res.status(200).json(response);
     } catch(error) {

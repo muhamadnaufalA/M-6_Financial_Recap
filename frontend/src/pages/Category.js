@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useHistory, Link} from 'react-router-dom';
+import { BiEdit } from "react-icons/bi";
+import { BiTrash } from "react-icons/bi";
 
 const Category = () => {
   const [categories, setCategory] = useState([]);
@@ -40,7 +42,7 @@ const Category = () => {
             budgetruleId: parseInt(budgetruleid)
         });
 
-        history.push("/dashboard");
+        window.location.reload();
     } catch (error) {
         if(error.response){
             setMsg(error.response.data.msg);
@@ -72,7 +74,7 @@ const Category = () => {
           <div className="columns is-centered">
             <div className="column">
               <form onSubmit={addCatFunc} className="box">
-                <p className="has-text-center">{msg}</p>
+                <p className="has-text-center has-text-danger">{msg}</p>
                 <div className="field mt-5">
                   <label className="label">Name</label>
                   <div className="control">
@@ -143,11 +145,15 @@ const Category = () => {
                     <td>{index + 1}</td>
                     <td>{category.name}</td>
                     <td>{formatRupiah(category.budget)}</td>
-                    <td>{category.budgetrule.name}</td>
+                    <td>{category.budgetrule ? category.budgetrule.name : 'Belum ditentukan'}</td>
                     <td>
                       <div className="buttons">
-                        <Link to={`editCategory/${category.id}`} className="button is-small is-info">Edit</Link>
-                        <button onClick={() => deleteCategory(category.id)} className="button is-small is-danger">Delete</button>
+                        <Link to={`editCategory/${category.id}`} className="button is-small is-info">
+                          <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                        </Link>
+                        <button onClick={() => deleteCategory(category.id)} className="button is-small is-danger">
+                          <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                        </button>
                       </div>
                     </td>
                   </tr>

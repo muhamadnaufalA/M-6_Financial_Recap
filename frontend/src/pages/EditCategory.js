@@ -8,11 +8,14 @@ const EditCategory = () => {
     const [budget, setBudget] = useState('');
     
     const [budgetruleid, setBudgetRuleId] = useState('');
+    const [budgetruleName, setBudgetRuleName] = useState('');
     const [budgetRules, setListBudgetRule] = useState([]);
 
     const {id} = useParams();
     const UserId = Cookies.get("userId");
     const history = useHistory();
+
+    var temp;
 
     useEffect(() => {
         getCatById();
@@ -21,11 +24,15 @@ const EditCategory = () => {
     
     const UpdateCategory = async (e) =>{
         e.preventDefault();
+        if (budgetruleid == null){
+            budgetruleid = temp;
+        }
         try{
             await axios.put(`http://localhost:5000/category/${id}`, {
                 name: name,
                 budget: parseInt(budget),
-                budgetruleId: parseInt(budgetruleid)
+                budgetruleId: parseInt(budgetruleid),
+                
             });
             history.push("/dashboard");
         }catch (error){
@@ -37,6 +44,9 @@ const EditCategory = () => {
         const response = await axios.get(`http://localhost:5000/category/${id}`);
         setName(response.data.name);
         setBudget(response.data.budget);
+        setBudgetRuleName(response.data.budgetrule.name);
+
+        temp = setBudgetRuleId(response.data.budgetruleId);
     }
 
     const getListBudgetRuleFunc = async () =>{
@@ -78,7 +88,7 @@ const EditCategory = () => {
                             value={budgetruleid}
                             onChange={(e) => setBudgetRuleId(e.target.value)}
                             >
-                            <option value="">Pilih budget rule</option>
+                            {/* <option value="">Pilih budget rule</option> */}
                             {budgetRules.map((budgetRule) => (
                                 <option key={budgetRule.id} value={budgetRule.id}>
                                 {budgetRule.name}
