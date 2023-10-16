@@ -1,6 +1,35 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function Dashboard() {
+
+	const UserId = Cookies.get("userId");
+    const [reports, setReport] = useState([]);
+	let lap = [];
+
+	useEffect(()=>{
+        getReportFunc(); 
+    }, []);
+
+    const getReportFunc = async () =>{
+        const response = await axios.get(`http://localhost:5000/users/${UserId}/report`);
+        setReport(response.data);
+    }
+
+	lap = reports.income && reports.outcome ? reports.income.concat(reports.outcome) : [];
+
+	// Mengubah variabel tanggal_pemasukan atau tanggal_pengeluaran menjadi tanggal
+	const laporan = lap.map(item => {
+		const laporan = { ...item }; // Buat objek baru dengan salinan item asli
+		laporan.tanggal = laporan.tanggal_pemasukan || laporan.tanggal_pengeluaran;
+		delete laporan.tanggal_pemasukan;
+		delete laporan.tanggal_pengeluaran;
+		return laporan;
+	});
+
+	laporan.sort((a, b) => new Date(a.tanggal) - new Date(b.tanggal));
+
   return (
     <>
 	<h1 className="h3 mb-3">
@@ -181,75 +210,26 @@ function Dashboard() {
 			<div className="card flex-fill">
 				<div className="card-header">
 
-					<h5 className="card-title mb-0">Latest Projects</h5>
+					<h5 className="card-title mb-0">Monthly Report</h5>
 				</div>
 				<table className="table table-hover my-0">
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th className="d-none d-xl-table-cell">Start Date</th>
-							<th className="d-none d-xl-table-cell">End Date</th>
-							<th>Status</th>
-							<th className="d-none d-md-table-cell">Assignee</th>
+							<th className="d-none d-xl-table-cell">Tanggal</th>
+							<th>Keterangan</th>
+							<th>Nominal</th>
+							<th>Wallet</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Project Apollo</td>
-							<td className="d-none d-xl-table-cell">01/01/2023</td>
-							<td className="d-none d-xl-table-cell">31/06/2023</td>
-							<td><span className="badge bg-success">Done</span></td>
-							<td className="d-none d-md-table-cell">Vanessa Tucker</td>
-						</tr>
-						<tr>
-							<td>Project Fireball</td>
-							<td className="d-none d-xl-table-cell">01/01/2023</td>
-							<td className="d-none d-xl-table-cell">31/06/2023</td>
-							<td><span className="badge bg-danger">Cancelled</span></td>
-							<td className="d-none d-md-table-cell">William Harris</td>
-						</tr>
-						<tr>
-							<td>Project Hades</td>
-							<td className="d-none d-xl-table-cell">01/01/2023</td>
-							<td className="d-none d-xl-table-cell">31/06/2023</td>
-							<td><span className="badge bg-success">Done</span></td>
-							<td className="d-none d-md-table-cell">Sharon Lessman</td>
-						</tr>
-						<tr>
-							<td>Project Nitro</td>
-							<td className="d-none d-xl-table-cell">01/01/2023</td>
-							<td className="d-none d-xl-table-cell">31/06/2023</td>
-							<td><span className="badge bg-warning">In progress</span></td>
-							<td className="d-none d-md-table-cell">Vanessa Tucker</td>
-						</tr>
-						<tr>
-							<td>Project Phoenix</td>
-							<td className="d-none d-xl-table-cell">01/01/2023</td>
-							<td className="d-none d-xl-table-cell">31/06/2023</td>
-							<td><span className="badge bg-success">Done</span></td>
-							<td className="d-none d-md-table-cell">William Harris</td>
-						</tr>
-						<tr>
-							<td>Project X</td>
-							<td className="d-none d-xl-table-cell">01/01/2023</td>
-							<td className="d-none d-xl-table-cell">31/06/2023</td>
-							<td><span className="badge bg-success">Done</span></td>
-							<td className="d-none d-md-table-cell">Sharon Lessman</td>
-						</tr>
-						<tr>
-							<td>Project Romeo</td>
-							<td className="d-none d-xl-table-cell">01/01/2023</td>
-							<td className="d-none d-xl-table-cell">31/06/2023</td>
-							<td><span className="badge bg-success">Done</span></td>
-							<td className="d-none d-md-table-cell">Christina Mason</td>
-						</tr>
-						<tr>
-							<td>Project Wombat</td>
-							<td className="d-none d-xl-table-cell">01/01/2023</td>
-							<td className="d-none d-xl-table-cell">31/06/2023</td>
-							<td><span className="badge bg-warning">In progress</span></td>
-							<td className="d-none d-md-table-cell">William Harris</td>
-						</tr>
+						{laporan.map((l, index) => (
+							<tr key={l.id}>
+								<td className="d-none d-xl-table-cell">{l.tanggal}</td>
+								<td className="d-none d-xl-table-cell">{l.name}</td>
+								<td className="d-none d-xl-table-cell"><span className={l.balance ? "badge bg-success" : "badge bg-danger"}>Rp{l.balance ? l.balance.toLocaleString() : l.nominal.toLocaleString()}</span></td>
+								<td className="d-none d-md-table-cell">{l.wallet ? l.wallet.name : 'Belum ditentukan'}</td>
+							</tr>
+                        ))}
 					</tbody>
 				</table>
 			</div>
@@ -257,12 +237,21 @@ function Dashboard() {
 		<div className="col-12 col-lg-4 col-xxl-3 d-flex">
 			<div className="card flex-fill w-100">
 				<div className="card-header">
-
-					<h5 className="card-title mb-0">Monthly Sales</h5>
+					<h5 className="card-title mb-0">Monthly Summary</h5>
 				</div>
 				<div className="card-body d-flex w-100">
 					<div className="align-self-center chart chart-lg">
-						<canvas id="chartjs-dashboard-bar"></canvas>
+					<table className="table table-hover my-0">
+					<thead>
+						<tr>
+							<th>Pemasukan</th>
+							<th>Pengeluaran</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+				</table>
 					</div>
 				</div>
 			</div>
