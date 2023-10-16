@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useHistory, Link} from 'react-router-dom';
+import { BiEdit } from "react-icons/bi";
+import { BiTrash } from "react-icons/bi";
 
 const Category = () => {
   const [categories, setCategory] = useState([]);
@@ -146,8 +148,12 @@ const Category = () => {
                     <td>{category.budgetrule.name}</td>
                     <td>
                       <div className="buttons">
-                        <Link to={`editCategory/${category.id}`} className="button is-small is-info">Edit</Link>
-                        <button onClick={() => deleteCategory(category.id)} className="button is-small is-danger">Delete</button>
+                        <Link to={`editCategory/${category.id}`} className="button is-small is-info">
+                          <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                        </Link>
+                        <button onClick={() => deleteCategory(category.id)} className="button is-small is-danger">
+                          <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                        </button>
                       </div>
                     </td>
                   </tr>
