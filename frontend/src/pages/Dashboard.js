@@ -4,13 +4,21 @@ import Cookies from 'js-cookie';
 
 function Dashboard() {
 
+	const [recap, setRecap] = useState([]);
 	const UserId = Cookies.get("userId");
-    const [reports, setReport] = useState([]);
-	let lap = [];
 
 	useEffect(()=>{
-        getReportFunc(); 
-    }, []);
+		getListRecapFunc();
+		getReportFunc(); 
+	}, []);
+
+	const getListRecapFunc = async () =>{
+		const response = await axios.get(`http://localhost:5000/users/${UserId}/recap`);
+		setRecap(response.data);
+	}
+
+    const [reports, setReport] = useState([]);
+	let lap = [];
 
     const getReportFunc = async () =>{
         const response = await axios.get(`http://localhost:5000/users/${UserId}/report`);
@@ -37,7 +45,43 @@ function Dashboard() {
 	</h1>
 
 	<div className="row">
-		<div className="col-12 col-lg-8 col-xxl-12 d-flex">
+		<div className="col-12 col-lg-12 col-xxl-12 d-flex">
+			<div className="card flex-fill">
+				<div className="card-header">
+
+					<h5 className="card-title mb-0">Daily Recap</h5>
+				</div>
+				<table className="table table-hover my-0">
+					<thead>
+						<tr>
+							<th>Tanggal</th>
+							<th>Keterangan</th>
+							<th>Nominal</th>
+							<th>Wallet</th>
+						</tr>
+					</thead>
+					<tbody>
+						{recap.income && recap.income.map((recap, index) => (
+							<tr key={recap.id}>
+								<td>{recap.tanggal_pemasukan}</td>
+								<td>{recap.name}</td>
+								<td><span className="badge bg-success">Rp {recap.balance.toLocaleString()}</span></td>
+								<td>{recap.wallet ? recap.wallet.name : 'Belum ditentukan'}</td>
+							</tr>
+						))}
+						{recap.outcome && recap.outcome.map((recap, index) => (
+							<tr key={recap.id}>
+								<td>{recap.tanggal_pengeluaran}</td>
+								<td>{recap.name}</td>
+								<td><span className="badge bg-danger">Rp {recap.nominal.toLocaleString()}</span></td>
+								<td>{recap.wallet ? recap.wallet.name : 'Belum ditentukan'}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div className="col-12 col-lg-12 col-xxl-12 d-flex">
 			<div className="card flex-fill">
 				<div className="card-header">
 
@@ -63,28 +107,6 @@ function Dashboard() {
                         ))}
 					</tbody>
 				</table>
-			</div>
-		</div>
-		<div className="col-12 col-lg-4 col-xxl-3 d-flex">
-			<div className="card flex-fill w-100">
-				<div className="card-header">
-					<h5 className="card-title mb-0">Monthly Summary</h5>
-				</div>
-				<div className="card-body d-flex w-100">
-					<div className="align-self-center chart chart-lg">
-					<table className="table table-hover my-0">
-					<thead>
-						<tr>
-							<th>Pemasukan</th>
-							<th>Pengeluaran</th>
-						</tr>
-					</thead>
-					<tbody>
-						
-					</tbody>
-				</table>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
