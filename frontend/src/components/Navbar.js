@@ -34,8 +34,7 @@ function Navbar() {
 
         <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-            <img style={{width:'40px', height:'40px'}} src="adminkit/img/avatars/avatar.jpg" className="avatar img-fluid rounded me-1 mr-2" alt="Charles Hall" /> 
-            <span className="text-dark mr-1">{NameUser}</span>
+            <span className="text-dark">{NameUser}</span>
           </a>
           <div className="dropdown-menu dropdown-menu-end">
             <a className="dropdown-item" href="/">Log out</a>

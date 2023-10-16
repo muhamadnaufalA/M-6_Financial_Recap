@@ -25,6 +25,8 @@ const Income = () => {
     getListWalletFunc(); 
   }, []);
 
+  
+
   const getListWalletFunc = async () =>{
     const response = await axios.get(`http://localhost:5000/users/${UserId}/wallets`);
     setListWallet(response.data);
@@ -45,8 +47,6 @@ const Income = () => {
             tanggal_pemasukan: tanggalPemasukan,
             walletId: parseInt(idWallet)
         });
-
-        // history.push("/dashboard");
         window.location.reload();
     } catch (error) {
         if(error.response){

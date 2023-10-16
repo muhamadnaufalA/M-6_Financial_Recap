@@ -8,6 +8,8 @@ import WalletRoute from "./routes/WalletRoute.js";
 import OutcomeRoute from "./routes/OutcomeRoute.js";
 import BudgetRuleRoute from "./routes/BudgetRuleRoute.js";
 import CategoryRoute from "./routes/CategoryRoute.js";
+import ReportRoute from "./routes/ReportRoute.js";
+import RecapRoute from "./routes/RecapRoute.js";
 
 // IMPORT MODELS //
 import Income from "./models/IncomeModel.js";
@@ -28,6 +30,8 @@ app.use(WalletRoute);
 app.use(OutcomeRoute);
 app.use(BudgetRuleRoute);
 app.use(CategoryRoute);
+app.use(ReportRoute);
+app.use(RecapRoute);
 
 app.use(User);
 app.use(Income);

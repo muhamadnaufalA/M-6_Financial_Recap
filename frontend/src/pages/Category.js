@@ -42,7 +42,7 @@ const Category = () => {
             budgetruleId: parseInt(budgetruleid)
         });
 
-        history.push("/dashboard");
+        window.location.reload();
     } catch (error) {
         if(error.response){
             setMsg(error.response.data.msg);
@@ -74,7 +74,7 @@ const Category = () => {
           <div className="columns is-centered">
             <div className="column">
               <form onSubmit={addCatFunc} className="box">
-                <p className="has-text-center">{msg}</p>
+                <p className="has-text-center has-text-danger">{msg}</p>
                 <div className="field mt-5">
                   <label className="label">Name</label>
                   <div className="control">
