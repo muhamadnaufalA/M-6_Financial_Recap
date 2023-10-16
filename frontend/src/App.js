@@ -89,38 +89,6 @@ function App() {
           </div>
         </Route>
 
-        {/* Category Page */}
-        <Route exact path="/category">
-          <div className="wrapper">
-            <Sidebar/>
-            <div className="main">
-              <Navbar/>
-              <main className="content">
-                  <div className="container-fluid p-0">
-                    <Category/>
-                  </div>
-              </main>
-              <Footer/>
-            </div>
-          </div>
-        </Route>
-
-        {/* Edit Category Page */}
-        <Route exact path="/editCategory/:id">
-          <div className="wrapper">
-            <Sidebar/>
-              <div className="main">
-                <Navbar/>
-                <main className="content">
-                  <div className="container-fluid p-0">
-                    <EditCategory/>
-                  </div>
-                </main>
-                <Footer/>
-              </div>
-          </div>
-        </Route>
-
       </Switch>
     </BrowserRouter>
   );
