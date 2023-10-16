@@ -73,7 +73,7 @@ const Wallet = ()=> {
   
   
                   <div className="field mt-5">
-                    <button className="button is-success is-fullwidth">Tambahkan</button>
+                    <button className="container button is-success d-flex justify-content-center align-items-center">Tambahkan</button>
                   </div>
                 </form>
               </div>

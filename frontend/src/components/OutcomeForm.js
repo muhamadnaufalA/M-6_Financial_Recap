@@ -71,8 +71,8 @@ export default function OutcomeForm() {
     }
 
     return (
-        <section className="hero has-background-white is-fullheight is-fullwidth">
-            <h1 className="h2 mb-3 text-center">
+        <section className="hero has-background-white is-fullwidth">
+            <h1 className="h2 mt-3 mb-3 text-center">
                 <strong>Outcome</strong>
             </h1>
             <div className="hero-body">
@@ -180,7 +180,7 @@ export default function OutcomeForm() {
                                     </div>
                                 </div>
                                 <div className="field mt-5">
-                                    <button className="button is-success is-fullwidth">Tambahkan</button>
+                                    <button className="container button is-success d-flex justify-content-center align-items-center">Tambahkan</button>
                                 </div>
                             </form>
                         </div>
