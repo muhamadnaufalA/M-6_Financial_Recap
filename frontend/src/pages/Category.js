@@ -145,7 +145,7 @@ const Category = () => {
                     <td>{index + 1}</td>
                     <td>{category.name}</td>
                     <td>{formatRupiah(category.budget)}</td>
-                    <td>{category.budgetrule.name}</td>
+                    <td>{category.budgetrule ? category.budgetrule.name : 'Belum ditentukan'}</td>
                     <td>
                       <div className="buttons">
                         <Link to={`editCategory/${category.id}`} className="button is-small is-info">

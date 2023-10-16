@@ -38,7 +38,7 @@ const EditIncome = () => {
             tanggal_pemasukan,
             walletId: parseInt(idWallet),
         });
-        history.push("/dashboard");
+        history.push("/income");
     }catch (error){
         console.log(error);
     }
