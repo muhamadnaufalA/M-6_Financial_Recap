@@ -8,10 +8,13 @@ const EditIncome = () => {
   const [balance, setBalance] = useState("");
   const [tanggal_pemasukan, setTanggalPemasukan] = useState("");
   const [idWallet, setWalletId] = useState('');
+  const [walletName, setWalletName] = useState('');
   const {id} = useParams();
   const history = useHistory();
   const [wallets, setListWallet] = useState([]);
   const UserId = Cookies.get("userId");
+
+  var temp;
 
   useEffect(() => {
     getIncomeById();
@@ -25,6 +28,9 @@ const EditIncome = () => {
 
   const UpdateIncome = async (e) =>{
     e.preventDefault();
+    if (idWallet == null){
+      idWallet = temp;
+    }
     try{
         await axios.patch(`http://localhost:5000/incomes/${id}`, {
             name,
@@ -43,6 +49,9 @@ const EditIncome = () => {
     setName(response.data.name);
     setBalance(response.data.balance);
     setTanggalPemasukan(response.data.tanggal_pemasukan);
+    setWalletName(response.data.wallet.name);
+
+    temp = setWalletId(response.data.walletId);
   }
 
   return (
@@ -99,7 +108,7 @@ const EditIncome = () => {
                         value={idWallet} 
                         onChange={(e) => setWalletId(e.target.value)}
                         >
-                        <option value="Pilih wallet">Pilih wallet</option>
+                        {/* <option value="Pilih wallet">Pilih wallet</option> */}
                         {wallets.map((wallet) => (
                             <option key={wallet.id} value={wallet.id}>
                             {wallet.name}

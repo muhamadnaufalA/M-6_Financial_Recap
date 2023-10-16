@@ -21,7 +21,7 @@ POST http://localhost:5000/users/1/wallets
 Content-Type: application/json
 
 {
-    "name": "BCA",
+    "name": "BRI",
     "balance": "0"
 }
 
