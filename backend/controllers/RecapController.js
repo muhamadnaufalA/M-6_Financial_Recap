@@ -1,6 +1,6 @@
 import Income from "../models/IncomeModel.js";
 import Outcome from "../models/OutcomeModel.js";
-import { Op } from 'sequelize';
+import Wallet from "../models/WalletModel.js";
 
 export const getRecap = async(req, res) => {
 
@@ -11,12 +11,26 @@ export const getRecap = async(req, res) => {
             where: {
                 tanggal_pemasukan : today
             },
+            include: [
+                {
+                  model: Wallet, 
+                  attributes: ['name'],
+                  required: false
+                }
+            ]
         })
 
         const outcomeResponse = await Outcome.findAll({
             where: {
                 tanggal_pengeluaran : today
             },
+            include: [
+                {
+                  model: Wallet, 
+                  attributes: ['name'],
+                  required: false
+                }
+            ]
         })
 
         const report = {
