@@ -41,9 +41,9 @@ function Sidebar() {
                         </a>
                     </li>
                         <li className={`sidebar-item ${currentPath === '/wallet' ? 'active' : ''}`}>
-                            <a className="sidebar-link" href="pages-blank.html">
+                            <a className="sidebar-link" href="/wallet">
                             <i className="align-middle" data-feather="book"></i> 
-                            <span className="align-middle">wallet</span>
+                            <span className="align-middle">Wallet</span>
                         </a>
                     </li>
             </ul>
