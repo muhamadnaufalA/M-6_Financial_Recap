@@ -18,25 +18,11 @@ function Dashboard() {
 	}
 
     const [reports, setReport] = useState([]);
-	let lap = [];
 
     const getReportFunc = async () =>{
         const response = await axios.get(`http://localhost:5000/users/${UserId}/report`);
         setReport(response.data);
     }
-
-	lap = reports.income && reports.outcome ? reports.income.concat(reports.outcome) : [];
-
-	// Mengubah variabel tanggal_pemasukan atau tanggal_pengeluaran menjadi tanggal
-	const laporan = lap.map(item => {
-		const laporan = { ...item }; // Buat objek baru dengan salinan item asli
-		laporan.tanggal = laporan.tanggal_pemasukan || laporan.tanggal_pengeluaran;
-		delete laporan.tanggal_pemasukan;
-		delete laporan.tanggal_pengeluaran;
-		return laporan;
-	});
-
-	laporan.sort((a, b) => new Date(a.tanggal) - new Date(b.tanggal));
 
   return (
     <>
@@ -97,12 +83,12 @@ function Dashboard() {
 						</tr>
 					</thead>
 					<tbody>
-						{laporan.map((l, index) => (
+						{reports.map((l, index) => (
 							<tr key={l.id}>
 								<td className="d-none d-xl-table-cell">{l.tanggal}</td>
-								<td className="d-none d-xl-table-cell">{l.name}</td>
-								<td className="d-none d-xl-table-cell"><span className={l.balance ? "badge bg-success" : "badge bg-danger"}>Rp{l.balance ? l.balance.toLocaleString() : l.nominal.toLocaleString()}</span></td>
-								<td className="d-none d-md-table-cell">{l.wallet ? l.wallet.name : 'Belum ditentukan'}</td>
+								<td className="d-none d-xl-table-cell">{l.keterangan}</td>
+								<td className="d-none d-xl-table-cell"><span className={l.id_income != "-" ? "badge bg-success" : "badge bg-danger"}>Rp{l.balance ? l.balance.toLocaleString() : l.nominal.toLocaleString()}</span></td>
+								<td className="d-none d-md-table-cell">{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
 							</tr>
                         ))}
 					</tbody>

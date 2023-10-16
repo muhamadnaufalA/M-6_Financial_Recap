@@ -1,3 +1,5 @@
+import BudgetRule from "../models/BudgetRuleModel.js";
+import Category from "../models/CategoryModel.js";
 import Income from "../models/IncomeModel.js";
 import Outcome from "../models/OutcomeModel.js";
 import Wallet from "../models/WalletModel.js";
@@ -43,17 +45,39 @@ export const getReport = async(req, res) => {
                   model: Wallet, 
                   attributes: ['name'],
                   required: false
+                },
+                {
+                    model: BudgetRule, 
+                    attributes: ['name'],
+                    required: false
+                },
+                {
+                    model: Category, 
+                    attributes: ['name'],
+                    required: false
                 }
             ]
         })
+        
+        const report = [...incomeResponse, ...outcomeResponse];
 
-        const report = {
-            income: incomeResponse,
-            outcome: outcomeResponse,
-          };
+        const result = report.map(item => {
+            return {
+                id_income: item.budgetrule ? "-" : item.id,
+                id_outcome: item.budgetrule ? item.id : "-",
+                tanggal: item.tanggal_pemasukan || item.tanggal_pengeluaran,
+                keterangan: item.name,
+                budgetrule: item.budgetrule ? item.budgetrule.name : "-",
+                category: item.category ? item.category.name : "-",
+                nominal: item.balance || item.nominal,
+                wallet: item.wallet.name
+            };
+        });
 
+        result.sort((a, b) => new Date(a.tanggal) - new Date(b.tanggal));
 
-        res.status(200).json(report);
+        
+        res.status(200).json(result);
     } catch(error) {
         console.log(error.message);
     }
