@@ -147,7 +147,7 @@ function Navbar() {
           </a>
 
           <a className="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-            <img src="adminkit/img/avatars/avatar.jpg" className="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span className="text-dark">Charles Hall</span>
+            <span className="text-dark mr-1">{NameUser}</span>
           </a>
           <div className="dropdown-menu dropdown-menu-end">
             <a className="dropdown-item" href="pages-profile.html"><i className="align-middle me-1" data-feather="user"></i> Profile</a>
