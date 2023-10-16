@@ -4,8 +4,9 @@ import Cookies from 'js-cookie';
 
 function Dashboard() {
 
-	const [recap, setRecap] = useState([]);
 	const UserId = Cookies.get("userId");
+	const [recap, setRecap] = useState([]);
+	const [reports, setReport] = useState([]);
 
 	useEffect(()=>{
 		getListRecapFunc();
@@ -16,8 +17,6 @@ function Dashboard() {
 		const response = await axios.get(`http://localhost:5000/users/${UserId}/recap`);
 		setRecap(response.data);
 	}
-
-    const [reports, setReport] = useState([]);
 
     const getReportFunc = async () =>{
         const response = await axios.get(`http://localhost:5000/users/${UserId}/report`);
@@ -76,8 +75,10 @@ function Dashboard() {
 				<table className="table table-hover my-0">
 					<thead>
 						<tr>
-							<th className="d-none d-xl-table-cell">Tanggal</th>
+							<th className="d-none d-md-table-cell">Tanggal</th>
 							<th>Keterangan</th>
+							<th>Budget Rule</th>
+							<th>Kategori</th>
 							<th>Nominal</th>
 							<th>Wallet</th>
 						</tr>
@@ -85,8 +86,10 @@ function Dashboard() {
 					<tbody>
 						{reports.map((l, index) => (
 							<tr key={l.id}>
-								<td className="d-none d-xl-table-cell">{l.tanggal}</td>
+								<td className="d-none d-md-table-cell">{l.tanggal}</td>
 								<td className="d-none d-xl-table-cell">{l.keterangan}</td>
+								<td className="d-none d-md-table-cell">{l.budgetrule}</td>
+								<td className="d-none d-md-table-cell">{l.category}</td>
 								<td className="d-none d-xl-table-cell"><span className={l.id_income != "-" ? "badge bg-success" : "badge bg-danger"}>Rp{l.balance ? l.balance.toLocaleString() : l.nominal.toLocaleString()}</span></td>
 								<td className="d-none d-md-table-cell">{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
 							</tr>
