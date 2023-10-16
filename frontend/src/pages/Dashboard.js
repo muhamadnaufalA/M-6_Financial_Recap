@@ -6,11 +6,11 @@ import { BiEdit } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
 
 function Dashboard() {
+	const today = new Date();
 	const [recap, setRecap] = useState([]);
+	const [tanggalPemasukan, setTanggalPemasukan] = useState('');
 
 	const UserId = Cookies.get("userId");
-
-
 	useEffect(()=>{
 		getListRecapFunc();
 	  }, []);
@@ -30,11 +30,13 @@ function Dashboard() {
 			<div className="card flex-fill">
 				<div className="card-header">
 
-					<h5 className="card-title mb-0">Recap</h5>
+					<h5 className="card-title mb-0">Latest Projects</h5>
 				</div>
 				<table className="table table-hover my-0">
 					<thead>
 						<tr>
+							<th>Tanggal Pemasukan</th>
+							<th>Keterangan</th>
 							<th>Tanggal Pemasukan</th>
 							<th>Keterangan</th>
 							<th>Name</th>

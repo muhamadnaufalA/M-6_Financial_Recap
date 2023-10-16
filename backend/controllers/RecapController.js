@@ -5,9 +5,6 @@ import { Op } from 'sequelize';
 export const getRecap = async(req, res) => {
 
     const today = new Date();
-    const start = new Date(today.getFullYear(), today.getMonth(), 1);
-    const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-    const end = new Date(nextMonth - 1);
 
     try {
         const incomeResponse = await Income.findAll({
