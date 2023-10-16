@@ -51,8 +51,8 @@ export default function OutcomeTable() {
                                     <td>{outcome.name}</td>
                                     <td>{outcome.nominal}</td>
                                     <td>{outcome.tanggal_pengeluaran}</td>
-                                    <td>{outcome.budgetrule.name}</td>
-                                    <td>{outcome.category.name}</td>
+                                    <td>{outcome.budgetrule ? outcome.budgetrule.name : 'Belum ditentukan'}</td>
+                                    <td>{outcome.category ? outcome.category.name : 'Belum ditentukan'}</td>
                                     <td>{outcome.wallet ? outcome.wallet.name : 'Belum ditentukan'}</td>
                                     <td>
                                         {/* <Link to={`editIncome/${outcome.id}`} className="button is-small is-info">

@@ -45,8 +45,6 @@ const Income = () => {
             tanggal_pemasukan: tanggalPemasukan,
             walletId: parseInt(idWallet)
         });
-
-        // history.push("/dashboard");
         window.location.reload();
     } catch (error) {
         if(error.response){

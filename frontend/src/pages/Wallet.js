@@ -57,7 +57,7 @@ const Wallet = ()=> {
             <div className="columns is-centered">
               <div className="column">
                 <form onSubmit={addWallet} className="box">
-                  <p className="has-text-center">{msg}</p>
+                  <p className="has-text-center has-text-danger">{msg}</p>
                   <div className="field">
                     <label className="label">Name</label>
                     <div className="control">

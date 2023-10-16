@@ -32,12 +32,12 @@ export const createUser = async(req, res) => {
         where: {
           username: req.body.username,
         },
-      });
+    });
     
-      if (existingUser[0]) {
-        // Username already exists; return an error response
-        return res.status(400).json({ msg: 'Username already taken' });
-      }
+    if (existingUser[0]) {
+      // Username already exists; return an error response
+      return res.status(400).json({ msg: 'Username already taken' });
+    }
 
     const { username, password, confPassword } = req.body;
     if (password !== confPassword){
