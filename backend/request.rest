@@ -152,6 +152,9 @@ Content-Type: application/json
 GET http://localhost:5000/users/1/budgetrule
 
 ###
+GET http://localhost:5000/users/1/PieChart
+
+###
 PUT http://localhost:5000/budgetrule/1
 Content-Type: application/json
 

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
+// import Highcharts from 'highcharts';
+// import HighchartsReact from 'highcharts-react-official';
 
 function Dashboard() {
 
@@ -23,6 +25,69 @@ function Dashboard() {
         setReport(response.data);
     }
 
+	// // Konfigurasi grafik
+	// const optionsTarget = {
+	// 	chart: {
+	// 	type: 'pie', // Jenis grafik, misalnya, bar, line, pie, dll.
+	// 	},
+	// 	title: {
+	// 	text: 'Budget Rule Target',
+	// 	},
+	// 	series: [
+	// 	{
+	// 		name: 'Data',
+	// 		data: [
+	// 		{ name: 'Needs', y: 60 }, // 60% untuk "needs"
+	// 		{ name: 'Wants', y: 30 }, // 30% untuk "wants"
+	// 		{ name: 'Savings', y: 10 }, // 10% untuk "savings"
+	// 		],
+	// 	},
+	// 	],
+	// };
+
+	// const optionsActual = {
+	// 	chart: {
+	// 	  type: 'pie',
+	// 	},
+	// 	title: {
+	// 	  text: 'Budget Rule Actual',
+	// 	},
+	// 	series: [
+	// 	  {
+	// 		name: 'Data',
+	// 		data: [
+	// 		  { name: 'Needs', y: 60 }, // 60% untuk "needs"
+	// 		  { name: 'Wants', y: 30 }, // 30% untuk "wants"
+	// 		  { name: 'Savings', y: 10 }, // 10% untuk "savings"
+	// 		],
+	// 	  },
+	// 	],
+	//   };
+	  
+	
+	// const ChartTarget = () => (
+	// 	<HighchartsReact
+	// 	highcharts={Highcharts}
+	// 	options={optionsTarget}
+	// 	/>
+	// );
+
+	// const ChartActual = () => (
+	// 	<HighchartsReact
+	// 	highcharts={Highcharts}
+	// 	options={optionsActual}
+	// 	/>
+	// );
+	
+// 	<div className="col-12 col-lg-12 col-xxl-12 d-flex">
+// 	<div className="card flex-fill">
+// 		<div className="card-header">
+// 			<ChartTarget /> {/* Gunakan komponen Chart di sini */}
+// 			<ChartActual /> {/* Gunakan komponen Chart di sini */}
+// 		</div>
+// 	</div>
+// </div>
+
   return (
     <>
 	<h1 className="h3 mb-3">
@@ -30,6 +95,7 @@ function Dashboard() {
 	</h1>
 
 	<div className="row">
+
 		<div className="col-12 col-lg-12 col-xxl-12 d-flex">
 			<div className="card flex-fill">
 				<div className="card-header">

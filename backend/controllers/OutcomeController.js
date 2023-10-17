@@ -120,3 +120,80 @@ export const deleteOutcome = async(req, res) => {
     }
 }
 
+// export const PieChart = async(req, res) => {
+//     try {
+//         const response = await Outcome.findAll({
+//             where: {
+//                 userId: req.params.id
+//             },
+//             attributes: [
+//                 'id',
+//                 'name', 
+//                 'nominal', 
+//                 'tanggal_pengeluaran',
+//                 'budgetruleId',
+//                 'categoryId',
+//                 'walletId'
+//             ],
+//             include: [
+//               {
+//                 model: Wallet, 
+//                 attributes: ['name'],
+//                 required: false
+//               },
+//               {
+//                 model: Category,
+//                 attributes: ['name'],
+//                 required: false 
+//               },
+//               {
+//                 model: BudgetRule,
+//                 attributes: ['name'],
+//                 required: false
+//               }
+//             ],
+//             order: [['id', 'ASC']]
+//         });
+//         const data = response.map(item => {
+//             return {
+//                 nominal : item.nominal,
+//                 budgetRule : item.budgetRule
+//             };
+//         });
+
+//         var x = 0;
+//         var y = 0;
+//         var z = 0;
+//         var total = 0;
+
+//         for (let i = 0; i < data.length; i++) {
+//             if (data.budgetRule == "Needs"){
+//                 x = x + data.nominal;
+//             }else if (data.budgetRule == "Wants"){
+//                 y = y + data.nominal;
+//             }else {
+//                 z = z + data.nominal;
+//             } 
+//         }
+//         console.log(data.nominal)
+//         total = x + y + z;
+
+//         var n;
+//         var w;
+//         var s;
+
+//         n = x/total * 100;
+//         w = y/total * 100;
+//         s = z/total * 100;
+
+//         let data1 = {
+//             "name" : data.budgetRule,
+//             "percent" : n
+//         }
+//         let result = []
+//         result.push(data1);
+//         res.status(200).json(result);
+//     } catch(error) {
+//         console.log(error.message);
+//     }
+// }
