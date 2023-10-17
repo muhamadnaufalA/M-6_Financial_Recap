@@ -140,11 +140,11 @@ Content-Type: application/json
 
 
 ###
-POST http://localhost:5000/users/3/budgetrule
+POST http://localhost:5000/users/2/budgetrule
 Content-Type: application/json
 
 {
-    "name": "Savings",
+    "name": "save",
     "percentage": 10
 }
 
