@@ -50,7 +50,7 @@ const EditOutcome = () => {
         idWallet = temp;
       }
       try{
-          await axios.patch(`http://localhost:5000/outcome/${id}`, {
+          await axios.patch(`http://localhost:5000/Outcomes/${id}`, {
               name,
               nominal: parseInt(nominal),
               tanggal_pengeluaran,
@@ -65,7 +65,7 @@ const EditOutcome = () => {
     };
   
     const getIncomeById = async () => {
-      const response = await axios.get(`http://localhost:5000/outcomes/${id}`);
+      const response = await axios.get(`http://localhost:5000/Outcomes/${id}`);
       setName(response.data.name);
       setNominal(response.data.nominal);
       setTanggalPengeluaran(response.data.tanggal_pengeluaran);
