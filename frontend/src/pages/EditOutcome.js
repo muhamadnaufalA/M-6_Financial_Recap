@@ -20,7 +20,9 @@ const EditOutcome = () => {
     const [categories, setListCategory] = useState([]);
     const UserId = Cookies.get("userId");
   
-    var temp;
+    let temp1;
+    let temp2;
+    let temp3;
   
     useEffect(() => {
       getIncomeById();
@@ -46,11 +48,17 @@ const EditOutcome = () => {
   
     const UpdateOutcome = async (e) =>{
       e.preventDefault();
-      if (idWallet == null){
-        idWallet = temp;
+      if (idWallet == null) {
+        setWalletId(temp1);
+      }
+      if (idBudgetRule == null) {
+        setBudgetRuleId(temp2);
+      }
+      if (idCategory == null) {
+        setCategoryId(temp3);
       }
       try{
-          await axios.patch(`http://localhost:5000/outcome/${id}`, {
+          await axios.put(`http://localhost:5000/Outcomes/${id}`, {
               name,
               nominal: parseInt(nominal),
               tanggal_pengeluaran,
@@ -65,13 +73,15 @@ const EditOutcome = () => {
     };
   
     const getIncomeById = async () => {
-      const response = await axios.get(`http://localhost:5000/outcomes/${id}`);
+      const response = await axios.get(`http://localhost:5000/Outcomes/${id}`);
       setName(response.data.name);
       setNominal(response.data.nominal);
       setTanggalPengeluaran(response.data.tanggal_pengeluaran);
     //   setWalletName(response.data.wallet.name);
   
-      temp = setWalletId(response.data.walletId);
+      temp1 = setWalletId(response.data.walletId);
+      temp2 = setBudgetRuleId(response.data.budgetruleId);
+      temp3 = setCategoryId(response.data.categoryId);
     }
   
     return (
@@ -117,26 +127,6 @@ const EditOutcome = () => {
                               />
                           </div>
                       </div>
-  
-                      <div className="field mt-5">
-                        <label className="label">Jenis Wallet</label>
-                        <div className="control">
-                            <select
-                            className="input"
-                            id="wallet"
-                            name="wallet"
-                            value={idWallet} 
-                            onChange={(e) => setWalletId(e.target.value)}
-                            >
-                            {/* <option value="Pilih wallet">Pilih wallet</option> */}
-                            {wallets.map((wallet) => (
-                                <option key={wallet.id} value={wallet.id}>
-                                {wallet.name}
-                                </option>
-                            ))}
-                            </select>
-                        </div>
-                      </div>
 
                       <div className="field mt-5">
                         <label className="label">Budget Rule</label>
@@ -172,6 +162,26 @@ const EditOutcome = () => {
                             {categories.map((c) => (
                                 <option key={c.id} value={c.id}>
                                 {c.name}
+                                </option>
+                            ))}
+                            </select>
+                        </div>
+                      </div>
+
+                      <div className="field mt-5">
+                        <label className="label">Jenis Wallet</label>
+                        <div className="control">
+                            <select
+                            className="input"
+                            id="wallet"
+                            name="wallet"
+                            value={idWallet} 
+                            onChange={(e) => setWalletId(e.target.value)}
+                            >
+                            {/* <option value="Pilih wallet">Pilih wallet</option> */}
+                            {wallets.map((wallet) => (
+                                <option key={wallet.id} value={wallet.id}>
+                                {wallet.name}
                                 </option>
                             ))}
                             </select>
