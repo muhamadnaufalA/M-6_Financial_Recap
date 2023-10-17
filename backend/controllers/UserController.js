@@ -1,4 +1,5 @@
 import User from "../models/UserModel.js";
+import BudgetRule from "../models/BudgetRuleModel.js";
 import bcrypt from 'bcrypt';
 
 export const getUsers = async(req, res) => {
@@ -47,10 +48,19 @@ export const createUser = async(req, res) => {
     const hashPassword = await bcrypt.hash(password, salt);
     
     try{
-        await User.create({
+        const user = await User.create({
             username: username,
             password: hashPassword
         });
+
+        const budgetRules = [
+            { name: 'needs', percentage: 60,userId: user.id },
+            { name: 'wants', percentage: 30,userId: user.id },
+            { name: 'save', percentage: 10,userId: user.id }
+          ];
+
+        await BudgetRule.bulkCreate(budgetRules);
+
         res.status(201).json({msg: "Register Success"});
     } catch (error) {
         console.log(error.message);
