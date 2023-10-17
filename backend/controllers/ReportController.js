@@ -15,6 +15,7 @@ export const getReport = async(req, res) => {
     try {
         const incomeResponse = await Income.findAll({
             where: {
+                userId: req.params.id,
                 tanggal_pemasukan : {
                     [Op.and]: [
                         { [Op.gte]: start },
@@ -33,6 +34,7 @@ export const getReport = async(req, res) => {
 
         const outcomeResponse = await Outcome.findAll({
             where: {
+                userId: req.params.id,
                 tanggal_pengeluaran : {
                     [Op.and]: [
                         { [Op.gte]: start },

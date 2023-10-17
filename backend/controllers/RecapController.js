@@ -9,7 +9,8 @@ export const getRecap = async(req, res) => {
     try {
         const incomeResponse = await Income.findAll({
             where: {
-                tanggal_pemasukan : today
+                tanggal_pemasukan : today,
+                userId: req.params.id
             },
             include: [
                 {
@@ -22,7 +23,8 @@ export const getRecap = async(req, res) => {
 
         const outcomeResponse = await Outcome.findAll({
             where: {
-                tanggal_pengeluaran : today
+                tanggal_pengeluaran : today,
+                userId: req.params.id
             },
             include: [
                 {

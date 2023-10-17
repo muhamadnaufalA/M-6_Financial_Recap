@@ -3,7 +3,8 @@ import Wallet from "../models/WalletModel.js"
 export const createWallet = async(req, res) => {
     const existingWallet = await Wallet.findAll({
         where: {
-          name: req.body.name,
+          userId: req.params.id,
+          name: req.body.name
         },
     });
     
