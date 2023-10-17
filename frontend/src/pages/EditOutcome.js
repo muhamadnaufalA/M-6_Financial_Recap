@@ -7,11 +7,11 @@ const EditOutcome = () => {
     const [name, setName] = useState("");
     const [nominal, setNominal] = useState("");
     const [tanggal_pengeluaran, setTanggalPengeluaran] = useState("");
-    const [idBudgetRule, setBudgetRuleId] = useState('');
+    let [idBudgetRule, setBudgetRuleId] = useState('');
     const [nameBudgetRule, setBudgetRuleName] = useState('');
-    const [idCategory, setCategoryId] = useState('');
+    let [idCategory, setCategoryId] = useState('');
     const [nameCategory, setCategoryName] = useState('');
-    const [idWallet, setWalletId] = useState('');
+    let [idWallet, setWalletId] = useState('');
     const [walletName, setWalletName] = useState('');
     const {id} = useParams();
     const history = useHistory();
@@ -20,9 +20,9 @@ const EditOutcome = () => {
     const [categories, setListCategory] = useState([]);
     const UserId = Cookies.get("userId");
   
-    let temp1;
-    let temp2;
-    let temp3;
+    var temp1;
+    var temp2;
+    var temp3;
   
     useEffect(() => {
       getIncomeById();
@@ -49,13 +49,13 @@ const EditOutcome = () => {
     const UpdateOutcome = async (e) =>{
       e.preventDefault();
       if (idWallet == null) {
-        setWalletId(temp1);
+        idWallet = temp1;
       }
       if (idBudgetRule == null) {
-        setBudgetRuleId(temp2);
+        idBudgetRule = temp2;
       }
       if (idCategory == null) {
-        setCategoryId(temp3);
+        idCategory = temp3
       }
       try{
           await axios.put(`http://localhost:5000/Outcomes/${id}`, {

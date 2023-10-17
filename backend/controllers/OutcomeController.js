@@ -65,8 +65,28 @@ export const getOutcomeById = async(req, res) => {
                 'id',
                 'name', 
                 'nominal', 
-                'tanggal_pengeluaran'
-            ]
+                'tanggal_pengeluaran',
+                'budgetruleId',
+                'categoryId',
+                'walletId'
+            ],
+            include: [
+                {
+                  model: Wallet, 
+                  attributes: ['name'],
+                  required: false
+                },
+                {
+                  model: Category,
+                  attributes: ['name'],
+                  required: false 
+                },
+                {
+                  model: BudgetRule,
+                  attributes: ['name'],
+                  required: false
+                }
+              ],
         });
         res.status(200).json(response);
     } catch(error) {
