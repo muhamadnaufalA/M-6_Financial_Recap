@@ -9,6 +9,7 @@ import Category from "./pages/Category";
 import EditCategory from "./pages/EditCategory";
 import Wallet from "./pages/Wallet";
 import EditWallet from "./pages/EditWallet";
+import EditOutcome from "./pages/EditOutcome";
 
 import Dashboard from "./pages/Dashboard";
 import Sidebar from "./components/Sidebar";
@@ -88,6 +89,22 @@ function App() {
               </main>
               <Footer/>
             </div>
+          </div>
+        </Route>
+
+        {/* Edit Outcome Page */}
+        <Route exact path="/edit-outcome/:id">
+          <div className="wrapper">
+            <Sidebar/>
+              <div className="main">
+                <Navbar/>
+                <main className="content">
+                  <div className="container-fluid p-0">
+                    <EditOutcome/>
+                  </div>
+                </main>
+                <Footer/>
+              </div>
           </div>
         </Route>
 
