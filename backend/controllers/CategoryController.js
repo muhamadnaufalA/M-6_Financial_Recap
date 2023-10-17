@@ -5,6 +5,7 @@ export const createCategory = async(req, res) => {
     const existingCategory = await Category.findAll({
         where: {
           name: req.body.name,
+          userId: req.params.id
         },
     });
     

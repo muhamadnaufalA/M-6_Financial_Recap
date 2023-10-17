@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/users/:id/Outcomes', createOutcome);
 router.get('/users/:id/Outcomes', getAllOutcomeUser);
 router.get('/Outcomes/:id', getOutcomeById);
-router.patch('/Outcomes/:id', updateOutcome);
+router.put('/Outcomes/:id', updateOutcome);
 router.delete('/Outcomes/:id', deleteOutcome);
 
 export default router;

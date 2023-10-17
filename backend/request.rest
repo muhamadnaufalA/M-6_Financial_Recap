@@ -36,6 +36,16 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:5000/users/1/category
+Content-Type: application/json
+
+{
+    "name": "Food",
+    "budget": "1000000",
+    "budgetruleId": 1
+}
+
+###
 POST http://localhost:5000/users/1/budgetrule
 Content-Type: application/json
 
@@ -130,11 +140,11 @@ Content-Type: application/json
 
 
 ###
-POST http://localhost:5000/users/1/budgetrule
+POST http://localhost:5000/users/3/budgetrule
 Content-Type: application/json
 
 {
-    "name": "Contoh",
+    "name": "Savings",
     "percentage": 10
 }
 
