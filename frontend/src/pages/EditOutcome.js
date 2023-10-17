@@ -7,11 +7,11 @@ const EditOutcome = () => {
     const [name, setName] = useState("");
     const [nominal, setNominal] = useState("");
     const [tanggal_pengeluaran, setTanggalPengeluaran] = useState("");
-    const [idBudgetRule, setBudgetRuleId] = useState('');
+    let [idBudgetRule, setBudgetRuleId] = useState('');
     const [nameBudgetRule, setBudgetRuleName] = useState('');
-    const [idCategory, setCategoryId] = useState('');
+    let [idCategory, setCategoryId] = useState('');
     const [nameCategory, setCategoryName] = useState('');
-    const [idWallet, setWalletId] = useState('');
+    let [idWallet, setWalletId] = useState('');
     const [walletName, setWalletName] = useState('');
     const {id} = useParams();
     const history = useHistory();
@@ -20,7 +20,9 @@ const EditOutcome = () => {
     const [categories, setListCategory] = useState([]);
     const UserId = Cookies.get("userId");
   
-    var temp;
+    var temp1;
+    var temp2;
+    var temp3;
   
     useEffect(() => {
       getIncomeById();
@@ -46,11 +48,17 @@ const EditOutcome = () => {
   
     const UpdateOutcome = async (e) =>{
       e.preventDefault();
-      if (idWallet == null){
-        idWallet = temp;
+      if (idWallet == null) {
+        idWallet = temp1;
+      }
+      if (idBudgetRule == null) {
+        idBudgetRule = temp2;
+      }
+      if (idCategory == null) {
+        idCategory = temp3
       }
       try{
-          await axios.patch(`http://localhost:5000/Outcomes/${id}`, {
+          await axios.put(`http://localhost:5000/Outcomes/${id}`, {
               name,
               nominal: parseInt(nominal),
               tanggal_pengeluaran,
@@ -71,7 +79,9 @@ const EditOutcome = () => {
       setTanggalPengeluaran(response.data.tanggal_pengeluaran);
     //   setWalletName(response.data.wallet.name);
   
-      temp = setWalletId(response.data.walletId);
+      temp1 = setWalletId(response.data.walletId);
+      temp2 = setBudgetRuleId(response.data.budgetruleId);
+      temp3 = setCategoryId(response.data.categoryId);
     }
   
     return (
@@ -117,26 +127,6 @@ const EditOutcome = () => {
                               />
                           </div>
                       </div>
-  
-                      <div className="field mt-5">
-                        <label className="label">Jenis Wallet</label>
-                        <div className="control">
-                            <select
-                            className="input"
-                            id="wallet"
-                            name="wallet"
-                            value={idWallet} 
-                            onChange={(e) => setWalletId(e.target.value)}
-                            >
-                            {/* <option value="Pilih wallet">Pilih wallet</option> */}
-                            {wallets.map((wallet) => (
-                                <option key={wallet.id} value={wallet.id}>
-                                {wallet.name}
-                                </option>
-                            ))}
-                            </select>
-                        </div>
-                      </div>
 
                       <div className="field mt-5">
                         <label className="label">Budget Rule</label>
@@ -172,6 +162,26 @@ const EditOutcome = () => {
                             {categories.map((c) => (
                                 <option key={c.id} value={c.id}>
                                 {c.name}
+                                </option>
+                            ))}
+                            </select>
+                        </div>
+                      </div>
+
+                      <div className="field mt-5">
+                        <label className="label">Jenis Wallet</label>
+                        <div className="control">
+                            <select
+                            className="input"
+                            id="wallet"
+                            name="wallet"
+                            value={idWallet} 
+                            onChange={(e) => setWalletId(e.target.value)}
+                            >
+                            {/* <option value="Pilih wallet">Pilih wallet</option> */}
+                            {wallets.map((wallet) => (
+                                <option key={wallet.id} value={wallet.id}>
+                                {wallet.name}
                                 </option>
                             ))}
                             </select>
