@@ -8,11 +8,11 @@ function Dashboard() {
 
 	const UserId = Cookies.get("userId");
 	const [recap, setRecap] = useState([]);
-	const [reports, setReport] = useState([]);
+	const [monthlyRecap, setMonthlyRecap] = useState([]);
 
 	useEffect(()=>{
 		getListRecapFunc();
-		getReportFunc(); 
+		getRecapByMonth(); 
 	}, []);
 
 	const getListRecapFunc = async () =>{
@@ -20,9 +20,9 @@ function Dashboard() {
 		setRecap(response.data);
 	}
 
-    const getReportFunc = async () =>{
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/report`);
-        setReport(response.data);
+    const getRecapByMonth = async () =>{
+        const response = await axios.get(`http://localhost:5000/users/${UserId}/recap/month`);
+        setMonthlyRecap(response.data);
     }
 
 	// // Konfigurasi grafik
@@ -99,7 +99,6 @@ function Dashboard() {
 		<div className="col-12 col-lg-12 col-xxl-12 d-flex">
 			<div className="card flex-fill">
 				<div className="card-header">
-
 					<h5 className="card-title mb-0">Daily Recap</h5>
 				</div>
 				<table className="table table-hover my-0">
@@ -135,8 +134,7 @@ function Dashboard() {
 		<div className="col-12 col-lg-12 col-xxl-12 d-flex">
 			<div className="card flex-fill">
 				<div className="card-header">
-
-					<h5 className="card-title mb-0">Monthly Report</h5>
+					<h5 className="card-title mb-0">Monthly Recap</h5>
 				</div>
 				<table className="table table-hover my-0">
 					<thead>
@@ -150,7 +148,7 @@ function Dashboard() {
 						</tr>
 					</thead>
 					<tbody>
-						{reports.map((l, index) => (
+						{monthlyRecap.map((l) => (
 							<tr key={l.id}>
 								<td className="d-none d-md-table-cell">{l.tanggal}</td>
 								<td className="d-none d-xl-table-cell">{l.keterangan}</td>
