@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useHistory } from 'react-router-dom';
 import { BiSolidHelpCircle } from "react-icons/bi";
 
 export default function OutcomeForm() {
     const UserId = Cookies.get("userId");
-    const history = useHistory();
     const [wallets, setListWallet] = useState([]);
     const [budgetRules, setListBudgetRule] = useState([]);
     const [categories, setListCategory] = useState([]);
@@ -23,6 +21,7 @@ export default function OutcomeForm() {
     
     const handleChange = (e) => {
         const { name, value } = e.target;
+        
         setFormData({
           ...formData,
           [name]: value,
@@ -41,7 +40,6 @@ export default function OutcomeForm() {
                 categoryId: formData.category,
                 walletId: formData.wallet,
             });
-            // history.push("/dashboard");
             window.location.reload();
         } catch (error) {
             if(error.response){
@@ -187,7 +185,7 @@ export default function OutcomeForm() {
                             </div>
                         </div>
                         <div className="field mt-5 d-flex justify-content-end">
-                            <button className="btn btn-success">Tambahkan</button>
+                            <button className="btn btn-lg btn-success">Tambahkan</button>
                         </div>
                     </form>
                 </div>
