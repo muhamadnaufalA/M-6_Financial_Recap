@@ -4,12 +4,34 @@ import Outcome from "../models/OutcomeModel.js";
 import Wallet from "../models/WalletModel.js";
 
 export const createOutcome = async(req, res) => {
+
+    
+    const wallet = await Wallet.findOne({
+        where: {
+            id: req.body.walletId,
+        },
+        attributes: [
+            'id',
+            'name', 
+            'balance'
+        ],
+    });
+
+    console.log(wallet.balance)
+    
     try {
-        req.body.userId = req.params.id;
-        await Outcome.create(req.body);
-        res.status(201).json({
-            message: "Outcome created"
-        });
+        if (wallet.balance >= req.body.nominal) {
+            req.body.userId = req.params.id;
+            await Outcome.create(req.body);
+            res.status(201).json({
+                message: "Outcome created"
+            });
+        } else {
+            res.status(400).json({
+                status: 400,
+                message: "Outcome gagal dibuat karena saldo tidak cukup"
+            });
+        }
     } catch(error) {
         console.log(error.message);
     }

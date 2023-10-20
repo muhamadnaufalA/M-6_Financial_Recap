@@ -42,8 +42,8 @@ export default function OutcomeForm() {
             });
             window.location.reload();
         } catch (error) {
-            if(error.response){
-                setMsg(error.response.data.msg);
+            if(error.response.data.status == 400) {
+                setMsg("Saldo Anda tidak cukup! Kerja dulu!");
             }
         }
     };
@@ -77,7 +77,7 @@ export default function OutcomeForm() {
             <div className="row justify-content-center">
                 <div className="col-12">
                     <form onSubmit={handleSubmit} className="box">
-                        <p className="has-text-center">{msg}</p>
+                        <p className="has-text-center has-text-danger">{msg}</p>
                         <div className="row">
                             <div className="col-md-5">
                                 <div className="control">

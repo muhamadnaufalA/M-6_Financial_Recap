@@ -3,11 +3,11 @@ import { createOutcome, getAllOutcomeUser,getOutcomeById, updateOutcome, deleteO
 
 const router = express.Router();
 
-router.post('/users/:id/Outcomes', createOutcome);
-router.get('/users/:id/Outcomes', getAllOutcomeUser);
+router.post('/users/:id/outcomes', createOutcome);
+router.get('/users/:id/outcomes', getAllOutcomeUser);
 // router.get('/users/:id/PieChart', PieChart);
-router.get('/Outcomes/:id', getOutcomeById);
-router.put('/Outcomes/:id', updateOutcome);
-router.delete('/Outcomes/:id', deleteOutcome);
+router.get('/outcomes/:id', getOutcomeById);
+router.put('/outcomes/:id', updateOutcome);
+router.delete('/outcomes/:id', deleteOutcome);
 
 export default router;
