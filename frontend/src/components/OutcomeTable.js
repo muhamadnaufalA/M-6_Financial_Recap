@@ -51,7 +51,7 @@ export default function OutcomeTable() {
                             <tr key={outcome.id}>
                                 <td>{outcome.tanggal_pengeluaran}</td>
                                 <td>{outcome.name}</td>
-                                <td>Rp {outcome.nominal.toLocaleString()}</td>
+                                <td>Rp{outcome.nominal.toLocaleString('id-ID')}</td>
                                 <td>{outcome.budgetrule ? outcome.budgetrule.name : 'Belum ditentukan'}</td>
                                 <td>{outcome.category ? outcome.category.name : 'Belum ditentukan'}</td>
                                 <td>{outcome.wallet ? outcome.wallet.name : 'Belum ditentukan'}</td>

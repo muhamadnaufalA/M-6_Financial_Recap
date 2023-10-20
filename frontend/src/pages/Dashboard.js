@@ -116,7 +116,7 @@ function Dashboard() {
 							<tr key={recap.id}>
 								<td>{recap.tanggal_pemasukan}</td>
 								<td>{recap.name}</td>
-								<td><span className="badge bg-success">Rp {recap.balance.toLocaleString()}</span></td>
+								<td><span className="badge bg-success">Rp{recap.balance.toLocaleString('id-ID')}</span></td>
 								<td>{recap.wallet ? recap.wallet.name : 'Belum ditentukan'}</td>
 							</tr>
 						))}
@@ -124,7 +124,7 @@ function Dashboard() {
 							<tr key={recap.id}>
 								<td>{recap.tanggal_pengeluaran}</td>
 								<td>{recap.name}</td>
-								<td><span className="badge bg-danger">Rp {recap.nominal.toLocaleString()}</span></td>
+								<td><span className="badge bg-danger">Rp{recap.nominal.toLocaleString('id-ID')}</span></td>
 								<td>{recap.wallet ? recap.wallet.name : 'Belum ditentukan'}</td>
 							</tr>
 						))}
@@ -156,7 +156,7 @@ function Dashboard() {
 								<td className="d-none d-xl-table-cell">{l.keterangan}</td>
 								<td className="d-none d-md-table-cell">{l.budgetrule}</td>
 								<td className="d-none d-md-table-cell">{l.category}</td>
-								<td className="d-none d-xl-table-cell"><span className={l.id_income != "-" ? "badge bg-success" : "badge bg-danger"}>Rp{l.balance ? l.balance.toLocaleString() : l.nominal.toLocaleString()}</span></td>
+								<td className="d-none d-xl-table-cell"><span className={l.id_income != "-" ? "badge bg-success" : "badge bg-danger"}>Rp{l.balance ? l.balance.toLocaleString('id-ID') : l.nominal.toLocaleString('id-ID')}</span></td>
 								<td className="d-none d-md-table-cell">{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
 							</tr>
                         ))}
