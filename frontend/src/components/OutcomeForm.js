@@ -85,6 +85,7 @@ export default function OutcomeForm() {
                                 <div className="control">
                                     <input
                                         className="input"
+                                        style={{ backgroundColor: '#f7f7f7' }}
                                         id="outcomeName"
                                         type="text"
                                         name="outcomeName"
@@ -98,6 +99,7 @@ export default function OutcomeForm() {
                                 <div className="control">
                                     <input
                                         className="input"
+                                        style={{ backgroundColor: '#f7f7f7' }}
                                         id="amount"
                                         type="number"
                                         name="amount"
