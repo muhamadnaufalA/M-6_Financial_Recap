@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useHistory } from 'react-router-dom';
+import { BiSolidHelpCircle } from "react-icons/bi";
 
 export default function OutcomeForm() {
     const UserId = Cookies.get("userId");
@@ -71,47 +72,44 @@ export default function OutcomeForm() {
     }
 
     return (
-        <section className="hero has-background-white is-fullwidth">
-            <h1 className="h2 mt-3 mb-3 text-center">
-                <strong>Outcome</strong>
-            </h1>
-            <div className="hero-body">
-                <div className="container">
-                    <div className="columns is-centered">
-                        <div className="column">
-                            <form onSubmit={handleSubmit} className="box">
-                                <p className="has-text-center">{msg}</p>
-                                <div className="field mt-5">
-                                    <label className="label">Outcome Name</label>
-                                    <div className="control">
-                                        <input
-                                            className="input"
-                                            id="outcomeName"
-                                            type="text"
-                                            name="outcomeName"
-                                            placeholder="Masukkan nama pengeluaran Anda"
-                                            value={formData.outcomeName}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
+        <div className="card flex-fill">
+            <div className="card-header">
+                <h5 className="card-title mb-0">Outcome</h5>
+            </div>
+            <div className="row justify-content-center">
+                <div className="col-12">
+                    <form onSubmit={handleSubmit} className="box">
+                        <p className="has-text-center">{msg}</p>
+                        <div className="row">
+                            <div className="col-md-5">
+                                <div className="control">
+                                    <input
+                                        className="input"
+                                        id="outcomeName"
+                                        type="text"
+                                        name="outcomeName"
+                                        placeholder="Nama atau Keterangan Pengeluaran"
+                                        value={formData.outcomeName}
+                                        onChange={handleChange}
+                                    />
                                 </div>
-                                <div className="field mt-5">
-                                    <label className="label">Nominal</label>
-                                    <div className="control">
-                                        <input
-                                            className="input"
-                                            id="amount"
-                                            type="number"
-                                            name="amount"
-                                            placeholder="Masukkan nominal pengeluaran"
-                                            value={formData.amount}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="control">
+                                    <input
+                                        className="input"
+                                        id="amount"
+                                        type="number"
+                                        name="amount"
+                                        placeholder="Nominal Pengeluaran"
+                                        value={formData.amount}
+                                        onChange={handleChange}
+                                    />
                                 </div>
-                                <div className="field mt-5">
-                                    <label className="label">Tanggal Pengeluaran</label>
-                                    <div className="control">
+                            </div>
+                            <div className="col-md-3">
+                                <div className="control row">
+                                    <div className="col-10">
                                         <input
                                             className="input"
                                             id="date"
@@ -121,72 +119,77 @@ export default function OutcomeForm() {
                                             onChange={handleChange}
                                         />
                                     </div>
-                                </div>
-                                <div className="field mt-5">
-                                    <label className="label">Budget Rule</label>
-                                    <div className="control">
-                                        <select
-                                            className="input"
-                                            id="outcomeType"
-                                            name="outcomeType"
-                                            value={formData.outcomeType}
-                                            onChange={handleChange}
-                                        >
-                                            <option value="Pilih budget rule">Pilih budget rule</option>
-                                            {budgetRules.map((budgetRule) => (
-                                                <option key={budgetRule.id} value={budgetRule.id}>
-                                                    {budgetRule.name}
-                                                </option>
-                                            ))}
-                                        </select>
+                                    <div className="col-2 d-flex align-items-center">
+                                        <BiSolidHelpCircle 
+                                            style={{ marginLeft: -10 }}
+                                            title="Tanggal Pengeluaran"
+                                        />
                                     </div>
                                 </div>
-                                <div className="field mt-5">
-                                    <label className="label">Kategori</label>
-                                    <div className="control">
-                                        <select
-                                            className="input"
-                                            id="category"
-                                            name="category"
-                                            value={formData.category}
-                                            onChange={handleChange}
-                                        >
-                                            <option value="Pilih kategori">Pilih kategori</option>
-                                            {categories.map((category) => (
-                                                <option key={category.id} value={category.id}>
-                                                    {category.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="field mt-5">
-                                    <label className="label">Wallet</label>
-                                    <div className="control">
-                                        <select
-                                            className="input"
-                                            id="wallet"
-                                            name="wallet"
-                                            value={formData.wallet}
-                                            onChange={handleChange}
-                                        >
-                                            <option value="Pilih wallet">Pilih wallet</option>
-                                            {wallets.map((wallet) => (
-                                                <option key={wallet.id} value={wallet.id}>
-                                                    {wallet.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="field mt-5">
-                                    <button className="container button is-success d-flex justify-content-center align-items-center">Tambahkan</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                        <div className="row mt-5">
+                            <div className="col-4">
+                                <div className="control">
+                                    <select
+                                        className="input"
+                                        id="outcomeType"
+                                        name="outcomeType"
+                                        value={formData.outcomeType}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="Budget Rule">Pilih Budget Rule</option>
+                                        {budgetRules.map((budgetRule) => (
+                                            <option key={budgetRule.id} value={budgetRule.id}>
+                                                {budgetRule.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="col-4">
+                                <div className="control">
+                                    <select
+                                        className="input"
+                                        id="category"
+                                        name="category"
+                                        value={formData.category}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="Pilih kategori">Pilih Kategori</option>
+                                        {categories.map((category) => (
+                                            <option key={category.id} value={category.id}>
+                                                {category.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="col-4">
+                                <div className="control">
+                                    <select
+                                        className="input"
+                                        id="wallet"
+                                        name="wallet"
+                                        value={formData.wallet}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="Pilih wallet">Pilih Wallet</option>
+                                        {wallets.map((wallet) => (
+                                            <option key={wallet.id} value={wallet.id}>
+                                                {wallet.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="field mt-5 d-flex justify-content-end">
+                            <button className="btn btn-success">Tambahkan</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </section>
+        </div>
     )
 }
