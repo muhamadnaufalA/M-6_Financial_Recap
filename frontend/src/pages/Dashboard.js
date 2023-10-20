@@ -9,10 +9,14 @@ function Dashboard() {
 	const UserId = Cookies.get("userId");
 	const [recap, setRecap] = useState([]);
 	const [monthlyRecap, setMonthlyRecap] = useState([]);
+	const [budgetRules, setBudgetRules] = useState([]);
+	const [budgetRulesActual, setBudgetRulesActual] = useState([]);
 
 	useEffect(()=>{
 		getListRecapFunc();
 		getRecapByMonth(); 
+		getBudgetRulesTarget();
+		getBudgetRulesActual();
 	}, []);
 
 	const getListRecapFunc = async () =>{
@@ -24,6 +28,21 @@ function Dashboard() {
         const response = await axios.get(`http://localhost:5000/users/${UserId}/recap/month`);
         setMonthlyRecap(response.data);
     }
+
+	const getBudgetRulesTarget = async () =>{
+		const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
+		setBudgetRules(response.data);
+	}
+
+	const getBudgetRulesActual = async () =>{
+		const response = await axios.get(`http://localhost:5000/users/${UserId}/report`);
+		setBudgetRulesActual(response.data);
+	}
+
+	let total = 0;
+	budgetRulesActual.map((budgetRuleActual) => (
+		total = total + parseInt(budgetRuleActual.totalPengeluaran)
+	));
 
 	// // Konfigurasi grafik
 	// const optionsTarget = {
@@ -95,6 +114,53 @@ function Dashboard() {
 	</h1>
 
 	<div className="row">
+		<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+			<div className="card flex-fill">
+				<div className="card-header">
+					<h5 className="card-title mb-0">Budget Rules</h5>
+				</div>
+				<table className="table table-hover my-0">
+					<thead>
+						<tr>
+							<th>Budget Rule</th>
+							<th>Percentage</th>
+						</tr>
+					</thead>
+					<tbody>
+						{budgetRules.map((budgetRule) => (
+							<tr key={budgetRule.id}>
+								<td className="d-none d-md-table-cell">{budgetRule.name}</td>
+								<td className="d-none d-md-table-cell">{budgetRule.percentage}%</td>
+							</tr>
+                        ))}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+			<div className="card flex-fill">
+				<div className="card-header">
+					<h5 className="card-title mb-0">Budget Rules Actual</h5>
+				</div>
+				<table className="table table-hover my-0">
+					<thead>
+						<tr>
+							<th>Budget Rule</th>
+							<th>Percentage</th>
+						</tr>
+					</thead>
+					<tbody>
+						{budgetRulesActual.map((budgetRuleActual) => (
+							<tr key={budgetRuleActual.id}>
+								<td className="d-none d-md-table-cell">{budgetRuleActual.name}</td>
+								<td className="d-none d-md-table-cell">{(budgetRuleActual.totalPengeluaran / total * 100).toFixed(2)}%</td>
+							</tr>
+                        ))}
+					</tbody>
+				</table>
+			</div>
+		</div>
 
 		<div className="col-12 col-lg-12 col-xxl-12 d-flex">
 			<div className="card flex-fill">
