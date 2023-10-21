@@ -39,11 +39,6 @@ function Dashboard() {
 		setBudgetRulesActual(response.data);
 	}
 
-	let total = 0;
-	budgetRulesActual.map((budgetRuleActual) => (
-		total = total + parseInt(budgetRuleActual.totalPengeluaran)
-	));
-
 	// // Konfigurasi grafik
 	// const optionsTarget = {
 	// 	chart: {
@@ -147,6 +142,7 @@ function Dashboard() {
 					<thead>
 						<tr>
 							<th>Budget Rule</th>
+							<th>Total Pengeluaran</th>
 							<th>Percentage</th>
 						</tr>
 					</thead>
@@ -154,7 +150,9 @@ function Dashboard() {
 						{budgetRulesActual.map((budgetRuleActual) => (
 							<tr key={budgetRuleActual.id}>
 								<td className="d-none d-md-table-cell">{budgetRuleActual.name}</td>
-								<td className="d-none d-md-table-cell">{(budgetRuleActual.totalPengeluaran / total * 100).toFixed(2)}%</td>
+								<td className="d-none d-md-table-cell">Rp{parseInt(budgetRuleActual.totalPengeluaran).toLocaleString('id-ID')}</td>
+								{/* <td className="d-none d-md-table-cell">{(budgetRuleActual.totalPengeluaran / totalSaldoWallet * 100).toFixed(2)}%</td> */}
+								<td className="d-none d-md-table-cell">... %</td>
 							</tr>
                         ))}
 					</tbody>
@@ -220,7 +218,7 @@ function Dashboard() {
 								<td className="d-none d-xl-table-cell">{l.keterangan}</td>
 								<td className="d-none d-md-table-cell">{l.budgetrule}</td>
 								<td className="d-none d-md-table-cell">{l.category}</td>
-								<td className="d-none d-xl-table-cell"><span className={l.id_income != "-" ? "badge bg-success" : "badge bg-danger"}>Rp{l.balance ? l.balance.toLocaleString('id-ID') : l.nominal.toLocaleString('id-ID')}</span></td>
+								<td className="d-none d-xl-table-cell"><span className={l.id_income !== "-" ? "badge bg-success" : "badge bg-danger"}>Rp{l.balance ? l.balance.toLocaleString('id-ID') : l.nominal.toLocaleString('id-ID')}</span></td>
 								<td className="d-none d-md-table-cell">{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
 							</tr>
                         ))}

@@ -42,8 +42,10 @@ export default function OutcomeForm() {
             });
             window.location.reload();
         } catch (error) {
-            if(error.response.data.status == 400) {
-                setMsg("Saldo Anda tidak cukup! Kerja dulu!");
+            if(error.response.data.status == 422) {
+                setMsg(error.response.data.message);
+            } else if(error.response.data.status == 400) {
+                setMsg(error.response.data.message);
             }
         }
     };
@@ -90,6 +92,7 @@ export default function OutcomeForm() {
                                         placeholder="Nama atau Keterangan Pengeluaran"
                                         value={formData.outcomeName}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </div>
                             </div>
@@ -104,6 +107,7 @@ export default function OutcomeForm() {
                                         placeholder="Nominal Pengeluaran"
                                         value={formData.amount}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </div>
                             </div>
@@ -117,6 +121,7 @@ export default function OutcomeForm() {
                                             name="date"
                                             value={formData.date}
                                             onChange={handleChange}
+                                            required
                                         />
                                     </div>
                                     <div className="col-2 d-flex align-items-center">
@@ -137,6 +142,7 @@ export default function OutcomeForm() {
                                         name="outcomeType"
                                         value={formData.outcomeType}
                                         onChange={handleChange}
+                                        required
                                     >
                                         <option value="Budget Rule">Pilih Budget Rule</option>
                                         {budgetRules.map((budgetRule) => (
@@ -155,6 +161,7 @@ export default function OutcomeForm() {
                                         name="category"
                                         value={formData.category}
                                         onChange={handleChange}
+                                        required
                                     >
                                         <option value="Pilih kategori">Pilih Kategori</option>
                                         {categories.map((category) => (
@@ -173,6 +180,7 @@ export default function OutcomeForm() {
                                         name="wallet"
                                         value={formData.wallet}
                                         onChange={handleChange}
+                                        required
                                     >
                                         <option value="Pilih wallet">Pilih Wallet</option>
                                         {wallets.map((wallet) => (
