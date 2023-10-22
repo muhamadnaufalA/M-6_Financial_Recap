@@ -144,7 +144,7 @@ export default function OutcomeForm() {
                                         onChange={handleChange}
                                         required
                                     >
-                                        <option value="Budget Rule">Pilih Budget Rule</option>
+                                        <option value={0}>Pilih Budget Rule</option>
                                         {budgetRules.map((budgetRule) => (
                                             <option key={budgetRule.id} value={budgetRule.id}>
                                                 {budgetRule.name}
@@ -163,7 +163,7 @@ export default function OutcomeForm() {
                                         onChange={handleChange}
                                         required
                                     >
-                                        <option value="Pilih kategori">Pilih Kategori</option>
+                                        <option value={0}>Pilih Kategori</option>
                                         {categories.map((category) => (
                                             <option key={category.id} value={category.id}>
                                                 {category.name}
@@ -182,7 +182,7 @@ export default function OutcomeForm() {
                                         onChange={handleChange}
                                         required
                                     >
-                                        <option value="Pilih wallet">Pilih Wallet</option>
+                                        <option value={0}>Pilih Wallet</option>
                                         {wallets.map((wallet) => (
                                             <option key={wallet.id} value={wallet.id}>
                                                 {wallet.name}

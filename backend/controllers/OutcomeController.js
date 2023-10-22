@@ -26,6 +26,11 @@ export const createOutcome = async(req, res) => {
                 status: 400,
                 message: "Data yang dikirimkan tidak lengkap. Harap isi semua bidang yang diperlukan."
             });
+        } else if(req.body.budgetruleId == 0 || req.body.categoryId == 0 || req.body.walletId == 0) {
+            res.status(400).json({
+                status: 400,
+                message: "Data yang dikirimkan tidak lengkap. Harap isi semua bidang yang diperlukan."
+            })
         } else if (wallet.balance >= req.body.nominal) {
             req.body.userId = req.params.id;
             await Outcome.create(req.body);
