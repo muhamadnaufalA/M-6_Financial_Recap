@@ -4,6 +4,7 @@ import { BiSolidLogOut } from 'react-icons/bi';
 import { BiSolidCategory } from 'react-icons/bi';
 import { BiWallet } from 'react-icons/bi';
 import { BiBarChartAlt2 } from 'react-icons/bi';
+import { BiAbacus } from 'react-icons/bi';
 
 
 function Sidebar() {
@@ -47,6 +48,17 @@ function Sidebar() {
               </i>
               <span className="align-middle">
                 Outcome
+              </span>
+            </a>
+          </li>
+
+          <li className={`sidebar-item ${currentPath === '/budgetrule' ? 'active' : ''}`}>
+            <a className="sidebar-link" href="/budgetrule">
+              <i className="align-middle">
+                <BiAbacus style={{ fontSize: '24px', marginRight: '5px', verticalAlign: 'middle', paddingLeft: '0px' }} />
+              </i>
+              <span className="align-middle">
+                Budget Rule
               </span>
             </a>
           </li>

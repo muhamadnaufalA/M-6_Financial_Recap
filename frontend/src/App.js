@@ -10,6 +10,7 @@ import EditCategory from "./pages/EditCategory";
 import Wallet from "./pages/Wallet";
 import EditWallet from "./pages/EditWallet";
 import EditOutcome from "./pages/EditOutcome";
+import BudgetRule from "./pages/BudgetRule";
 
 import Dashboard from "./pages/Dashboard";
 import Sidebar from "./components/Sidebar";
@@ -105,6 +106,22 @@ function App() {
                 </main>
                 <Footer/>
               </div>
+          </div>
+        </Route>
+
+        {/* Budget Rule Page */}
+        <Route exact path="/budgetrule">
+          <div className="wrapper">
+            <Sidebar/>
+            <div className="main">
+              <Navbar/>
+              <main className="content">
+                  <div className="container-fluid p-0">
+                    <BudgetRule/>
+                  </div>
+              </main>
+              <Footer/>
+            </div>
           </div>
         </Route>
 
