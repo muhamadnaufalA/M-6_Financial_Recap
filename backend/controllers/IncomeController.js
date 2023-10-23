@@ -4,7 +4,6 @@ import Wallet from "../models/WalletModel.js"; // Import model Wallet
 export const createIncome = async(req, res) => {
     try {
         req.body.userId = req.params.id;
-        console.log(req.params.tanggal_pemasukan);
         const response = await Income.create(req.body);
         res.status(201).json({
             message: "Income created",

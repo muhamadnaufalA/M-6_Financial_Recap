@@ -60,6 +60,8 @@ const Income = () => {
             icon: 'error',
             title: 'Income Failed!',
             text: respon.data.message,
+            allowOutsideClick: false, // Prevent closing Swal on outside click
+            confirmButtonText: 'OK',
           });
         }
 
