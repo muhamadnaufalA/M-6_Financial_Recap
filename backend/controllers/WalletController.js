@@ -69,15 +69,31 @@ export const updateWallet = async(req, res) => {
     }
 }
 
-export const deleteWallet = async(req, res) => {
+export const deleteWallet = async (req, res) => {
     try {
+        const wallet = await Wallet.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        if (!wallet) {
+            return res.status(404).json({ msg: "Wallet not found" });
+        }
+
+        if (wallet.balance > 0) {
+            return res.status(400).json({ msg: "Cannot delete wallet with a balance" });
+        }
+
         await Wallet.destroy({
             where: {
                 id: req.params.id
             }
-        })
-        res.status(200).json( { message: "Wallet deleted" } );
-    } catch(error) {
+        });
+
+        return res.status(200).json({ message: "Wallet deleted" });
+    } catch (error) {
         console.log(error.message);
+        return res.status(500).json({ msg: "Internal server error" });
     }
 }
