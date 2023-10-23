@@ -8,11 +8,15 @@ function Dashboard() {
 
 	const UserId = Cookies.get("userId");
 	const [recap, setRecap] = useState([]);
-	const [reports, setReport] = useState([]);
+	const [monthlyRecap, setMonthlyRecap] = useState([]);
+	const [budgetRules, setBudgetRules] = useState([]);
+	const [budgetRulesActual, setBudgetRulesActual] = useState([]);
 
 	useEffect(()=>{
 		getListRecapFunc();
-		getReportFunc(); 
+		getRecapByMonth(); 
+		getBudgetRulesTarget();
+		getBudgetRulesActual();
 	}, []);
 
 	const getListRecapFunc = async () =>{
@@ -20,10 +24,20 @@ function Dashboard() {
 		setRecap(response.data);
 	}
 
-    const getReportFunc = async () =>{
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/report`);
-        setReport(response.data);
+    const getRecapByMonth = async () =>{
+        const response = await axios.get(`http://localhost:5000/users/${UserId}/recap/month`);
+        setMonthlyRecap(response.data);
     }
+
+	const getBudgetRulesTarget = async () =>{
+		const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
+		setBudgetRules(response.data);
+	}
+
+	const getBudgetRulesActual = async () =>{
+		const response = await axios.get(`http://localhost:5000/users/${UserId}/report`);
+		setBudgetRulesActual(response.data);
+	}
 
 	// // Konfigurasi grafik
 	// const optionsTarget = {
@@ -95,11 +109,60 @@ function Dashboard() {
 	</h1>
 
 	<div className="row">
+		<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+			<div className="card flex-fill">
+				<div className="card-header">
+					<h5 className="card-title mb-0">Budget Rules</h5>
+				</div>
+				<table className="table table-hover my-0">
+					<thead>
+						<tr>
+							<th>Budget Rule</th>
+							<th>Percentage</th>
+						</tr>
+					</thead>
+					<tbody>
+						{budgetRules.map((budgetRule) => (
+							<tr key={budgetRule.id}>
+								<td className="d-none d-md-table-cell">{budgetRule.name}</td>
+								<td className="d-none d-md-table-cell">{budgetRule.percentage}%</td>
+							</tr>
+                        ))}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+			<div className="card flex-fill">
+				<div className="card-header">
+					<h5 className="card-title mb-0">Budget Rules Actual</h5>
+				</div>
+				<table className="table table-hover my-0">
+					<thead>
+						<tr>
+							<th>Budget Rule</th>
+							<th>Total Pengeluaran</th>
+							<th>Percentage</th>
+						</tr>
+					</thead>
+					<tbody>
+						{budgetRulesActual.map((budgetRuleActual) => (
+							<tr key={budgetRuleActual.id}>
+								<td className="d-none d-md-table-cell">{budgetRuleActual.name}</td>
+								<td className="d-none d-md-table-cell">Rp{parseInt(budgetRuleActual.totalPengeluaran).toLocaleString('id-ID')}</td>
+								{/* <td className="d-none d-md-table-cell">{(budgetRuleActual.totalPengeluaran / totalSaldoWallet * 100).toFixed(2)}%</td> */}
+								<td className="d-none d-md-table-cell">... %</td>
+							</tr>
+                        ))}
+					</tbody>
+				</table>
+			</div>
+		</div>
 
 		<div className="col-12 col-lg-12 col-xxl-12 d-flex">
 			<div className="card flex-fill">
 				<div className="card-header">
-
 					<h5 className="card-title mb-0">Daily Recap</h5>
 				</div>
 				<table className="table table-hover my-0">
@@ -116,7 +179,7 @@ function Dashboard() {
 							<tr key={recap.id}>
 								<td>{recap.tanggal_pemasukan}</td>
 								<td>{recap.name}</td>
-								<td><span className="badge bg-success">Rp {recap.balance.toLocaleString()}</span></td>
+								<td><span className="badge bg-success">Rp{recap.balance.toLocaleString('id-ID')}</span></td>
 								<td>{recap.wallet ? recap.wallet.name : 'Belum ditentukan'}</td>
 							</tr>
 						))}
@@ -124,7 +187,7 @@ function Dashboard() {
 							<tr key={recap.id}>
 								<td>{recap.tanggal_pengeluaran}</td>
 								<td>{recap.name}</td>
-								<td><span className="badge bg-danger">Rp {recap.nominal.toLocaleString()}</span></td>
+								<td><span className="badge bg-danger">Rp{recap.nominal.toLocaleString('id-ID')}</span></td>
 								<td>{recap.wallet ? recap.wallet.name : 'Belum ditentukan'}</td>
 							</tr>
 						))}
@@ -135,8 +198,7 @@ function Dashboard() {
 		<div className="col-12 col-lg-12 col-xxl-12 d-flex">
 			<div className="card flex-fill">
 				<div className="card-header">
-
-					<h5 className="card-title mb-0">Monthly Report</h5>
+					<h5 className="card-title mb-0">Monthly Recap</h5>
 				</div>
 				<table className="table table-hover my-0">
 					<thead>
@@ -150,13 +212,13 @@ function Dashboard() {
 						</tr>
 					</thead>
 					<tbody>
-						{reports.map((l, index) => (
+						{monthlyRecap.map((l) => (
 							<tr key={l.id}>
 								<td className="d-none d-md-table-cell">{l.tanggal}</td>
 								<td className="d-none d-xl-table-cell">{l.keterangan}</td>
 								<td className="d-none d-md-table-cell">{l.budgetrule}</td>
 								<td className="d-none d-md-table-cell">{l.category}</td>
-								<td className="d-none d-xl-table-cell"><span className={l.id_income != "-" ? "badge bg-success" : "badge bg-danger"}>Rp{l.balance ? l.balance.toLocaleString() : l.nominal.toLocaleString()}</span></td>
+								<td className="d-none d-xl-table-cell"><span className={l.id_income !== "-" ? "badge bg-success" : "badge bg-danger"}>Rp{l.balance ? l.balance.toLocaleString('id-ID') : l.nominal.toLocaleString('id-ID')}</span></td>
 								<td className="d-none d-md-table-cell">{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
 							</tr>
                         ))}

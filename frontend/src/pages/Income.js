@@ -161,7 +161,7 @@ const Income = () => {
                     <tr key={income.id}>
                       <td>{index + 1}</td>
                       <td>{income.name}</td>
-                      <td>Rp {income.balance.toLocaleString()}</td>
+                      <td>Rp{income.balance.toLocaleString('id-ID')}</td>
                       <td>{income.tanggal_pemasukan}</td>
                       <td>{income.wallet ? income.wallet.name : 'Belum ditentukan'}</td>
                       <td>

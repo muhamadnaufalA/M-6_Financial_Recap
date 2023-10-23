@@ -4,12 +4,45 @@ import Outcome from "../models/OutcomeModel.js";
 import Wallet from "../models/WalletModel.js";
 
 export const createOutcome = async(req, res) => {
-    try {
-        req.body.userId = req.params.id;
-        await Outcome.create(req.body);
-        res.status(201).json({
-            message: "Outcome created"
+
+    let wallet;
+    
+    if(req.body.walletId) {
+        wallet = await Wallet.findOne({
+            where: {
+                id: req.body.walletId,
+            },
+            attributes: [
+                'id',
+                'name', 
+                'balance'
+            ],
         });
+    }
+
+    try {
+        if (!req.body.name || !req.body.nominal || !req.body.tanggal_pengeluaran || !req.body.budgetruleId || !req.body.categoryId || !req.body.walletId) {
+            res.status(400).json({
+                status: 400,
+                message: "Data yang dikirimkan tidak lengkap. Harap isi semua bidang yang diperlukan."
+            });
+        } else if(req.body.budgetruleId == 0 || req.body.categoryId == 0 || req.body.walletId == 0) {
+            res.status(400).json({
+                status: 400,
+                message: "Data yang dikirimkan tidak lengkap. Harap isi semua bidang yang diperlukan."
+            })
+        } else if (wallet.balance >= req.body.nominal) {
+            req.body.userId = req.params.id;
+            await Outcome.create(req.body);
+            res.status(201).json({
+                message: "Outcome created"
+            });
+        } else {
+            res.status(422).json({
+                status: 422,
+                message: "Saldo Anda tidak cukup!"
+            });
+        }
     } catch(error) {
         console.log(error.message);
     }
