@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { useHistory, Link} from 'react-router-dom';
 import { BiEdit } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
+import Swal from "sweetalert2";
 
 const Income = () => {
   const [incomes, setIncome] = useState([]);
@@ -25,8 +26,6 @@ const Income = () => {
     getListWalletFunc(); 
   }, []);
 
-  
-
   const getListWalletFunc = async () =>{
     const response = await axios.get(`http://localhost:5000/users/${UserId}/wallets`);
     setListWallet(response.data);
@@ -40,13 +39,30 @@ const Income = () => {
   const addIncomeFunc = async(e) => {
     e.preventDefault();
     try {
-        console.log(idWallet)
-        await axios.post(`http://localhost:5000/users/${UserId}/incomes`,{
+        const respon = await axios.post(`http://localhost:5000/users/${UserId}/incomes`,{
             name: name,
             balance: parseInt(balance),
             tanggal_pemasukan: tanggalPemasukan,
             walletId: parseInt(idWallet)
         });
+
+        if (respon.status === 201) {
+          await Swal.fire({
+            icon: 'success',
+            title: 'Income Added!',
+            text: respon.data.message,
+            allowOutsideClick: false, // Prevent closing Swal on outside click
+            confirmButtonText: 'OK',
+          });
+  
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Income Failed!',
+            text: respon.data.message,
+          });
+        }
+
         window.location.reload();
     } catch (error) {
         if(error.response){
@@ -57,7 +73,25 @@ const Income = () => {
 
   const deleteIncome = async (id) => {
     try{
-        await axios.delete(`http://localhost:5000/incomes/${id}`);
+        const respon = await axios.delete(`http://localhost:5000/incomes/${id}`);
+
+        if (respon.status === 200) {
+          await Swal.fire({
+            icon: 'success',
+            title: 'Income Deleted!',
+            text: respon.data.message,
+            allowOutsideClick: false, // Prevent closing Swal on outside click
+            confirmButtonText: 'OK',
+          });
+  
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Income Failed Deleted!',
+            text: respon.data.message,
+          });
+        }
+        
         getListIncomeFunc();
     } catch (error) {
         console.log(error);
@@ -181,45 +215,6 @@ const Income = () => {
             </div>
         </div>
       </div>
-      {/* <div className="hero has-background-white is-fullwidth">
-        <div className="columns mt-5 is-centered">
-          <div className="column is-three-quarters">
-            <table className="table is-striped is-fullwidth">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Name</th>
-                  <th>Balance</th>
-                  <th>Tanggal Pemasukan</th>
-                  <th>Wallet</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {incomes.map((income, index) => (
-                  <tr key={income.id}>
-                    <td>{index + 1}</td>
-                    <td>{income.name}</td>
-                    <td>Rp {income.balance.toLocaleString()}</td>
-                    <td>{income.tanggal_pemasukan}</td>
-                    <td>{income.wallet ? income.wallet.name : 'Belum ditentukan'}</td>
-                    <td>
-                      <div className="buttons">
-                        <Link to={`editIncome/${income.id}`} className="button is-small is-info">
-                          <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-                        </Link>
-                        <button onClick={() => deleteIncome(income.id)} className="button is-small is-danger">
-                          <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div> */}
     </section>
   );
   

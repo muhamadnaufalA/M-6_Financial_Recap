@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useHistory, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import Swal from "sweetalert2";
 
 const EditIncome = () => {
   const [name, setName] = useState("");
@@ -32,12 +33,30 @@ const EditIncome = () => {
       idWallet = temp;
     }
     try{
-        await axios.patch(`http://localhost:5000/incomes/${id}`, {
+        const respon = await axios.patch(`http://localhost:5000/incomes/${id}`, {
             name,
             balance: parseInt(balance),
             tanggal_pemasukan,
             walletId: parseInt(idWallet),
         });
+
+        if (respon.status === 200) {
+          await Swal.fire({
+            icon: 'success',
+            title: 'Income Updated!',
+            text: respon.data.message,
+            allowOutsideClick: false, // Prevent closing Swal on outside click
+            confirmButtonText: 'OK',
+          });
+  
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Income Failed Updated!',
+            text: respon.data.message,
+          });
+        }
+
         history.push("/income");
     }catch (error){
         console.log(error);
