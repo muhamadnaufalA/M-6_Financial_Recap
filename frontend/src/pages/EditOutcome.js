@@ -83,6 +83,11 @@ const EditOutcome = () => {
       temp2 = setBudgetRuleId(response.data.budgetruleId);
       temp3 = setCategoryId(response.data.categoryId);
     }
+
+    const formatRupiah = (angka) => {
+      const numberFormat = new Intl.NumberFormat("id-ID");
+      return `Rp. ${numberFormat.format(angka)}`;
+    };
   
     return (
       <section className="hero has-background-white  is-fullwidth">
@@ -109,11 +114,13 @@ const EditOutcome = () => {
                           <label className="label">Nominal</label>
                           <div className="control">
                               <input 
-                              type="number" 
+                              type="text" 
                               className="input"                         
-                              value={nominal} 
-                              onChange={(e)=> setNominal(e.target.value)}
-                              placeholder='Contoh: 100000'/>
+                              value={formatRupiah(nominal)}
+                              onChange={(e)=> {
+                                const value = e.target.value.replace(/\D/g, ''); // Hapus karakter selain angka saat mengambil input
+                                setNominal(value);
+                              }}/>
                           </div>
                       </div>
                       <div className="field">

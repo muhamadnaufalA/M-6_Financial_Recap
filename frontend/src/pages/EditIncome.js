@@ -73,6 +73,11 @@ const EditIncome = () => {
     temp = setWalletId(response.data.walletId);
   }
 
+  const formatRupiah = (angka) => {
+    const numberFormat = new Intl.NumberFormat("id-ID");
+    return `Rp. ${numberFormat.format(angka)}`;
+  };
+
   return (
     <section className="hero has-background-white  is-fullwidth">
         <h1 className="h2 mb-3 text-center">
@@ -98,11 +103,10 @@ const EditIncome = () => {
                         <label className="label">Balance</label>
                         <div className="control">
                             <input 
-                            type="number" 
+                            type="text" 
                             className="input"                         
-                            value={balance} 
-                            onChange={(e)=> setBalance(e.target.value)}
-                            placeholder='Contoh: 100000'/>
+                            value={formatRupiah(balance)} 
+                            onChange={(e)=> setBalance(e.target.value.replace(/\D/g, ''))}/>
                         </div>
                     </div>
                     <div className="field">

@@ -54,6 +54,11 @@ const EditCategory = () => {
         setListBudgetRule(response.data);
     }
 
+    const formatRupiah = (angka) => {
+        const numberFormat = new Intl.NumberFormat("id-ID");
+        return `Rp. ${numberFormat.format(angka)}`;
+    };
+
     return (
         <div className="columns mt-5 is-centered">
             <div className="column is-half">
@@ -73,11 +78,10 @@ const EditCategory = () => {
                         <label className="label">Budget</label>
                         <div className="control">
                             <input 
-                            type="number" 
+                            type="text" 
                             className="input"                         
-                            value={budget} 
-                            onChange={(e)=> setBudget(e.target.value)}
-                            placeholder='Contoh: 100000'/>
+                            value={formatRupiah(budget)}
+                            onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}/>
                         </div>
                     </div>
                     <div className="field mt-5">

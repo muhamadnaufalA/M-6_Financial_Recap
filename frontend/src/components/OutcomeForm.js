@@ -71,6 +71,11 @@ export default function OutcomeForm() {
         setListCategory(response.data);
     }
 
+    const formatRupiah = (angka) => {
+        const numberFormat = new Intl.NumberFormat("id-ID");
+        return `Rp. ${numberFormat.format(angka)}`;
+      };
+
     return (
         <div className="card flex-fill">
             <div className="card-header">
@@ -102,11 +107,17 @@ export default function OutcomeForm() {
                                         className="input"
                                         style={{ backgroundColor: '#f7f7f7' }}
                                         id="amount"
-                                        type="number"
+                                        type="text"
                                         name="amount"
                                         placeholder="Nominal Pengeluaran"
-                                        value={formData.amount}
-                                        onChange={handleChange}
+                                        value={formatRupiah(formData.amount)}
+                                        onChange={(e) => {
+                                            const value = e.target.value.replace(/\D/g, ''); // Hapus karakter selain angka saat mengambil input
+                                            setFormData({
+                                                ...formData,
+                                                amount: value,
+                                            });
+                                        }}
                                         required
                                     />
                                 </div>

@@ -98,6 +98,11 @@ const Income = () => {
     }
   }
 
+  const formatRupiah = (angka) => {
+    const numberFormat = new Intl.NumberFormat("id-ID");
+    return `Rp. ${numberFormat.format(angka)}`;
+  };
+
   return (
     <section className="hero has-background-white is-fullwidth">
       <h1 className="h2 mb-3 mt-3 text-center">
@@ -125,11 +130,10 @@ const Income = () => {
                   <label className="label">Balance</label>
                   <div className="control">
                     <input
-                      type="number"
+                      type="text"
                       className="input"
-                      placeholder="Contoh: 100000"
-                      value={balance}
-                      onChange={(e) => setBalance(e.target.value)}
+                      value={formatRupiah(balance)}
+                      onChange={(e) => setBalance(e.target.value.replace(/\D/g, ''))}
                     />
                   </div>
                 </div>
@@ -195,7 +199,7 @@ const Income = () => {
                     <tr key={income.id}>
                       <td>{index + 1}</td>
                       <td>{income.name}</td>
-                      <td>Rp{income.balance.toLocaleString('id-ID')}</td>
+                      <td>{formatRupiah(income.balance)}</td>
                       <td>{income.tanggal_pemasukan}</td>
                       <td>{income.wallet ? income.wallet.name : 'Belum ditentukan'}</td>
                       <td>

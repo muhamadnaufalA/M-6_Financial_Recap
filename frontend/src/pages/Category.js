@@ -91,11 +91,10 @@ const Category = () => {
                   <label className="label">Budget</label>
                   <div className="control">
                     <input
-                      type="number"
+                      type="text"
                       className="input"
-                      placeholder="Contoh: 100000"
-                      value={budget}
-                      onChange={(e) => setBudget(e.target.value)}
+                      value={formatRupiah(budget)}
+                      onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}
                     />
                   </div>
                 </div>

@@ -47,6 +47,10 @@ const Wallet = ()=> {
         }
     }
   }
+  const formatRupiah = (angka) => {
+    const numberFormat = new Intl.NumberFormat("id-ID");
+    return `Rp. ${numberFormat.format(angka)}`;
+  };
     return (
         <section className="hero has-background-white is-fullwidth">
         <h1 className="h2 mt-3 mb-3 text-center">
@@ -99,7 +103,7 @@ const Wallet = ()=> {
                     <tr key={wallet.id}>
                       <td>{index + 1}</td>
                       <td>{wallet.name}</td>
-                      <td>Rp {wallet.balance.toLocaleString()}</td>
+                      <td>{formatRupiah(wallet.balance)}</td>
                       <td>
                         <div className="buttons">
                           <Link to={`editWallet/${wallet.id}`} className="button is-small is-info">

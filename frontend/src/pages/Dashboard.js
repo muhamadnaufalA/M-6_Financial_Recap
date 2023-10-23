@@ -39,6 +39,11 @@ function Dashboard() {
 		setBudgetRulesActual(response.data);
 	}
 
+	const formatRupiah = (angka) => {
+        const numberFormat = new Intl.NumberFormat("id-ID");
+        return `Rp. ${numberFormat.format(angka)}`;
+      };
+
 	// // Konfigurasi grafik
 	// const optionsTarget = {
 	// 	chart: {
@@ -150,7 +155,7 @@ function Dashboard() {
 						{budgetRulesActual.map((budgetRuleActual) => (
 							<tr key={budgetRuleActual.id}>
 								<td className="d-none d-md-table-cell">{budgetRuleActual.name}</td>
-								<td className="d-none d-md-table-cell">Rp{parseInt(budgetRuleActual.totalPengeluaran).toLocaleString('id-ID')}</td>
+								<td className="d-none d-md-table-cell">{formatRupiah(budgetRuleActual.totalPengeluaran)}</td>
 								{/* <td className="d-none d-md-table-cell">{(budgetRuleActual.totalPengeluaran / totalSaldoWallet * 100).toFixed(2)}%</td> */}
 								<td className="d-none d-md-table-cell">... %</td>
 							</tr>
@@ -179,7 +184,7 @@ function Dashboard() {
 							<tr key={recap.id}>
 								<td>{recap.tanggal_pemasukan}</td>
 								<td>{recap.name}</td>
-								<td><span className="badge bg-success">Rp{recap.balance.toLocaleString('id-ID')}</span></td>
+								<td><span className="badge bg-success">{formatRupiah(recap.balance)}</span></td>
 								<td>{recap.wallet ? recap.wallet.name : 'Belum ditentukan'}</td>
 							</tr>
 						))}
@@ -187,7 +192,7 @@ function Dashboard() {
 							<tr key={recap.id}>
 								<td>{recap.tanggal_pengeluaran}</td>
 								<td>{recap.name}</td>
-								<td><span className="badge bg-danger">Rp{recap.nominal.toLocaleString('id-ID')}</span></td>
+								<td><span className="badge bg-danger">{formatRupiah(recap.nominal)}</span></td>
 								<td>{recap.wallet ? recap.wallet.name : 'Belum ditentukan'}</td>
 							</tr>
 						))}
@@ -218,7 +223,7 @@ function Dashboard() {
 								<td className="d-none d-xl-table-cell">{l.keterangan}</td>
 								<td className="d-none d-md-table-cell">{l.budgetrule}</td>
 								<td className="d-none d-md-table-cell">{l.category}</td>
-								<td className="d-none d-xl-table-cell"><span className={l.id_income !== "-" ? "badge bg-success" : "badge bg-danger"}>Rp{l.balance ? l.balance.toLocaleString('id-ID') : l.nominal.toLocaleString('id-ID')}</span></td>
+								<td className="d-none d-xl-table-cell"><span className={l.id_income !== "-" ? "badge bg-success" : "badge bg-danger"}>{formatRupiah(l.balance ? l.balance : l.nominal)}</span></td>
 								<td className="d-none d-md-table-cell">{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
 							</tr>
                         ))}
