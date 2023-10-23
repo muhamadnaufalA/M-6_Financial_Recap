@@ -55,20 +55,25 @@ const Income = () => {
             confirmButtonText: 'OK',
           });
   
-        } else {
+        } 
+        window.location.reload();
+    } catch (error) {
+        if(error.response.status === 400){
+            Swal.fire({
+              icon: 'error',
+              title: 'Invalid Input!',
+              allowOutsideClick: false, // Prevent closing Swal on outside click
+              confirmButtonText: 'OK',
+            });
+            setMsg(error.response.data.msg);
+        }else{
           Swal.fire({
             icon: 'error',
-            title: 'Income Failed!',
-            text: respon.data.message,
+            title: 'Input Income Failed!',
             allowOutsideClick: false, // Prevent closing Swal on outside click
             confirmButtonText: 'OK',
           });
-        }
-
-        window.location.reload();
-    } catch (error) {
-        if(error.response){
-            setMsg(error.response.data.msg);
+          setMsg(error.response.data.msg);
         }
     }
   }
@@ -86,16 +91,15 @@ const Income = () => {
             confirmButtonText: 'OK',
           });
   
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Income Failed Deleted!',
-            text: respon.data.message,
-          });
         }
-        
         getListIncomeFunc();
     } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Income Failed Deleted!',
+          allowOutsideClick: false, // Prevent closing Swal on outside click
+          confirmButtonText: 'OK',
+        });
         console.log(error);
     }
   }

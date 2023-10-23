@@ -49,17 +49,26 @@ const EditIncome = () => {
             confirmButtonText: 'OK',
           });
   
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Income Failed Updated!',
-            text: respon.data.message,
-          });
-        }
-
+        } 
         history.push("/income");
     }catch (error){
+      if(error.response.status === 400){
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Input!',
+          allowOutsideClick: false, // Prevent closing Swal on outside click
+          confirmButtonText: 'OK',
+        });
         console.log(error);
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Income Failed Updated!',
+          allowOutsideClick: false, // Prevent closing Swal on outside click
+          confirmButtonText: 'OK',
+        });
+        console.log(error);
+      }
     }
   };
 
