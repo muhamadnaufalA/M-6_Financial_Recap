@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
 import { BiEdit } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
+import { BiSolidHelpCircle } from "react-icons/bi";
 
 export default function OutcomeTable() {
     const UserId = Cookies.get("userId");
@@ -62,7 +63,14 @@ export default function OutcomeTable() {
         })
         .slice(indexOfFirstItem, indexOfLastItem);
 
-    const totalPages = Math.ceil(outcomes.length / itemsPerPage);
+    const filteredOutcomes = outcomes.filter((outcome) => {
+        const categoryMatch = selectedCategory === "All" || outcome.category?.name === selectedCategory;
+        const budgetRuleMatch = selectedBudgetRule === "All" || outcome.budgetrule?.name === selectedBudgetRule;
+        return categoryMatch && budgetRuleMatch;
+    });
+
+    const totalPages = Math.ceil(filteredOutcomes.length / itemsPerPage);
+    console.log(totalPages)
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPages) {
             setCurrentPage(newPage);
@@ -79,30 +87,47 @@ export default function OutcomeTable() {
 
                 {/* Filter Start */}
                 <div className="d-flex mb-5" style={{ width: "40%" }}>
-                    <select
-                        className="form-control mr-2"
-                        value={selectedBudgetRule}
-                        onChange={(e) => setSelectedBudgetRule(e.target.value)}
-                    >
-                        <option value="All">All Budget Rules</option>
-                        {budgetRules.map((budgetRule) => (
-                            <option key={budgetRule.id} value={budgetRule.name}>
-                                {budgetRule.name}
-                            </option>
-                        ))}
-                    </select>
-                    <select
-                        className="form-control"
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
-                    >
-                        <option value="All">All Categories</option>
-                        {categories.map((category) => (
-                            <option key={category.id} value={category.name}>
-                                {category.name}
-                            </option>
-                        ))}
-                    </select>
+                    <div className="col-5 px-1">
+                        <select
+                            className="form-control mr-2"
+                            value={selectedBudgetRule}
+                            onChange={(e) => setSelectedBudgetRule(e.target.value)}
+                            disabled={currentPage != 1}
+                            title={currentPage !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
+                        >
+                            <option value="All">All Budget Rules</option>
+                            {budgetRules.map((budgetRule) => (
+                                <option key={budgetRule.id} value={budgetRule.name}>
+                                    {budgetRule.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="col-5 px-1">
+                        <select
+                            className="form-control"
+                            value={selectedCategory}
+                            onChange={(e) => setSelectedCategory(e.target.value)}
+                            disabled={currentPage != 1}
+                            title={currentPage !== 1 ? "Kembali ke page awal untuk memilih category" : ""}
+                        >
+                            <option value="All">All Categories</option>
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.name}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="col-2 px-1">
+                        <BiSolidHelpCircle 
+                            style={{  }}
+                            title="Filter hanya aktif ketika berada di page 1"
+                        />
+                    </div>
+                    
+                    
+                    
                 </div>
                 {/* Filter End */}
 
@@ -119,7 +144,7 @@ export default function OutcomeTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentItems.map((outcome, index) => (
+                        {currentItems.map((outcome) => (
                             <tr key={outcome.id}>
                                 <td>{outcome.tanggal_pengeluaran}</td>
                                 <td>{outcome.name}</td>
@@ -148,6 +173,9 @@ export default function OutcomeTable() {
                     >
                         Previous
                     </button>
+                    <div>
+                        Page { currentPage } — { totalPages } Total Pages ({(itemsPerPage * (currentPage-1)) + 1} - {(itemsPerPage * (currentPage-1)) + 5 > outcomes.length ? outcomes.length : (itemsPerPage * (currentPage-1)) + 5} of {outcomes.length})
+                    </div>
                     <button
                         className="button"
                         onClick={() => handlePageChange(currentPage + 1)}
