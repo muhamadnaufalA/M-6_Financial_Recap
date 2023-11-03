@@ -68,9 +68,8 @@ export default function OutcomeTable() {
         const budgetRuleMatch = selectedBudgetRule === "All" || outcome.budgetrule?.name === selectedBudgetRule;
         return categoryMatch && budgetRuleMatch;
     });
-
+    
     const totalPages = Math.ceil(filteredOutcomes.length / itemsPerPage);
-    console.log(totalPages)
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPages) {
             setCurrentPage(newPage);
@@ -92,7 +91,7 @@ export default function OutcomeTable() {
                             className="form-control mr-2"
                             value={selectedBudgetRule}
                             onChange={(e) => setSelectedBudgetRule(e.target.value)}
-                            disabled={currentPage != 1}
+                            disabled={currentPage !== 1}
                             title={currentPage !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
                         >
                             <option value="All">All Budget Rules</option>
@@ -108,7 +107,7 @@ export default function OutcomeTable() {
                             className="form-control"
                             value={selectedCategory}
                             onChange={(e) => setSelectedCategory(e.target.value)}
-                            disabled={currentPage != 1}
+                            disabled={currentPage !== 1}
                             title={currentPage !== 1 ? "Kembali ke page awal untuk memilih category" : ""}
                         >
                             <option value="All">All Categories</option>
@@ -125,9 +124,6 @@ export default function OutcomeTable() {
                             title="Filter hanya aktif ketika berada di page 1"
                         />
                     </div>
-                    
-                    
-                    
                 </div>
                 {/* Filter End */}
 
@@ -174,7 +170,7 @@ export default function OutcomeTable() {
                         Previous
                     </button>
                     <div>
-                        Page { currentPage } — { totalPages } Total Pages ({(itemsPerPage * (currentPage-1)) + 1} - {(itemsPerPage * (currentPage-1)) + 5 > outcomes.length ? outcomes.length : (itemsPerPage * (currentPage-1)) + 5} of {outcomes.length})
+                        Page { currentPage } of { totalPages } Total Pages ({(itemsPerPage * (currentPage-1)) + 1} - {(itemsPerPage * (currentPage-1)) + 5 > filteredOutcomes.length ? filteredOutcomes.length : (itemsPerPage * (currentPage-1)) + 5} of {filteredOutcomes.length})
                     </div>
                     <button
                         className="button"
