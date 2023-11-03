@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { BiEdit } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
@@ -142,7 +143,7 @@ export default function OutcomeTable() {
                     <tbody>
                         {currentItems.map((outcome) => (
                             <tr key={outcome.id}>
-                                <td>{outcome.tanggal_pengeluaran}</td>
+                                <td>{moment(outcome.tanggal_pengeluaran).format('DD-MM-YYYY')}</td>
                                 <td>{outcome.name}</td>
                                 <td>{formatRupiah(outcome.nominal)}</td>
                                 <td>{outcome.budgetrule ? outcome.budgetrule.name : 'Belum ditentukan'}</td>
