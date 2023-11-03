@@ -8,8 +8,7 @@ export const createIncome = async(req, res) => {
 
         if (balance <= 0){
             return res.status(400).json({
-                message : "invalid input balance",
-                data: null
+                message : "invalid input balance"
             });
         }
 

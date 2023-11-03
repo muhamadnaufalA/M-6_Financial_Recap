@@ -61,7 +61,8 @@ const Income = () => {
         if(error.response.status === 400){
             Swal.fire({
               icon: 'error',
-              title: 'Invalid Input!',
+              title: 'Input Failed',
+              text:error.response.data.message,
               allowOutsideClick: false, // Prevent closing Swal on outside click
               confirmButtonText: 'OK',
             });
@@ -69,7 +70,8 @@ const Income = () => {
         }else{
           Swal.fire({
             icon: 'error',
-            title: 'Input Income Failed!',
+            title: 'Input Failed!',
+            text:error.response.data.message,
             allowOutsideClick: false, // Prevent closing Swal on outside click
             confirmButtonText: 'OK',
           });
