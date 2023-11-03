@@ -27,13 +27,15 @@ export default function OutcomeForm() {
         try {
             await axios.post(`http://localhost:5000/users/${UserId}/budgetrule`,{
                 name: formData.budgetRuleName,
-                percentage: formData.percentage
+                percentage: parseInt(formData.percentage)
             });
             window.location.reload();
         } catch (error) {
-            if(error.response.data.status == 422) {
+            if(error.response.status == 422) {
                 setMessage(error.response.data.message);
-            } else if(error.response.data.status == 400) {
+            } else if(error.response.status == 400) {
+                setMessage(error.response.data.message);
+            } else if (error.response.status == 401){
                 setMessage(error.response.data.message);
             }
         }
