@@ -52,21 +52,21 @@ export const getRecap = async(req, res) => {
 
 export const getRecapByMonth = async(req, res) => {
 
-    const today = new Date();
-    const start = new Date(today.getFullYear(), today.getMonth(), 1);
-    const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-    const end = new Date(nextMonth - 1);
+    // const today = new Date();
+    // const start = new Date(today.getFullYear(), today.getMonth(), 1);
+    // const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+    // const end = new Date(nextMonth - 1);
 
     try {
         const incomeResponse = await Income.findAll({
             where: {
-                userId: req.params.id,
-                tanggal_pemasukan : {
-                    [Op.and]: [
-                        { [Op.gte]: start },
-                        { [Op.lte]: end }
-                    ]
-                }
+                userId: req.params.id
+                // tanggal_pemasukan : {
+                //     [Op.and]: [
+                //         { [Op.gte]: start },
+                //         { [Op.lte]: end }
+                //     ]
+                // }
             },
             include: [
                 {
@@ -79,13 +79,13 @@ export const getRecapByMonth = async(req, res) => {
 
         const outcomeResponse = await Outcome.findAll({
             where: {
-                userId: req.params.id,
-                tanggal_pengeluaran : {
-                    [Op.and]: [
-                        { [Op.gte]: start },
-                        { [Op.lte]: end }
-                    ]
-                }
+                userId: req.params.id
+                // tanggal_pengeluaran : {
+                //     [Op.and]: [
+                //         { [Op.gte]: start },
+                //         { [Op.lte]: end }
+                //     ]
+                // }
             },
             include: [
                 {
