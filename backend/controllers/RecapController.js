@@ -110,8 +110,8 @@ export const getRecapByMonth = async(req, res) => {
 
         const result = report.map(item => {
             return {
-                id_income: item.budgetrule ? "-" : item.id,
-                id_outcome: item.budgetrule ? item.id : "-",
+                id: item.id,
+                transaction_type: item.budgetrule ? "Outcome" : "Income",
                 tanggal: item.tanggal_pemasukan || item.tanggal_pengeluaran,
                 keterangan: item.name,
                 budgetrule: item.budgetrule ? item.budgetrule.name : "-",
