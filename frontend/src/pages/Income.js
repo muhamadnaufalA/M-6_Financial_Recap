@@ -208,7 +208,7 @@ const Income = () => {
               <h5 className="card-title mb-0">Income Table</h5>
           </div>
           <div className="box">
-              <table className="table table-hover my-0">
+              <table className="table text-center">
                 <thead>
                   <tr>
                     <th style={{ width: '20%' }}>Tanggal Pemasukan</th>
@@ -225,7 +225,7 @@ const Income = () => {
                       <td>{income.name}</td>
                       <td>{formatRupiah(income.balance)}</td>
                       <td>{income.wallet ? income.wallet.name : 'Belum ditentukan'}</td>
-                      <td>
+                      <td style={{paddingLeft:'60px'}}>
                         <div className="buttons">
                           <Link to={`editIncome/${income.id}`} className="button is-small is-info">
                             <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
