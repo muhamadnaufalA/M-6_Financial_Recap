@@ -7,51 +7,6 @@ import { Op } from 'sequelize';
 
 export const getRecap = async(req, res) => {
 
-    const today = new Date();
-
-    try {
-        const incomeResponse = await Income.findAll({
-            where: {
-                tanggal_pemasukan : today,
-                userId: req.params.id
-            },
-            include: [
-                {
-                  model: Wallet, 
-                  attributes: ['name'],
-                  required: false
-                }
-            ]
-        })
-
-        const outcomeResponse = await Outcome.findAll({
-            where: {
-                tanggal_pengeluaran : today,
-                userId: req.params.id
-            },
-            include: [
-                {
-                  model: Wallet, 
-                  attributes: ['name'],
-                  required: false
-                }
-            ]
-        })
-
-        const report = {
-            income: incomeResponse,
-            outcome: outcomeResponse,
-          };
-
-
-        res.status(200).json(report);
-    } catch(error) {
-        console.log(error.message);
-    }
-}
-
-export const getRecapByMonth = async(req, res) => {
-
     // const today = new Date();
     // const start = new Date(today.getFullYear(), today.getMonth(), 1);
     // const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);

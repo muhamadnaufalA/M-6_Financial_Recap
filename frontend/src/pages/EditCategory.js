@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useHistory, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import Swal from "sweetalert2";
 
 const EditCategory = () => {
     const [name, setName] = useState('');
@@ -28,15 +29,41 @@ const EditCategory = () => {
             budgetruleid = temp;
         }
         try{
-            await axios.put(`http://localhost:5000/category/${id}`, {
+            const respon = await axios.put(`http://localhost:5000/category/${id}`, {
                 name: name,
                 budget: parseInt(budget),
                 budgetruleId: parseInt(budgetruleid),
                 
             });
-            history.push("/dashboard");
+            if (respon.status === 200) {
+                await Swal.fire({
+                  icon: 'success',
+                  title: 'Category Updated!',
+                  text: respon.data.message,
+                  allowOutsideClick: false, // Prevent closing Swal on outside click
+                  confirmButtonText: 'OK',
+                });
+            } 
+            history.push("/category");
         }catch (error){
-            console.log(error);
+            if(error.response.status === 400){
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Invalid Input!',
+                  allowOutsideClick: false, // Prevent closing Swal on outside click
+                  confirmButtonText: 'OK',
+                });
+                console.log(error);
+              }else{
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Category Failed Updated!',
+                  allowOutsideClick: false, // Prevent closing Swal on outside click
+                  confirmButtonText: 'OK',
+                });
+                console.log(error);
+              }
+            
         }
     };
 
