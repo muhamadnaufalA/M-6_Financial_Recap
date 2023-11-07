@@ -25,6 +25,16 @@ const EditCategory = () => {
     
     const UpdateCategory = async (e) =>{
         e.preventDefault();
+        if (name.trim() === '' || budget === '' || budgetruleid === '') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Input Failed',
+              text: 'Please fill in all fields',
+              allowOutsideClick: false, // Prevent closing Swal on outside click
+              confirmButtonText: 'OK',
+            });
+            return;
+          }
         if (budgetruleid == null){
             budgetruleid = temp;
         }
