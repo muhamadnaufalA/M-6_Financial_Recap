@@ -20,6 +20,16 @@ const EditWallet = () => {
 
   const UpdateWallet = async (e) =>{
     e.preventDefault();
+    if (name === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Input Failed',
+        text: 'Please fill in all fields',
+        allowOutsideClick: false, // Prevent closing Swal on outside click
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
     try{
         const respon = await axios.patch(`http://localhost:5000/wallets/${id}`, {
             name

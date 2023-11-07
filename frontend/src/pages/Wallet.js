@@ -16,6 +16,16 @@ const Wallet = ()=> {
   }, []);
   const addWallet = async(e) => {
     e.preventDefault();
+    if (name === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Input Failed',
+        text: 'Please fill in all fields',
+        allowOutsideClick: false, // Prevent closing Swal on outside click
+        confirmButtonText: 'OK',
+      });
+      return;
+          }
     try {
         const respon = await axios.post(`http://localhost:5000/users/${UserId}/wallets`,{
             name: name,
