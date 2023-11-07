@@ -57,16 +57,22 @@ function Dashboard() {
 	const date = today.getDate();
 	const month = today.getMonth() + 1;
 	const year = today.getFullYear();
+  	let formattedDate;
+	if (date < 10){
+		 formattedDate = `${year}-${month}-0${date}`;
+	}else{
+		formattedDate = `${year}-${month}-${date}`;
+	}
 
 	// Filter and Pagination Daily Recap Start //
 	const [selectedCategoryDaily, setselectedCategoryDaily] = useState("All");
 	const [selectedBudgetRuleDaily, setselectedBudgetRuleDaily] = useState("All");
-	const [selectedDateDaily, setselectedDateDaily] = useState(date);
-	const [selectedMonthDaily, setselectedMonthDaily] = useState(month);
-  	const [selectedYearDaily, setselectedYearDaily] = useState(year);
+	const [selectedDate, setSelectedDate] = useState(formattedDate);
 	const [selectedTransactionDaily, setselectedTransactionDaily] = useState("All");
 	const [currentPageDaily, setcurrentPageDaily] = useState(1);
 	const itemsPerPageDaily = 5;
+
+	let parts = selectedDate.split('-');
 
 	const indexOfLastItemDaily = currentPageDaily * itemsPerPageDaily;
 	const indexOfFirstItemDaily = indexOfLastItemDaily - itemsPerPageDaily;
@@ -75,9 +81,9 @@ function Dashboard() {
 			const transactionMatchDaily = selectedTransactionDaily === "All" || recap.transaction_type === selectedTransactionDaily;
 			const categoryMatchDaily = selectedCategoryDaily === "All" || recap.category === selectedCategoryDaily;
 			const budgetRuleMatchDaily = selectedBudgetRuleDaily === "All" || recap.budgetrule === selectedBudgetRuleDaily;
-			const dateMatchDaily = selectedDateDaily === "All" || parseInt(new Date(recap.tanggal).getDate(), 10) === parseInt(selectedDateDaily, 10);
-			const monthMatchDaily = selectedMonthDaily === "All" || parseInt(new Date(recap.tanggal).getMonth() + 1, 10) === parseInt(selectedMonthDaily, 10);
-      		const yearMatchDaily = selectedYearDaily === "All" || parseInt(new Date(recap.tanggal).getFullYear(), 10) === parseInt(selectedYearDaily, 10);
+			const dateMatchDaily = parseInt(new Date(recap.tanggal).getDate(), 10) === parseInt(parts[2], 10);
+			const monthMatchDaily = parseInt(new Date(recap.tanggal).getMonth() + 1, 10) === parseInt(parts[1], 10);
+      		const yearMatchDaily = parseInt(new Date(recap.tanggal).getFullYear(), 10) === parseInt(parts[0], 10);
 			return transactionMatchDaily && categoryMatchDaily && budgetRuleMatchDaily && dateMatchDaily && monthMatchDaily && yearMatchDaily;
 		})
 		.slice(indexOfFirstItemDaily, indexOfLastItemDaily);
@@ -86,9 +92,9 @@ function Dashboard() {
 		const transactionMatchDaily = selectedTransactionDaily === "All" || recap.transaction_type === selectedTransactionDaily;
 		const categoryMatchDaily = selectedCategoryDaily === "All" || recap.category === selectedCategoryDaily;
 		const budgetRuleMatchDaily = selectedBudgetRuleDaily === "All" || recap.budgetrule === selectedBudgetRuleDaily;
-		const dateMatchDaily = selectedDateDaily === "All" || parseInt(new Date(recap.tanggal).getDate(), 10) === parseInt(selectedDateDaily, 10);
-		const monthMatchDaily = selectedMonthDaily === "All" || parseInt(new Date(recap.tanggal).getMonth() + 1, 10) === parseInt(selectedMonthDaily, 10);
-		const yearMatchDaily = selectedYearDaily === "All" || parseInt(new Date(recap.tanggal).getFullYear(), 10) === parseInt(selectedYearDaily, 10);
+		const dateMatchDaily = parseInt(new Date(recap.tanggal).getDate(), 10) === parseInt(parts[2], 10);
+		const monthMatchDaily = parseInt(new Date(recap.tanggal).getMonth() + 1, 10) === parseInt(parts[1], 10);
+		const yearMatchDaily = parseInt(new Date(recap.tanggal).getFullYear(), 10) === parseInt(parts[0], 10);
 		return transactionMatchDaily && categoryMatchDaily && budgetRuleMatchDaily && dateMatchDaily && monthMatchDaily && yearMatchDaily;
 	});
 	
@@ -319,58 +325,13 @@ function Dashboard() {
 										))}
 									</select>
 								</div>
-								<div className="col-1 px-1">
-									<select
-										className="form-control mr-2"
-										value={selectedDateDaily}
-										onChange={(e) => setselectedDateDaily(e.target.value)}
-										disabled={currentPageDaily !== 1}
-										title={currentPageDaily !== 1 ? "Kembali ke page awal untuk memilih Tanggal" : ""}
-									>
-										<option value="All">All Dates</option>
-										{getDaysInMonth(selectedYearDaily, selectedMonthDaily).map((day) => (
-										<option key={day} value={day}>
-											{day}
-										</option>
-										))}
-									</select>
-								</div>
-								<div className="col-1.5 px-1">
-									<select
-										className="form-control mr-2"
-										value={selectedMonthDaily}
-										onChange={(e) => setselectedMonthDaily(e.target.value)}
-										disabled={currentPageDaily !== 1}
-										title={currentPageDaily !== 1 ? "Kembali ke page awal untuk memilih Bulan" : ""}
-									>
-										<option value="All">All Months</option>
-										<option value="01">January</option>
-										<option value="02">February</option>
-										<option value="03">March</option>
-										<option value="04">April</option>
-										<option value="05">May</option>
-										<option value="06">June</option>
-										<option value="07">July</option>
-										<option value="08">August</option>
-										<option value="09">September</option>
-										<option value="10">October</option>
-										<option value="11">November</option>
-										<option value="12">December</option>
-									</select>
-								</div>
-								<div className="col-1 px-1">
-									<select
-										className="form-control mr-2"
-										value={selectedYearDaily}
-										onChange={(e) => setselectedYearDaily(e.target.value)}
-										disabled={currentPageDaily !== 1}
-										title={currentPageDaily !== 1 ? "Kembali ke page awal untuk memilih Tahun" : ""}
-									>
-										<option value="All">All Years</option>
-										<option value="2023">2023</option>
-										<option value="2024">2024</option>
-										<option value="2025">2025</option>
-									</select>
+								<div className="col-2 px-1">
+									<input
+										type="date"
+										className="input"
+										value={selectedDate}
+										onChange={(e) => setSelectedDate(e.target.value)}
+									/>
 								</div>
 								<div className="col-1 px-1">
 									<BiSolidHelpCircle 
