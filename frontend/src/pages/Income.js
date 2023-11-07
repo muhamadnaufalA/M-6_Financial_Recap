@@ -6,6 +6,7 @@ import { BiEdit } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
 import Swal from "sweetalert2";
 import moment from "moment";
+import { BiSolidHelpCircle } from "react-icons/bi";
 
 const Income = () => {
   const [incomes, setIncome] = useState([]);
@@ -112,18 +113,30 @@ const Income = () => {
     return `Rp. ${numberFormat.format(angka)}`;
   };
 
+  // Filter and Pagination
+  const [selectedWallet, setSelectedWallet] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = incomes.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = incomes
+      .filter((incomes) => {
+          const walletMatch = selectedWallet === "All" || incomes.wallet?.name === selectedWallet;
+          return walletMatch;
+      })
+      .slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(incomes.length / itemsPerPage);
+  const filteredIncomes = incomes.filter((incomes) => {
+      const walletMatch = selectedWallet === "All" || incomes.wallet?.name === selectedWallet;
+      return walletMatch;
+  });
+  
+  const totalPages = Math.ceil(filteredIncomes.length / itemsPerPage);
   const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
+      if (newPage >= 1 && newPage <= totalPages) {
+          setCurrentPage(newPage);
+      }
   };
 
   return (
@@ -209,6 +222,33 @@ const Income = () => {
               <h5 className="card-title mb-0">Income Table</h5>
           </div>
           <div className="box">
+            {/* Filter Start */}
+            <div className="d-flex mb-5" style={{ width: "40%" }}>
+              <div className="col-5 px-1">
+                  <select
+                      className="form-control mr-2"
+                      value={selectedWallet}
+                      onChange={(e) => setSelectedWallet(e.target.value)}
+                      disabled={currentPage !== 1}
+                      title={currentPage !== 1 ? "Kembali ke page awal untuk memilih wallet " : ""}
+                  >
+                      <option value="All">All Wallets</option>
+                      {wallets.map((wallet) => (
+                          <option key={wallet.id} value={wallet.name}>
+                              {wallet.name}
+                          </option>
+                      ))}
+                  </select>
+              </div>
+              
+              <div className="col-2 px-1">
+                  <BiSolidHelpCircle 
+                      style={{  }}
+                      title="Filter hanya aktif ketika berada di page 1"
+                  />
+              </div>
+          </div>
+          {/* Filter End */}
               <table className="table text-center">
                 <thead>
                   <tr>
@@ -249,6 +289,9 @@ const Income = () => {
                 >
                   Previous
                 </button>
+                <div>
+                    Page { currentPage } of { totalPages } Total Pages ({(itemsPerPage * (currentPage-1)) + 1} - {(itemsPerPage * (currentPage-1)) + 5 > filteredIncomes.length ? filteredIncomes.length : (itemsPerPage * (currentPage-1)) + 5} of {filteredIncomes.length})
+                </div>
                 <button
                   className="button"
                   onClick={() => handlePageChange(currentPage + 1)}
