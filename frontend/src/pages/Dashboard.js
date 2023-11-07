@@ -331,6 +331,8 @@ function Dashboard() {
 										className="input"
 										value={selectedDate}
 										onChange={(e) => setSelectedDate(e.target.value)}
+										disabled={currentPageDaily !== 1}
+										title={currentPageDaily !== 1 ? "Kembali ke page awal untuk memilih jenis transaksi" : ""}
 									/>
 								</div>
 								<div className="col-1 px-1">
