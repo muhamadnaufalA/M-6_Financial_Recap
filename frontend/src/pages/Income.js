@@ -5,6 +5,7 @@ import { useHistory, Link} from 'react-router-dom';
 import { BiEdit } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 const Income = () => {
   const [incomes, setIncome] = useState([]);
@@ -221,7 +222,7 @@ const Income = () => {
                 <tbody>
                   {currentItems.map((income) => (
                     <tr key={income.id}>
-                      <td>{income.tanggal_pemasukan}</td>
+                      <td>{moment(income.tanggal_pemasukan).format('DD-MM-YYYY')}</td>
                       <td>{income.name}</td>
                       <td>{formatRupiah(income.balance)}</td>
                       <td>{income.wallet ? income.wallet.name : 'Belum ditentukan'}</td>
