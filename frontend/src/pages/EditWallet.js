@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useHistory, useParams } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 const EditWallet = () => {
   const [name, setName] = useState('');
@@ -19,10 +20,29 @@ const EditWallet = () => {
 
   const UpdateWallet = async (e) =>{
     e.preventDefault();
+    if (name === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Input Failed',
+        text: 'Please fill in all fields',
+        allowOutsideClick: false, // Prevent closing Swal on outside click
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
     try{
-        await axios.patch(`http://localhost:5000/wallets/${id}`, {
+        const respon = await axios.patch(`http://localhost:5000/wallets/${id}`, {
             name
         });
+        if (respon.status === 200) {
+          await Swal.fire({
+            icon: 'success',
+            title: 'Wallet Updated!',
+            text: respon.data.message,
+            allowOutsideClick: false, // Prevent closing Swal on outside click
+            confirmButtonText: 'OK',
+          });
+      } 
         history.push("/wallet");
     }catch (error){
         console.log(error);

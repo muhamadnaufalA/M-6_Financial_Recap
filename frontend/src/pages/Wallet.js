@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import {Link} from 'react-router-dom';
 import { BiEdit } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
+import Swal from "sweetalert2";
 
 const Wallet = ()=> {
   const [wallets, setWallet] = useState([]);
@@ -15,11 +16,30 @@ const Wallet = ()=> {
   }, []);
   const addWallet = async(e) => {
     e.preventDefault();
+    if (name === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Input Failed',
+        text: 'Please fill in all fields',
+        allowOutsideClick: false, // Prevent closing Swal on outside click
+        confirmButtonText: 'OK',
+      });
+      return;
+          }
     try {
-        await axios.post(`http://localhost:5000/users/${UserId}/wallets`,{
+        const respon = await axios.post(`http://localhost:5000/users/${UserId}/wallets`,{
             name: name,
             balance: 0,
         });
+        if (respon.status === 201) {
+          await Swal.fire({
+            icon: 'success',
+            title: 'Wallet Added!',
+            text: respon.data.message,
+            allowOutsideClick: false, // Prevent closing Swal on outside click
+            confirmButtonText: 'OK',
+          });
+        } 
         window.location.reload()
     } catch (error) {
         if(error.response){
@@ -39,8 +59,17 @@ const Wallet = ()=> {
   }
   const deleteWallet = async(id) => {
     try {
-        await axios.delete(`http://localhost:5000/wallets/${id}`);
+        const respon = await axios.delete(`http://localhost:5000/wallets/${id}`);
         listWallet();
+        if (respon.status === 200) {
+          await Swal.fire({
+            icon: 'success',
+            title: 'Wallet Deleted!',
+            text: respon.data.message,
+            allowOutsideClick: false, // Prevent closing Swal on outside click
+            confirmButtonText: 'OK',
+          });
+        }
     } catch (error) {
         if(error.response){
             setMsg(error.response.data.msg);

@@ -9,30 +9,23 @@ import moment from 'moment';
 function Dashboard() {
 
 	const UserId = Cookies.get("userId");
-	const [recap, setRecap] = useState([]);
-	const [monthlyRecap, setMonthlyRecap] = useState([]);
+	const [Recap, setRecap] = useState([]);
 	const [budgetRules, setBudgetRules] = useState([]);
 	const [budgetRulesActual, setBudgetRulesActual] = useState([]);
 	const [budgetRuleList, setBudgetRuleList] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
+  	const [categoryList, setCategoryList] = useState([]);
 
 	useEffect(()=>{
-		getListRecapFunc();
-		getRecapByMonth(); 
+		getRecap(); 
 		getBudgetRulesTarget();
 		getBudgetRulesActual();
 		getListBudgetRuleFunc();
     getListCategoryFunc(); 
 	}, []);
 
-	const getListRecapFunc = async () =>{
-		const response = await axios.get(`http://localhost:5000/users/${UserId}/recap`);
-		setRecap(response.data);
-	}
-
-    const getRecapByMonth = async () => {
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/recap/month`);
-        setMonthlyRecap(response.data);
+    const getRecap = async () => {
+        const response = await axios.get(`http://localhost:5000/users/${UserId}/recap`);
+        setRecap(response.data);
     }
 
 	const getBudgetRulesTarget = async () => {
@@ -60,47 +53,102 @@ function Dashboard() {
 		return `Rp. ${numberFormat.format(angka)}`;
   };
 	
-	// Filter and Pagination Monthly Recap Start //
 	const today = new Date();
+	const date = today.getDate();
 	const month = today.getMonth() + 1;
 	const year = today.getFullYear();
+  	let formattedDate;
+	if (date < 10){
+		 formattedDate = `${year}-${month}-0${date}`;
+	}else{
+		formattedDate = `${year}-${month}-${date}`;
+	}
 
-	const [selectedCategory, setSelectedCategory] = useState("All");
-	const [selectedBudgetRule, setSelectedBudgetRule] = useState("All");
-	const [selectedMonth, setSelectedMonth] = useState(month);
-  const [selectedYear, setSelectedYear] = useState(year);
-	const [selectedTransaction, setSelectedTransaction] = useState("All");
-	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 5;
+	// Filter and Pagination Daily Recap Start //
+	const [selectedCategoryDaily, setselectedCategoryDaily] = useState("All");
+	const [selectedBudgetRuleDaily, setselectedBudgetRuleDaily] = useState("All");
+	const [selectedDate, setSelectedDate] = useState(formattedDate);
+	const [selectedTransactionDaily, setselectedTransactionDaily] = useState("All");
+	const [currentPageDaily, setcurrentPageDaily] = useState(1);
+	const itemsPerPageDaily = 5;
 
-	const indexOfLastItem = currentPage * itemsPerPage;
-	const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-	const currentItems = monthlyRecap
+	let parts = selectedDate.split('-');
+
+	const indexOfLastItemDaily = currentPageDaily * itemsPerPageDaily;
+	const indexOfFirstItemDaily = indexOfLastItemDaily - itemsPerPageDaily;
+	const currentItemsDaily = Recap
 		.filter((recap) => {
-			const transactionMatch = selectedTransaction === "All" || recap.transaction_type === selectedTransaction;
-			const categoryMatch = selectedCategory === "All" || recap.category === selectedCategory;
-			const budgetRuleMatch = selectedBudgetRule === "All" || recap.budgetrule === selectedBudgetRule;
-			const monthMatch = selectedMonth === "All" || parseInt(new Date(recap.tanggal).getMonth() + 1, 10) === parseInt(selectedMonth, 10);
-      const yearMatch = selectedYear === "All" || parseInt(new Date(recap.tanggal).getFullYear(), 10) === parseInt(selectedYear, 10);
-			return transactionMatch && categoryMatch && budgetRuleMatch && monthMatch && yearMatch;
+			const transactionMatchDaily = selectedTransactionDaily === "All" || recap.transaction_type === selectedTransactionDaily;
+			const categoryMatchDaily = selectedCategoryDaily === "All" || recap.category === selectedCategoryDaily;
+			const budgetRuleMatchDaily = selectedBudgetRuleDaily === "All" || recap.budgetrule === selectedBudgetRuleDaily;
+			const dateMatchDaily = parseInt(new Date(recap.tanggal).getDate(), 10) === parseInt(parts[2], 10);
+			const monthMatchDaily = parseInt(new Date(recap.tanggal).getMonth() + 1, 10) === parseInt(parts[1], 10);
+      		const yearMatchDaily = parseInt(new Date(recap.tanggal).getFullYear(), 10) === parseInt(parts[0], 10);
+			return transactionMatchDaily && categoryMatchDaily && budgetRuleMatchDaily && dateMatchDaily && monthMatchDaily && yearMatchDaily;
 		})
-		.slice(indexOfFirstItem, indexOfLastItem);
+		.slice(indexOfFirstItemDaily, indexOfLastItemDaily);
 
-	const filteredMonthlyRecap = monthlyRecap.filter((recap) => {
-		const transactionMatch = selectedTransaction === "All" || recap.transaction_type === selectedTransaction;
-		const categoryMatch = selectedCategory === "All" || recap.category === selectedCategory;
-		const budgetRuleMatch = selectedBudgetRule === "All" || recap.budgetrule === selectedBudgetRule;
-		const monthMatch = selectedMonth === "All" || parseInt(new Date(recap.tanggal).getMonth() + 1, 10) === parseInt(selectedMonth, 10);
-    const yearMatch = selectedYear === "All" || parseInt(new Date(recap.tanggal).getFullYear(), 10) === parseInt(selectedYear, 10);
-		return transactionMatch && categoryMatch && budgetRuleMatch && monthMatch && yearMatch;
+	const filteredDailyRecap = Recap.filter((recap) => {
+		const transactionMatchDaily = selectedTransactionDaily === "All" || recap.transaction_type === selectedTransactionDaily;
+		const categoryMatchDaily = selectedCategoryDaily === "All" || recap.category === selectedCategoryDaily;
+		const budgetRuleMatchDaily = selectedBudgetRuleDaily === "All" || recap.budgetrule === selectedBudgetRuleDaily;
+		const dateMatchDaily = parseInt(new Date(recap.tanggal).getDate(), 10) === parseInt(parts[2], 10);
+		const monthMatchDaily = parseInt(new Date(recap.tanggal).getMonth() + 1, 10) === parseInt(parts[1], 10);
+		const yearMatchDaily = parseInt(new Date(recap.tanggal).getFullYear(), 10) === parseInt(parts[0], 10);
+		return transactionMatchDaily && categoryMatchDaily && budgetRuleMatchDaily && dateMatchDaily && monthMatchDaily && yearMatchDaily;
 	});
 	
-	const totalPages = Math.ceil(filteredMonthlyRecap.length / itemsPerPage);
-	const handlePageChange = (newPage) => {
-		if (newPage >= 1 && newPage <= totalPages) {
-				setCurrentPage(newPage);
+	const totalPagesDaily = Math.ceil(filteredDailyRecap.length / itemsPerPageDaily);
+	const handlePageChangeDaily = (newPage) => {
+		if (newPage >= 1 && newPage <= totalPagesDaily) {
+				setcurrentPageDaily(newPage);
 		}
 	};
+
+	// Filter and Pagination Monthly Recap Start //
+	const [selectedCategoryMonthly, setSelectedCategoryMonthly] = useState("All");
+	const [selectedBudgetRuleMonthly, setSelectedBudgetRuleMonthly] = useState("All");
+	const [selectedMonthMonthly, setSelectedMonthMonthly] = useState(month);
+  	const [selectedYearMonthly, setSelectedYearMonthly] = useState(year);
+	const [selectedTransactionMonthly, setSelectedTransactionMonthly] = useState("All");
+	const [currentPageMonthly, setCurrentPageMonthly] = useState(1);
+	const itemsPerPageMonthly = 5;
+
+	const indexOfLastItemMonthly = currentPageMonthly * itemsPerPageMonthly;
+	const indexOfFirstItemMonthly = indexOfLastItemMonthly - itemsPerPageMonthly;
+	const currentItemsMonthly = Recap
+		.filter((recap) => {
+			const transactionMatchMonthly = selectedTransactionMonthly === "All" || recap.transaction_type === selectedTransactionMonthly;
+			const categoryMatchMonthly = selectedCategoryMonthly === "All" || recap.category === selectedCategoryMonthly;
+			const budgetRuleMatchMonthly = selectedBudgetRuleMonthly === "All" || recap.budgetrule === selectedBudgetRuleMonthly;
+			const monthMatchMonthly = selectedMonthMonthly === "All" || parseInt(new Date(recap.tanggal).getMonth() + 1, 10) === parseInt(selectedMonthMonthly, 10);
+      		const yearMatchMonthly = selectedYearMonthly === "All" || parseInt(new Date(recap.tanggal).getFullYear(), 10) === parseInt(selectedYearMonthly, 10);
+			return transactionMatchMonthly && categoryMatchMonthly && budgetRuleMatchMonthly && monthMatchMonthly && yearMatchMonthly;
+		})
+		.slice(indexOfFirstItemMonthly, indexOfLastItemMonthly);
+
+	const filteredMonthlyRecap = Recap.filter((recap) => {
+		const transactionMatchMonthly = selectedTransactionMonthly === "All" || recap.transaction_type === selectedTransactionMonthly;
+		const categoryMatchMonthly = selectedCategoryMonthly === "All" || recap.category === selectedCategoryMonthly;
+		const budgetRuleMatchMonthly = selectedBudgetRuleMonthly === "All" || recap.budgetrule === selectedBudgetRuleMonthly;
+		const monthMatchMonthly = selectedMonthMonthly === "All" || parseInt(new Date(recap.tanggal).getMonth() + 1, 10) === parseInt(selectedMonthMonthly, 10);
+    	const yearMatchMonthly = selectedYearMonthly === "All" || parseInt(new Date(recap.tanggal).getFullYear(), 10) === parseInt(selectedYearMonthly, 10);
+		return transactionMatchMonthly && categoryMatchMonthly && budgetRuleMatchMonthly && monthMatchMonthly && yearMatchMonthly;
+	});
+	
+	const totalPagesMonthly = Math.ceil(filteredMonthlyRecap.length / itemsPerPageMonthly);
+	const handlePageChangeMonthly = (newPage) => {
+		if (newPage >= 1 && newPage <= totalPagesMonthly) {
+				setCurrentPageMonthly(newPage);
+		}
+	};
+
+	function getDaysInMonth(year, month) {
+		const daysInMonth = new Date(year, month, 0).getDate();
+		const daysArray = Array.from({ length: daysInMonth }, (_, i) => (i + 1).toString());
+		return daysArray;
+	}
+	  
 	// Filter and Pagination Monthly Recap End //
 
 	// // Konfigurasi grafik
@@ -229,34 +277,118 @@ function Dashboard() {
 						<div className="card-header">
 							<h5 className="card-title mb-0">Daily Recap</h5>
 						</div>
-						<table className="table table-hover my-0">
-							<thead>
-								<tr>
-									<th>Tanggal</th>
-									<th>Keterangan</th>
-									<th>Nominal</th>
-									<th>Wallet</th>
-								</tr>
-							</thead>
-							<tbody>
-								{recap.income && recap.income.map((recap, index) => (
-									<tr key={recap.id}>
-										<td>{recap.tanggal_pemasukan}</td>
-										<td>{recap.name}</td>
-										<td><span className="badge bg-success">{formatRupiah(recap.balance)}</span></td>
-										<td>{recap.wallet ? recap.wallet.name : 'Belum ditentukan'}</td>
+						<div className="box">
+							{/* Filter Start */}
+							<div className="d-flex mb-5" style={{ width: "100%" }}>
+								<div className="col-2 px-1">
+									<select
+										className="form-control mr-2"
+										value={selectedTransactionDaily}
+										onChange={(e) => setselectedTransactionDaily(e.target.value)}
+										disabled={currentPageDaily !== 1}
+										title={currentPageDaily !== 1 ? "Kembali ke page awal untuk memilih jenis transaksi" : ""}
+									>
+										<option value="All">All Transactions</option>
+										<option value="Income">Income</option>
+										<option value="Outcome">Outcome</option>
+									</select>
+								</div>
+								<div className="col-2 px-1">
+									<select
+										className="form-control mr-2"
+										value={selectedBudgetRuleDaily}
+										onChange={(e) => setselectedBudgetRuleDaily(e.target.value)}
+										disabled={currentPageDaily !== 1}
+										title={currentPageDaily !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
+									>
+										<option value="All">All Budget Rules</option>
+										{budgetRuleList.map((budgetRule) => (
+												<option key={budgetRule.id} value={budgetRule.name}>
+														{budgetRule.name}
+												</option>
+										))}
+									</select>
+								</div>
+								<div className="col-2 px-1">
+									<select
+										className="form-control"
+										value={selectedCategoryDaily}
+										onChange={(e) => setselectedCategoryDaily(e.target.value)}
+										disabled={currentPageDaily !== 1}
+										title={currentPageDaily !== 1 ? "Kembali ke page awal untuk memilih category" : ""}
+									>
+										<option value="All">All Categories</option>
+										{categoryList.map((category) => (
+												<option key={category.id} value={category.name}>
+														{category.name}
+												</option>
+										))}
+									</select>
+								</div>
+								<div className="col-2 px-1">
+									<input
+										type="date"
+										className="input"
+										value={selectedDate}
+										onChange={(e) => setSelectedDate(e.target.value)}
+										disabled={currentPageDaily !== 1}
+										title={currentPageDaily !== 1 ? "Kembali ke page awal untuk memilih jenis transaksi" : ""}
+									/>
+								</div>
+								<div className="col-1 px-1">
+									<BiSolidHelpCircle 
+										style={{  }}
+										title="Filter hanya aktif ketika berada di page 1"
+									/>
+								</div>
+							</div>
+							{/* Filter End */}
+
+							<table className="table table-hover my-0">
+								<thead>
+									<tr>
+										<th className="d-none d-md-table-cell">Tanggal</th>
+										<th>Keterangan</th>
+										<th>Budget Rule</th>
+										<th>Kategori</th>
+										<th>Nominal</th>
+										<th>Wallet</th>
 									</tr>
-								))}
-								{recap.outcome && recap.outcome.map((recap, index) => (
-									<tr key={recap.id}>
-										<td>{recap.tanggal_pengeluaran}</td>
-										<td>{recap.name}</td>
-										<td><span className="badge bg-danger">{formatRupiah(recap.nominal)}</span></td>
-										<td>{recap.wallet ? recap.wallet.name : 'Belum ditentukan'}</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									{currentItemsDaily.map((l) => (
+										<tr key={l.id}>
+											<td className="d-none d-md-table-cell">{moment(l.tanggal).format('DD-MM-YYYY')}</td>
+											<td className="d-none d-xl-table-cell">{l.keterangan}</td>
+											<td className="d-none d-md-table-cell">{l.budgetrule}</td>
+											<td className="d-none d-md-table-cell">{l.category}</td>
+											<td className="d-none d-xl-table-cell"><span className={l.transaction_type !== "Outcome" ? "badge bg-success" : "badge bg-danger"}>{formatRupiah(l.balance ? l.balance : l.nominal)}</span></td>
+											<td className="d-none d-md-table-cell">{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+							{/* Pagination buttons */}
+							<div className="pagination mt-5">
+								<button
+									className="button"
+									onClick={() => handlePageChangeDaily(currentPageDaily - 1)}
+									disabled={currentPageDaily === 1}
+								>
+									Prev
+								</button>
+								<div>
+									Page { currentPageDaily } of { totalPagesDaily } Total Pages ({(itemsPerPageDaily * (currentPageDaily-1)) + 1} - {(itemsPerPageDaily * (currentPageDaily-1)) + 5 > filteredDailyRecap.length ? filteredDailyRecap.length : (itemsPerPageDaily * (currentPageDaily-1)) + 5} of {filteredDailyRecap.length})
+								</div>
+								<button
+									className="button"
+									onClick={() => handlePageChangeDaily(currentPageDaily + 1)}
+									disabled={currentPageDaily === totalPagesDaily}
+								>
+									Next
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				{/* Monthly Recap Table Start */}
@@ -271,10 +403,10 @@ function Dashboard() {
 								<div className="col-2 px-1">
 									<select
 										className="form-control mr-2"
-										value={selectedTransaction}
-										onChange={(e) => setSelectedTransaction(e.target.value)}
-										disabled={currentPage !== 1}
-										title={currentPage !== 1 ? "Kembali ke page awal untuk memilih jenis transaksi" : ""}
+										value={selectedTransactionMonthly}
+										onChange={(e) => setSelectedTransactionMonthly(e.target.value)}
+										disabled={currentPageMonthly !== 1}
+										title={currentPageMonthly !== 1 ? "Kembali ke page awal untuk memilih jenis transaksi" : ""}
 									>
 										<option value="All">All Transactions</option>
 										<option value="Income">Income</option>
@@ -284,10 +416,10 @@ function Dashboard() {
 								<div className="col-2 px-1">
 									<select
 										className="form-control mr-2"
-										value={selectedBudgetRule}
-										onChange={(e) => setSelectedBudgetRule(e.target.value)}
-										disabled={currentPage !== 1}
-										title={currentPage !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
+										value={selectedBudgetRuleMonthly}
+										onChange={(e) => setSelectedBudgetRuleMonthly(e.target.value)}
+										disabled={currentPageMonthly !== 1}
+										title={currentPageMonthly !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
 									>
 										<option value="All">All Budget Rules</option>
 										{budgetRuleList.map((budgetRule) => (
@@ -300,10 +432,10 @@ function Dashboard() {
 								<div className="col-2 px-1">
 									<select
 										className="form-control"
-										value={selectedCategory}
-										onChange={(e) => setSelectedCategory(e.target.value)}
-										disabled={currentPage !== 1}
-										title={currentPage !== 1 ? "Kembali ke page awal untuk memilih category" : ""}
+										value={selectedCategoryMonthly}
+										onChange={(e) => setSelectedCategoryMonthly(e.target.value)}
+										disabled={currentPageMonthly !== 1}
+										title={currentPageMonthly !== 1 ? "Kembali ke page awal untuk memilih category" : ""}
 									>
 										<option value="All">All Categories</option>
 										{categoryList.map((category) => (
@@ -316,10 +448,10 @@ function Dashboard() {
 								<div className="col-2 px-1">
 									<select
 										className="form-control mr-2"
-										value={selectedMonth}
-										onChange={(e) => setSelectedMonth(e.target.value)}
-										disabled={currentPage !== 1}
-										title={currentPage !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
+										value={selectedMonthMonthly}
+										onChange={(e) => setSelectedMonthMonthly(e.target.value)}
+										disabled={currentPageMonthly !== 1}
+										title={currentPageMonthly !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
 									>
 										<option value="All">All Months</option>
 										<option value="01">January</option>
@@ -339,10 +471,10 @@ function Dashboard() {
 								<div className="col-2 px-1">
 									<select
 										className="form-control mr-2"
-										value={selectedYear}
-										onChange={(e) => setSelectedYear(e.target.value)}
-										disabled={currentPage !== 1}
-										title={currentPage !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
+										value={selectedYearMonthly}
+										onChange={(e) => setSelectedYearMonthly(e.target.value)}
+										disabled={currentPageMonthly !== 1}
+										title={currentPageMonthly !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
 									>
 										<option value="All">All Years</option>
 										<option value="2023">2023</option>
@@ -371,7 +503,7 @@ function Dashboard() {
 									</tr>
 								</thead>
 								<tbody>
-									{currentItems.map((l) => (
+									{currentItemsMonthly.map((l) => (
 										<tr key={l.id}>
 											<td className="d-none d-md-table-cell">{moment(l.tanggal).format('DD-MM-YYYY')}</td>
 											<td className="d-none d-xl-table-cell">{l.keterangan}</td>
@@ -387,18 +519,18 @@ function Dashboard() {
 							<div className="pagination mt-5">
 								<button
 									className="button"
-									onClick={() => handlePageChange(currentPage - 1)}
-									disabled={currentPage === 1}
+									onClick={() => handlePageChangeMonthly(currentPageMonthly - 1)}
+									disabled={currentPageMonthly === 1}
 								>
 									Prev
 								</button>
 								<div>
-									Page { currentPage } of { totalPages } Total Pages ({(itemsPerPage * (currentPage-1)) + 1} - {(itemsPerPage * (currentPage-1)) + 5 > filteredMonthlyRecap.length ? filteredMonthlyRecap.length : (itemsPerPage * (currentPage-1)) + 5} of {filteredMonthlyRecap.length})
+									Page { currentPageMonthly } of { totalPagesMonthly } Total Pages ({(itemsPerPageMonthly * (currentPageMonthly-1)) + 1} - {(itemsPerPageMonthly * (currentPageMonthly-1)) + 5 > filteredMonthlyRecap.length ? filteredMonthlyRecap.length : (itemsPerPageMonthly * (currentPageMonthly-1)) + 5} of {filteredMonthlyRecap.length})
 								</div>
 								<button
 									className="button"
-									onClick={() => handlePageChange(currentPage + 1)}
-									disabled={currentPage === totalPages}
+									onClick={() => handlePageChangeMonthly(currentPageMonthly + 1)}
+									disabled={currentPageMonthly === totalPagesMonthly}
 								>
 									Next
 								</button>
