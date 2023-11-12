@@ -5,17 +5,20 @@ import { BiSolidHelpCircle } from "react-icons/bi";
 import { BiWallet } from 'react-icons/bi';
 import { BiSolidShow } from 'react-icons/bi';
 import { BiSolidHide } from 'react-icons/bi';
+import { GiPayMoney } from "react-icons/gi";
 import moment from 'moment';
 
 function Dashboard() {
 
 	const UserId = Cookies.get("userId");
-	const [Recap, setRecap] = useState([]);
+	const [recap, setRecap] = useState([]);
 	const [budgetRules, setBudgetRules] = useState([]);
 	const [budgetRulesActual, setBudgetRulesActual] = useState([]);
 	const [budgetRuleList, setBudgetRuleList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
 	const [wallets, setWallets] = useState([]);
+	const [incomes, setIncomes] = useState([]);
+	const [outcomes, setOutcomes] = useState([]);
 
 	useEffect(()=>{
 		getRecap(); 
@@ -23,13 +26,15 @@ function Dashboard() {
 		getBudgetRulesActual();
 		getListBudgetRuleFunc();
     getListCategoryFunc();
-		getWalletsFunc(); 
+		getWalletsFunc();
+		getIncomesFunc();
+		getOutcomesFunc();
 	}, []);
 
-    const getRecap = async () => {
-			const response = await axios.get(`http://localhost:5000/users/${UserId}/recap`);
-			setRecap(response.data);
-    }
+	const getRecap = async () => {
+		const response = await axios.get(`http://localhost:5000/users/${UserId}/recap`);
+		setRecap(response.data);
+	}
 
 	const getBudgetRulesTarget = async () => {
 		const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
@@ -56,6 +61,16 @@ function Dashboard() {
 		setWallets(response.data)
 	}
 
+	const getIncomesFunc = async () => {
+		const response = await axios.get(`http://localhost:5000/users/${UserId}/incomes`)
+		setIncomes(response.data)
+	}
+
+	const getOutcomesFunc = async () => {
+		const response = await axios.get(`http://localhost:5000/users/${UserId}/outcomes`)
+		setOutcomes(response.data)
+	}
+
 	const formatRupiah = (angka) => {
 		const numberFormat = new Intl.NumberFormat("id-ID");
 		return `Rp${numberFormat.format(angka)},00`;
@@ -65,6 +80,8 @@ function Dashboard() {
 	const date = today.getDate();
 	const month = today.getMonth() + 1;
 	const year = today.getFullYear();
+
+	console.log(budgetRulesActual)
 
 	// Filter and Pagination Monthly Recap Start //
 	const [selectedCategoryMonthly, setSelectedCategoryMonthly] = useState("All");
@@ -77,7 +94,7 @@ function Dashboard() {
 
 	const indexOfLastItemMonthly = currentPageMonthly * itemsPerPageMonthly;
 	const indexOfFirstItemMonthly = indexOfLastItemMonthly - itemsPerPageMonthly;
-	const currentItemsMonthly = Recap
+	const currentItemsMonthly = recap
 		.filter((recap) => {
 			const transactionMatchMonthly = selectedTransactionMonthly === "All" || recap.transaction_type === selectedTransactionMonthly;
 			const categoryMatchMonthly = selectedCategoryMonthly === "All" || recap.category === selectedCategoryMonthly;
@@ -88,7 +105,7 @@ function Dashboard() {
 		})
 		.slice(indexOfFirstItemMonthly, indexOfLastItemMonthly);
 
-	const filteredMonthlyRecap = Recap.filter((recap) => {
+	const filteredMonthlyRecap = recap.filter((recap) => {
 		const transactionMatchMonthly = selectedTransactionMonthly === "All" || recap.transaction_type === selectedTransactionMonthly;
 		const categoryMatchMonthly = selectedCategoryMonthly === "All" || recap.category === selectedCategoryMonthly;
 		const budgetRuleMatchMonthly = selectedBudgetRuleMonthly === "All" || recap.budgetrule === selectedBudgetRuleMonthly;
@@ -105,7 +122,7 @@ function Dashboard() {
 	};
 	// Filter and Pagination Monthly Recap End //
 
-	// Card Saldo
+	// Card Saldo Start
 	const [selectedWallet, setSelectedWallet] = useState("All");
 	const [isShown, setIsShown] = useState(true);
   const handleClick = () => {
@@ -122,6 +139,74 @@ function Dashboard() {
 	filteredWallet.forEach((wallet) => {
 		totalSaldo += wallet.balance;
 	});
+	// Card Saldo End
+
+	// Catatan Keuangan Start
+	const [selectedBudgetRule, setSelectedBudgetRule] = useState("All");
+	const [selectedCategory, setSelectedCategory] = useState("All");
+	
+	const filteredOutcomes = recap.filter((r) => {
+		let tanggal = new Date(r.tanggal);
+		const monthMatch = tanggal.getMonth() + 1 === month;
+		const budgetRuleMatch = selectedBudgetRule === "All" || r.budgetrule === selectedBudgetRule;
+		const categoryMatch = selectedCategory === "All" || r.category === selectedCategory;
+		const transactionMatch = r.transaction_type === "Outcome";
+		return monthMatch && budgetRuleMatch && categoryMatch && transactionMatch;
+	})
+
+	let totalOutcome = 0;
+	filteredOutcomes.forEach((outcome) => {
+		totalOutcome += outcome.nominal;
+	});	
+
+	// Catatan Keuangan End
+
+	// Outcome Target and Actual
+	const filteredIncomes = incomes.filter((income) => {
+		let tanggal = new Date(income.tanggal_pemasukan);
+		const monthMatch = tanggal.getMonth() + 1 === month;
+		return monthMatch;
+	})
+
+	let totalIncome = 0;
+	filteredIncomes.forEach((income) => {
+		totalIncome += income.balance;
+	});
+
+	let nominalBudgetList = []
+	budgetRules.map((br) => {
+		let nominal = (br.percentage / 100) * totalIncome;
+		let newItem = { budgetRule: br.name, nominal: nominal };
+  	nominalBudgetList.push(newItem);
+	})
+
+	let nominalBudget = 0
+	if( selectedCategory === "All" ) {
+		if( selectedBudgetRule !== "All" ) {
+			nominalBudgetList.map((n) => {
+				if( n.budgetRule === selectedBudgetRule ) {
+					nominalBudget = n.nominal
+				}
+			})
+		} else {
+			nominalBudget = totalIncome
+		}
+	} else {
+		categoryList.map((c) => {
+			if( c.name === selectedCategory ) {
+				nominalBudget = c.budget
+			}
+		})
+	}
+
+	let percentageOutcome = totalOutcome/totalIncome*100;
+
+	const filteredCategory = categoryList.filter((c) => {
+		const categoryMatch = selectedCategory === "All" || c.name === selectedCategory;
+		return categoryMatch;
+	})
+
+	console.log(filteredCategory)
 
 	
   return (
@@ -169,6 +254,55 @@ function Dashboard() {
 					</div>
 				</div>
 				{/* Saldo End */}
+				{/* Catatan Keuangan Start */}
+				<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+					<div className="card flex-fill">
+						<div className="card-header">
+							<h5 className="card-title mb-0">Catatan Keuangan</h5>
+						</div>
+						<div className="row p-3">
+							<div className="col-6">
+								<select
+									className="form-control mr-2"
+									value={selectedBudgetRule}
+									onChange={(e) => setSelectedBudgetRule(e.target.value)}
+								>
+									<option value="All">All Budget Rule</option>
+									{budgetRuleList.map((budget) => (
+										<option key={budget.id} value={budget.name}>
+												{budget.name}
+										</option>
+									))}
+								</select>
+							</div>
+							<div className="col-6">
+								<select
+									className="form-control mr-2"
+									value={selectedCategory}
+									onChange={(e) => setSelectedCategory(e.target.value)}
+								>
+									<option value="All">All Categories</option>
+									{categoryList.map((category) => (
+										<option key={category.id} value={category.name}>
+												{category.name}
+										</option>
+									))}
+								</select>
+							</div>
+						</div>
+						<div className="d-flex align-items-center justify-content-center my-3 row text-center">
+							<div>
+								<GiPayMoney className="fs-1 mx-3" />
+								<span className="fs-3 fw-bold font-monospace">{formatRupiah(totalOutcome)} [{percentageOutcome.toFixed(2)} %]</span>
+							</div>
+							<div>
+								<GiPayMoney className="fs-1 mx-3" />
+								<span className="fs-3 fw-bold font-monospace">HEMAT {formatRupiah(nominalBudget - totalOutcome)}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				{/* Catatan Keuangan End */}
 				{/* Outcome Target */}
 				<div className="col-6 col-lg-6 col-xxl-6 d-flex">
 					<div className="card flex-fill">
@@ -180,6 +314,7 @@ function Dashboard() {
 								<tr>
 									<th>Budget Rule</th>
 									<th>Percentage</th>
+									<th>Nominal</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -187,6 +322,7 @@ function Dashboard() {
 									<tr key={budgetRule.id}>
 										<td className="d-none d-md-table-cell">{budgetRule.name}</td>
 										<td className="d-none d-md-table-cell">{budgetRule.percentage}%</td>
+										<td className="d-none d-md-table-cell">{formatRupiah(budgetRule.percentage/100*totalIncome)}</td>
 									</tr>
 								))}
 							</tbody>
@@ -208,12 +344,11 @@ function Dashboard() {
 								</tr>
 							</thead>
 							<tbody>
-								{budgetRulesActual.map((budgetRuleActual) => (
+								{budgetRulesActual.map((budgetRuleActual, i) => (
 									<tr key={budgetRuleActual.id}>
 										<td className="d-none d-md-table-cell">{budgetRuleActual.name}</td>
 										<td className="d-none d-md-table-cell">{formatRupiah(budgetRuleActual.totalPengeluaran)}</td>
-										{/* <td className="d-none d-md-table-cell">{(budgetRuleActual.totalPengeluaran / totalSaldoWallet * 100).toFixed(2)}%</td> */}
-										<td className="d-none d-md-table-cell">... %</td>
+										<td className="d-none d-md-table-cell">{(budgetRuleActual.totalPengeluaran / totalIncome * 100).toFixed(2)}%</td>
 									</tr>
 								))}
 							</tbody>
