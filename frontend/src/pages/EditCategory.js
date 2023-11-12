@@ -95,10 +95,11 @@ const EditCategory = () => {
             </Link>
         </div>
         
+        <h1 className="h3 mb-3 text-center">
+				  Edit Category
+			  </h1>
+
         <div className="card flex-fill">
-        <h1 className="h2 mb-3 text-center">
-              <strong>Edit Category</strong>
-          </h1>
         <div className="row justify-content-center">
           <div className="col-12">
             <form onSubmit={UpdateCategory} className="box">

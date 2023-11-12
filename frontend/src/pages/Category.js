@@ -132,9 +132,12 @@ const Category = () => {
 
   return (
     <section>
+      <h1 className="h3 mb-3 text-center">
+				Category
+			</h1>
       <div className="card flex-fill">
         <div className="card-header">
-          <h5 className="card-title mb-0">Category</h5>
+          <h5 className="card-title mb-0">Add Category</h5>
         </div>
         <div className="row justify-content-center">
           <div className="col-12">
