@@ -131,48 +131,52 @@ const Category = () => {
   };
 
   return (
-    <section className="hero has-background-white is-fullwidth">
-      <h1 className="h2 mb-3 mt-3 text-center">
-          <strong>Category</strong>
-      </h1>
-      <div className="hero-body mb-5">
-        <div className="container">
-          <div className="columns is-centered">
-            <div className="column">
-              <form onSubmit={addCatFunc} className="box">
-                <p className="has-text-center has-text-danger">{msg}</p>
-                <div className="field mt-5">
-                  <label className="label">Name</label>
+    <section>
+      <div className="card flex-fill">
+        <div className="card-header">
+          <h5 className="card-title mb-0">Category</h5>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-12">
+            <form onSubmit={addCatFunc} className="box">
+              <p className="has-text-center has-text-danger">{msg}</p>
+              <div className="row">
+                <div className="col-md-4">
                   <div className="control">
                     <input
-                      type="text"
                       className="input"
-                      placeholder="Contoh: Kebutuhan Pribadi"
+                      style={{ backgroundColor: '#f7f7f7' }}
+                      type="text"
+                      placeholder="Nama atau Keterangan Category"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
+                      required
                     />
                   </div>
                 </div>
-                <div className="field mt-5">
-                  <label className="label">Budget</label>
+                <div className="col-md-4">
                   <div className="control">
                     <input
-                      type="text"
                       className="input"
+                      style={{ backgroundColor: '#f7f7f7' }}
+                      type="text"
+                      placeholder="Budget"
                       value={formatRupiah(budget)}
                       onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}
+                      required
                     />
                   </div>
                 </div>
-                <div className="field mt-5">
-                  <label className="label">Budget Rule</label>
+                <div className="col-md-4">
                   <div className="control">
                     <select
                       className="input"
+                      style={{ backgroundColor: '#f7f7f7' }}
                       value={budgetruleid}
                       onChange={(e) => setBudgetRuleId(e.target.value)}
+                      required
                     >
-                      <option value="">Pilih budget rule</option>
+                      <option value={""}>Pilih budget rule</option>
                       {budgetRules.map((budgetRule) => (
                         <option key={budgetRule.id} value={budgetRule.id}>
                           {budgetRule.name}
@@ -181,15 +185,14 @@ const Category = () => {
                     </select>
                   </div>
                 </div>
-                <div className="field mt-5">
-                  <button className="container button is-success d-flex justify-content-center align-items-center">Tambahkan</button>
-                </div>
-              </form>
-            </div>
+              </div>
+              <div className="field mt-5">
+                <button className="container button is-success d-flex justify-content-center align-items-center">Tambahkan</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-
       {/* TABEL */}
       <div className="card flex-fill">
           <div className="card-header">
@@ -275,6 +278,7 @@ const Category = () => {
         </div>
     </section>
   );
+  
   
 }
 

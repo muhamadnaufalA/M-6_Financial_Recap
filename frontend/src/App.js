@@ -11,6 +11,7 @@ import Wallet from "./pages/Wallet";
 import EditWallet from "./pages/EditWallet";
 import EditOutcome from "./pages/EditOutcome";
 import BudgetRule from "./pages/BudgetRule";
+import Recap from "./pages/Recap";
 
 import Dashboard from "./pages/Dashboard";
 import Sidebar from "./components/Sidebar";
@@ -38,6 +39,22 @@ function App() {
                 <main className="content">
                   <div className="container-fluid p-0">
                     <Dashboard/>
+                  </div>
+                </main>
+                <Footer/>
+              </div>
+            </div>
+          </Route>
+        
+        {/* Recap */}
+        <Route exact path="/recap">
+          <div className="wrapper">
+            <Sidebar/>
+              <div className="main">
+                <Navbar/>
+                <main className="content">
+                  <div className="container-fluid p-0">
+                    <Recap/>
                   </div>
                 </main>
                 <Footer/>

@@ -5,6 +5,7 @@ import { BiSolidCategory } from 'react-icons/bi';
 import { BiWallet } from 'react-icons/bi';
 import { BiBarChartAlt2 } from 'react-icons/bi';
 import { BiAbacus } from 'react-icons/bi';
+import { BiBookBookmark } from 'react-icons/bi';
 
 
 function Sidebar() {
@@ -26,6 +27,17 @@ function Sidebar() {
               </i>
               <span className="align-middle">
                 Dashboard
+              </span>
+            </a>    
+          </li>
+
+          <li className={`sidebar-item ${currentPath === '/recap' ? 'active' : ''}`}>
+            <a className="sidebar-link" href="/recap">
+            <i className="align-middle">
+                <BiBookBookmark style={{ fontSize: '24px', marginRight: '5px', verticalAlign: 'middle', paddingLeft: '0px' }} />
+              </i>
+              <span className="align-middle">
+                Recap
               </span>
             </a>    
           </li>

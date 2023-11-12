@@ -1,8 +1,9 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Swal from "sweetalert2";
+import { BiArrowBack } from "react-icons/bi";
 
 const EditCategory = () => {
     const [name, setName] = useState('');
@@ -87,55 +88,75 @@ const EditCategory = () => {
     };
 
     return (
-        <div className="columns mt-5 is-centered">
-            <div className="column is-half">
-                <form onSubmit={UpdateCategory}>
-                    <div className="field">
-                        <label className="label">Name</label>
-                        <div className="control">
-                            <input 
-                            type="text" 
-                            className="input" 
-                            value={name} 
-                            onChange={(e)=> setName(e.target.value)}
-                            placeholder='Contoh: Kebutuhan Pribadi'/>
-                        </div>
-                    </div>
-                    <div className="field">
-                        <label className="label">Budget</label>
-                        <div className="control">
-                            <input 
-                            type="text" 
-                            className="input"                         
-                            value={formatRupiah(budget)}
-                            onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}/>
-                        </div>
-                    </div>
-                    <div className="field mt-5">
-                        <label className="label">Budget Rule</label>
-                        <div className="control">
-                            <select
-                            className="input"
-                            value={budgetruleid}
-                            onChange={(e) => setBudgetRuleId(e.target.value)}
-                            >
-                            {/* <option value="">Pilih budget rule</option> */}
-                            {budgetRules.map((budgetRule) => (
-                                <option key={budgetRule.id} value={budgetRule.id}>
-                                {budgetRule.name}
-                                </option>
-                            ))}
-                            </select>
-                        </div>
-                    </div>
-                    <div className="field">
-                        <button type='submit' className='button is-success'>
-                            Update
-                        </button>
-                    </div>
-                </form>
-            </div>
+    <section>
+        <div className="buttons">
+            <Link to={`/category`} className="button is-small is-info">
+            <BiArrowBack style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+            </Link>
         </div>
+        
+        <div className="card flex-fill">
+        <h1 className="h2 mb-3 text-center">
+              <strong>Edit Category</strong>
+          </h1>
+        <div className="row justify-content-center">
+          <div className="col-12">
+            <form onSubmit={UpdateCategory} className="box">
+              <div className="row">
+                <div className="col-md-4">
+                  <div className="control">
+                    <input
+                      className="input"
+                      style={{ backgroundColor: '#f7f7f7' }}
+                      type="text"
+                      placeholder="Nama atau Keterangan Category"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="control">
+                    <input
+                      className="input"
+                      style={{ backgroundColor: '#f7f7f7' }}
+                      type="text"
+                      placeholder="Budget"
+                      value={formatRupiah(budget)}
+                      onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="control">
+                    <select
+                      className="input"
+                      style={{ backgroundColor: '#f7f7f7' }}
+                      value={budgetruleid}
+                      onChange={(e) => setBudgetRuleId(e.target.value)}
+                      required
+                    >
+                      <option value={""}>Pilih budget rule</option>
+                      {budgetRules.map((budgetRule) => (
+                        <option key={budgetRule.id} value={budgetRule.id}>
+                          {budgetRule.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div className="field mt-5">
+                <button className="container button is-success d-flex justify-content-center align-items-center">Tambahkan</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+        
     )
 }
 
