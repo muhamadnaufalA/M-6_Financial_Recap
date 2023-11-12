@@ -10,7 +10,6 @@ function Dashboard() {
 
 	const UserId = Cookies.get("userId");
 	const [recap, setRecap] = useState([]);
-	const [recap, setRecap] = useState([]);
 	const [budgetRules, setBudgetRules] = useState([]);
 	const [budgetRulesActual, setBudgetRulesActual] = useState([]);
 	const [budgetRuleList, setBudgetRuleList] = useState([]);
