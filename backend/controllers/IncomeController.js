@@ -4,7 +4,14 @@ import Wallet from "../models/WalletModel.js"; // Import model Wallet
 export const createIncome = async(req, res) => {
     try {
         req.body.userId = req.params.id;
-        console.log(req.params.tanggal_pemasukan);
+        const balance = req.body.balance;
+
+        if (balance <= 0){
+            return res.status(400).json({
+                message : "invalid input balance"
+            });
+        }
+
         const response = await Income.create(req.body);
         res.status(201).json({
             message: "Income created",
@@ -71,6 +78,15 @@ export const getIncomeById = async(req, res) => {
 
 export const updateIncome = async(req, res) => {
     try {
+        const balance = req.body.balance;
+
+        if (balance <= 0){
+            return res.status(400).json({
+                message : "invalid input balance",
+                data: null
+            });
+        }
+        
         await Income.update(req.body, {
             where: {
                 id: req.params.id

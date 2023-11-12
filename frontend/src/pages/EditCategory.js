@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react';
 import axios from "axios";
 import { useHistory, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import Swal from "sweetalert2";
 
 const EditCategory = () => {
     const [name, setName] = useState('');
@@ -24,19 +25,55 @@ const EditCategory = () => {
     
     const UpdateCategory = async (e) =>{
         e.preventDefault();
+        if (name.trim() === '' || budget === '' || budgetruleid === '') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Input Failed',
+              text: 'Please fill in all fields',
+              allowOutsideClick: false, // Prevent closing Swal on outside click
+              confirmButtonText: 'OK',
+            });
+            return;
+          }
         if (budgetruleid == null){
             budgetruleid = temp;
         }
         try{
-            await axios.put(`http://localhost:5000/category/${id}`, {
+            const respon = await axios.put(`http://localhost:5000/category/${id}`, {
                 name: name,
                 budget: parseInt(budget),
                 budgetruleId: parseInt(budgetruleid),
                 
             });
-            history.push("/dashboard");
+            if (respon.status === 200) {
+                await Swal.fire({
+                  icon: 'success',
+                  title: 'Category Updated!',
+                  text: respon.data.message,
+                  allowOutsideClick: false, // Prevent closing Swal on outside click
+                  confirmButtonText: 'OK',
+                });
+            } 
+            history.push("/category");
         }catch (error){
-            console.log(error);
+            if(error.response.status === 400){
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Invalid Input!',
+                  allowOutsideClick: false, // Prevent closing Swal on outside click
+                  confirmButtonText: 'OK',
+                });
+                console.log(error);
+              }else{
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Category Failed Updated!',
+                  allowOutsideClick: false, // Prevent closing Swal on outside click
+                  confirmButtonText: 'OK',
+                });
+                console.log(error);
+              }
+            
         }
     };
 
@@ -53,6 +90,11 @@ const EditCategory = () => {
         const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
         setListBudgetRule(response.data);
     }
+
+    const formatRupiah = (angka) => {
+        const numberFormat = new Intl.NumberFormat("id-ID");
+        return `Rp. ${numberFormat.format(angka)}`;
+    };
 
     return (
         <div className="columns mt-5 is-centered">
@@ -73,11 +115,10 @@ const EditCategory = () => {
                         <label className="label">Budget</label>
                         <div className="control">
                             <input 
-                            type="number" 
+                            type="text" 
                             className="input"                         
-                            value={budget} 
-                            onChange={(e)=> setBudget(e.target.value)}
-                            placeholder='Contoh: 100000'/>
+                            value={formatRupiah(budget)}
+                            onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}/>
                         </div>
                     </div>
                     <div className="field mt-5">

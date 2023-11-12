@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { BiSolidHelpCircle } from "react-icons/bi";
+import Swal from "sweetalert2";
 
 export default function OutcomeForm() {
     const UserId = Cookies.get("userId");
@@ -32,7 +33,7 @@ export default function OutcomeForm() {
         e.preventDefault();
         console.log(formData);
         try {
-            await axios.post(`http://localhost:5000/users/${UserId}/outcomes`,{
+            const response = await axios.post(`http://localhost:5000/users/${UserId}/outcomes`,{
                 name: formData.outcomeName,
                 nominal: formData.amount,
                 tanggal_pengeluaran: formData.date,
@@ -40,11 +41,36 @@ export default function OutcomeForm() {
                 categoryId: formData.category,
                 walletId: formData.wallet,
             });
+
+            if (response.status === 201) {
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Outcome Added!',
+                    text: response.data.message,
+                    allowOutsideClick: false,
+                    confirmButtonText: 'OK',
+                });
+            } 
+
             window.location.reload();
         } catch (error) {
             if(error.response.data.status == 422) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Input Failed',
+                    text:error.response.data.message,
+                    allowOutsideClick: false,
+                    confirmButtonText: 'OK',
+                });
                 setMsg(error.response.data.message);
             } else if(error.response.data.status == 400) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Input Failed',
+                    text:error.response.data.message,
+                    allowOutsideClick: false,
+                    confirmButtonText: 'OK',
+                });
                 setMsg(error.response.data.message);
             }
         }
@@ -70,6 +96,11 @@ export default function OutcomeForm() {
         const response = await axios.get(`http://localhost:5000/users/${UserId}/category`);
         setListCategory(response.data);
     }
+
+    const formatRupiah = (angka) => {
+        const numberFormat = new Intl.NumberFormat("id-ID");
+        return `Rp${numberFormat.format(angka)}`;
+    };
 
     return (
         <div className="card flex-fill">
@@ -102,11 +133,17 @@ export default function OutcomeForm() {
                                         className="input"
                                         style={{ backgroundColor: '#f7f7f7' }}
                                         id="amount"
-                                        type="number"
+                                        type="text"
                                         name="amount"
                                         placeholder="Nominal Pengeluaran"
-                                        value={formData.amount}
-                                        onChange={handleChange}
+                                        value={formatRupiah(formData.amount)}
+                                        onChange={(e) => {
+                                            const value = e.target.value.replace(/\D/g, '');
+                                            setFormData({
+                                                ...formData,
+                                                amount: value,
+                                            });
+                                        }}
                                         required
                                     />
                                 </div>
@@ -144,7 +181,7 @@ export default function OutcomeForm() {
                                         onChange={handleChange}
                                         required
                                     >
-                                        <option value={0}>Pilih Budget Rule</option>
+                                        <option value={""}>Pilih Budget Rule</option>
                                         {budgetRules.map((budgetRule) => (
                                             <option key={budgetRule.id} value={budgetRule.id}>
                                                 {budgetRule.name}
@@ -163,7 +200,7 @@ export default function OutcomeForm() {
                                         onChange={handleChange}
                                         required
                                     >
-                                        <option value={0}>Pilih Kategori</option>
+                                        <option value={""}>Pilih Kategori</option>
                                         {categories.map((category) => (
                                             <option key={category.id} value={category.id}>
                                                 {category.name}
@@ -182,7 +219,7 @@ export default function OutcomeForm() {
                                         onChange={handleChange}
                                         required
                                     >
-                                        <option value={0}>Pilih Wallet</option>
+                                        <option value={""}>Pilih Wallet</option>
                                         {wallets.map((wallet) => (
                                             <option key={wallet.id} value={wallet.id}>
                                                 {wallet.name}

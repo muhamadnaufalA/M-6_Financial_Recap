@@ -1,16 +1,42 @@
 import BudgetRule from "../models/BudgetRuleModel.js";
 
-export const createBudgetRule = async(req, res) => {
+export const createBudgetRule = async (req, res) => {
     try {
-        req.body.userId = req.params.id;
+        const userId = req.params.id;
+        const newPercentage = req.body.percentage;
+
+        // Ambil total persentase yang sudah ada di database berdasarkan userId
+        const existingBudgetRules = await BudgetRule.findAll({ where: { userId } });
+        const totalPercentageInDatabase = existingBudgetRules.reduce(
+            (total, rule) => total + rule.percentage,
+            0
+        );
+        // Cek apakah jumlah persentase yang baru ditambahkan (newPercentage)
+        // ditambahkan dengan total persentase di database melebihi 100
+        if (newPercentage + totalPercentageInDatabase > 100) {
+            return res.status(400).json({
+                message: "Total percentage exceeds 100%"
+            });
+        }
+        if (newPercentage > 100 || newPercentage <= 0) {
+            return res.status(401).json({
+                message: "Invalid Input"
+            });
+        }
+
+        req.body.userId = userId;
         await BudgetRule.create(req.body);
         res.status(201).json({
             message: "Budget rule created"
         });
-    } catch(error) {
+    } catch (error) {
         console.log(error.message);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
     }
 }
+
 
 export const getBudgetRuleByUserId = async(req, res) => {
     try {

@@ -7,13 +7,21 @@ import { Op } from 'sequelize';
 
 export const getRecap = async(req, res) => {
 
-    const today = new Date();
+    // const today = new Date();
+    // const start = new Date(today.getFullYear(), today.getMonth(), 1);
+    // const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+    // const end = new Date(nextMonth - 1);
 
     try {
         const incomeResponse = await Income.findAll({
             where: {
-                tanggal_pemasukan : today,
                 userId: req.params.id
+                // tanggal_pemasukan : {
+                //     [Op.and]: [
+                //         { [Op.gte]: start },
+                //         { [Op.lte]: end }
+                //     ]
+                // }
             },
             include: [
                 {
@@ -26,66 +34,13 @@ export const getRecap = async(req, res) => {
 
         const outcomeResponse = await Outcome.findAll({
             where: {
-                tanggal_pengeluaran : today,
                 userId: req.params.id
-            },
-            include: [
-                {
-                  model: Wallet, 
-                  attributes: ['name'],
-                  required: false
-                }
-            ]
-        })
-
-        const report = {
-            income: incomeResponse,
-            outcome: outcomeResponse,
-          };
-
-
-        res.status(200).json(report);
-    } catch(error) {
-        console.log(error.message);
-    }
-}
-
-export const getRecapByMonth = async(req, res) => {
-
-    const today = new Date();
-    const start = new Date(today.getFullYear(), today.getMonth(), 1);
-    const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-    const end = new Date(nextMonth - 1);
-
-    try {
-        const incomeResponse = await Income.findAll({
-            where: {
-                userId: req.params.id,
-                tanggal_pemasukan : {
-                    [Op.and]: [
-                        { [Op.gte]: start },
-                        { [Op.lte]: end }
-                    ]
-                }
-            },
-            include: [
-                {
-                  model: Wallet, 
-                  attributes: ['name'],
-                  required: false
-                }
-            ]
-        })
-
-        const outcomeResponse = await Outcome.findAll({
-            where: {
-                userId: req.params.id,
-                tanggal_pengeluaran : {
-                    [Op.and]: [
-                        { [Op.gte]: start },
-                        { [Op.lte]: end }
-                    ]
-                }
+                // tanggal_pengeluaran : {
+                //     [Op.and]: [
+                //         { [Op.gte]: start },
+                //         { [Op.lte]: end }
+                //     ]
+                // }
             },
             include: [
                 {
@@ -110,8 +65,8 @@ export const getRecapByMonth = async(req, res) => {
 
         const result = report.map(item => {
             return {
-                id_income: item.budgetrule ? "-" : item.id,
-                id_outcome: item.budgetrule ? item.id : "-",
+                id: item.id,
+                transaction_type: item.budgetrule ? "Outcome" : "Income",
                 tanggal: item.tanggal_pemasukan || item.tanggal_pengeluaran,
                 keterangan: item.name,
                 budgetrule: item.budgetrule ? item.budgetrule.name : "-",

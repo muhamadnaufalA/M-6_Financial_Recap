@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import { useHistory, Link} from 'react-router-dom';
 import { BiEdit } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
+import { BiSolidHelpCircle } from "react-icons/bi";
+import Swal from "sweetalert2";
 
 const Category = () => {
   const [categories, setCategory] = useState([]);
@@ -33,28 +35,79 @@ const Category = () => {
     setListBudgetRule(response.data);
   }
 
-  const addCatFunc = async(e) => {
+  const addCatFunc = async (e) => {
     e.preventDefault();
-    try {
-        await axios.post(`http://localhost:5000/users/${UserId}/category`,{
-            name: name,
-            budget: parseInt(budget),
-            budgetruleId: parseInt(budgetruleid)
-        });
-
-        window.location.reload();
-    } catch (error) {
-        if(error.response){
-            setMsg(error.response.data.msg);
-        }
+    if (name.trim() === '' || budget === '' || budgetruleid === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Input Failed',
+        text: 'Please fill in all fields',
+        allowOutsideClick: false, // Prevent closing Swal on outside click
+        confirmButtonText: 'OK',
+      });
+      return;
     }
-  }
+  
+    try {
+      const respon = await axios.post(`http://localhost:5000/users/${UserId}/category`, {
+        name: name,
+        budget: parseInt(budget),
+        budgetruleId: parseInt(budgetruleid),
+      });
+      if (respon.status === 201) {
+        await Swal.fire({
+          icon: 'success',
+          title: 'Category Added!',
+          text: respon.data.message,
+          allowOutsideClick: false, // Prevent closing Swal on outside click
+          confirmButtonText: 'OK',
+        });
+      }
+      window.location.reload();
+    } catch (error) {
+      if (error.response.status === 400) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Input Failed',
+          text: error.response.data.message,
+          allowOutsideClick: false, // Prevent closing Swal on outside click
+          confirmButtonText: 'OK',
+        });
+        setMsg(error.response.data.msg);
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Input Failed!',
+          text: error.response.data.message,
+          allowOutsideClick: false, // Prevent closing Swal on outside click
+          confirmButtonText: 'OK',
+        });
+        setMsg(error.response.data.msg);
+      }
+    }
+  };
+  
 
   const deleteCategory = async (id) => {
     try{
-        await axios.delete(`http://localhost:5000/category/${id}`);
+        const respon = await axios.delete(`http://localhost:5000/category/${id}`);
+        if (respon.status === 200) {
+          await Swal.fire({
+            icon: 'success',
+            title: 'Category Deleted!',
+            text: respon.data.message,
+            allowOutsideClick: false, // Prevent closing Swal on outside click
+            confirmButtonText: 'OK',
+          });
+        }
         getListCatFunc();
     } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Category Failed Deleted!',
+          allowOutsideClick: false, // Prevent closing Swal on outside click
+          confirmButtonText: 'OK',
+        });
         console.log(error);
     }
   }
@@ -62,6 +115,31 @@ const Category = () => {
   const formatRupiah = (angka) => {
     const numberFormat = new Intl.NumberFormat("id-ID");
     return `Rp. ${numberFormat.format(angka)}`;
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedBudgetRule, setSelectedBudgetRule] = useState("All");
+  const itemsPerPage = 5;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = categories
+      .filter((category) => {
+        const budgetRuleMatch = selectedBudgetRule === "All" || category.budgetrule?.name === selectedBudgetRule;
+        return budgetRuleMatch;
+      })
+      .slice(indexOfFirstItem, indexOfLastItem);
+
+  const filteredCategory = categories.filter((category) => {
+    const budgetRuleMatch = selectedBudgetRule === "All" || category.budgetrule?.name === selectedBudgetRule;
+    return budgetRuleMatch;
+});
+
+  const totalPages = Math.ceil(filteredCategory.length / itemsPerPage);
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
   };
 
   return (
@@ -91,11 +169,10 @@ const Category = () => {
                   <label className="label">Budget</label>
                   <div className="control">
                     <input
-                      type="number"
+                      type="text"
                       className="input"
-                      placeholder="Contoh: 100000"
-                      value={budget}
-                      onChange={(e) => setBudget(e.target.value)}
+                      value={formatRupiah(budget)}
+                      onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}
                     />
                   </div>
                 </div>
@@ -126,44 +203,88 @@ const Category = () => {
       </div>
 
       {/* TABEL */}
-      <div className="hero has-background-white is-fullwidth">
-        <div className="columns mt-5 is-centered">
-          <div className="column">
-            <table className="table is-striped is-fullwidth">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Name</th>
-                  <th>Budget</th>
-                  <th>Budget Rule</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {categories.map((category, index) => (
-                  <tr key={category.id}>
-                    <td>{index + 1}</td>
-                    <td>{category.name}</td>
-                    <td>{formatRupiah(category.budget)}</td>
-                    <td>{category.budgetrule ? category.budgetrule.name : 'Belum ditentukan'}</td>
-                    <td>
-                      <div className="buttons">
-                        <Link to={`editCategory/${category.id}`} className="button is-small is-info">
-                          <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-                        </Link>
-                        <button onClick={() => deleteCategory(category.id)} className="button is-small is-danger">
-                          <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-                        </button>
-                      </div>
-                    </td>
+      <div className="card flex-fill">
+          <div className="card-header">
+              <h5 className="card-title mb-0">Category Table</h5>
+          </div>
+          <div className="box">
+            {/* Filter Start */}
+            <div className="d-flex mb-5" style={{ width: "40%" }}>
+                    <div className="col-5 px-1">
+                        <select
+                            className="form-control mr-2"
+                            value={selectedBudgetRule}
+                            onChange={(e) => setSelectedBudgetRule(e.target.value)}
+                            disabled={currentPage !== 1}
+                            title={currentPage !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
+                        >
+                            <option value="All">All Budget Rules</option>
+                            {budgetRules.map((budgetRule) => (
+                                <option key={budgetRule.id} value={budgetRule.name}>
+                                    {budgetRule.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="col-2 px-1">
+                        <BiSolidHelpCircle 
+                            style={{  }}
+                            title="Filter hanya aktif ketika berada di page 1"
+                        />
+                    </div>
+                </div>
+                {/* Filter End */}
+              <table className="table text-center">
+                <thead>
+                  <tr>
+                    <th style={{ width: '20%' }}>Name</th>
+                    <th style={{ width: '20%' }}>Budget</th>
+                    <th style={{ width: '20%' }}>Budget Rule</th>
+                    <th style={{ width: '20%' }}>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {currentItems.map((category, index) => (
+                    <tr key={category.id}>
+                      <td>{category.name}</td>
+                      <td>{formatRupiah(category.budget)}</td>
+                      <td>{category.budgetrule ? category.budgetrule.name : 'Belum ditentukan'}</td>
+                      <td style={{paddingLeft:'90px'}}>
+                        <div className="buttons">
+                          <Link to={`editCategory/${category.id}`} className="button is-small is-info">
+                            <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                          </Link>
+                          <button onClick={() => deleteCategory(category.id)} className="button is-small is-danger">
+                            <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {/* Pagination buttons */}
+              <div className="pagination mt-5">
+                <button
+                  className="button"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                <div>
+                        Page { currentPage } of { totalPages } Total Pages ({(itemsPerPage * (currentPage-1)) + 1} - {(itemsPerPage * (currentPage-1)) + 5 > filteredCategory.length ? filteredCategory.length : (itemsPerPage * (currentPage-1)) + 5} of {filteredCategory.length})
+                    </div>
+                <button
+                  className="button"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </div>
           </div>
         </div>
-      </div>
-      
     </section>
   );
   

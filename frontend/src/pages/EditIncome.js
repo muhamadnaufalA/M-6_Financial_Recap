@@ -39,27 +39,25 @@ const EditIncome = () => {
             tanggal_pemasukan,
             walletId: parseInt(idWallet),
         });
-
-        if (respon.status === 200) {
-          await Swal.fire({
-            icon: 'success',
-            title: 'Income Updated!',
-            text: respon.data.message,
-            allowOutsideClick: false, // Prevent closing Swal on outside click
-            confirmButtonText: 'OK',
-          });
-  
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Income Failed Updated!',
-            text: respon.data.message,
-          });
-        }
-
         history.push("/income");
     }catch (error){
+      if(error.response.status === 400){
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Input!',
+          allowOutsideClick: false, // Prevent closing Swal on outside click
+          confirmButtonText: 'OK',
+        });
         console.log(error);
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Income Failed Updated!',
+          allowOutsideClick: false, // Prevent closing Swal on outside click
+          confirmButtonText: 'OK',
+        });
+        console.log(error);
+      }
     }
   };
 
@@ -72,6 +70,11 @@ const EditIncome = () => {
 
     temp = setWalletId(response.data.walletId);
   }
+
+  const formatRupiah = (angka) => {
+    const numberFormat = new Intl.NumberFormat("id-ID");
+    return `Rp. ${numberFormat.format(angka)}`;
+  };
 
   return (
     <section className="hero has-background-white  is-fullwidth">
@@ -98,11 +101,10 @@ const EditIncome = () => {
                         <label className="label">Balance</label>
                         <div className="control">
                             <input 
-                            type="number" 
+                            type="text" 
                             className="input"                         
-                            value={balance} 
-                            onChange={(e)=> setBalance(e.target.value)}
-                            placeholder='Contoh: 100000'/>
+                            value={formatRupiah(balance)} 
+                            onChange={(e)=> setBalance(e.target.value.replace(/\D/g, ''))}/>
                         </div>
                     </div>
                     <div className="field">
