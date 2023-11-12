@@ -81,8 +81,6 @@ function Dashboard() {
 	const month = today.getMonth() + 1;
 	const year = today.getFullYear();
 
-	console.log(budgetRulesActual)
-
 	// Filter and Pagination Monthly Recap Start //
 	const [selectedCategoryMonthly, setSelectedCategoryMonthly] = useState("All");
 	const [selectedBudgetRuleMonthly, setSelectedBudgetRuleMonthly] = useState("All");
@@ -173,6 +171,8 @@ function Dashboard() {
 		totalIncome += income.balance;
 	});
 
+	console.log(totalIncome)
+
 	let nominalBudgetList = []
 	budgetRules.map((br) => {
 		let nominal = (br.percentage / 100) * totalIncome;
@@ -199,15 +199,22 @@ function Dashboard() {
 		})
 	}
 
-	let percentageOutcome = totalOutcome/totalIncome*100;
+	let percentageOutcome = 0;
+	if( totalIncome > 0 && totalOutcome > 0 ) {
+		percentageOutcome = totalOutcome/totalIncome*100;
+	}
 
-	const filteredCategory = categoryList.filter((c) => {
-		const categoryMatch = selectedCategory === "All" || c.name === selectedCategory;
-		return categoryMatch;
+	let selectedBudgetRuleId = 0
+	budgetRuleList.map((b) => {
+		if( b.name === selectedBudgetRule ) {
+			selectedBudgetRuleId = b.id
+		}
 	})
 
-	console.log(filteredCategory)
-
+	const filteredCategory = categoryList.filter((c) => {
+		const budgetRuleMatch = selectedBudgetRule === "All" || c.budgetruleId === selectedBudgetRuleId;
+		return budgetRuleMatch;
+	})
 	
   return (
     <>
@@ -282,7 +289,7 @@ function Dashboard() {
 									onChange={(e) => setSelectedCategory(e.target.value)}
 								>
 									<option value="All">All Categories</option>
-									{categoryList.map((category) => (
+									{filteredCategory.map((category) => (
 										<option key={category.id} value={category.name}>
 												{category.name}
 										</option>
@@ -295,9 +302,22 @@ function Dashboard() {
 								<GiPayMoney className="fs-1 mx-3" />
 								<span className="fs-3 fw-bold font-monospace">{formatRupiah(totalOutcome)} [{percentageOutcome.toFixed(2)} %]</span>
 							</div>
-							<div>
-								<GiPayMoney className="fs-1 mx-3" />
-								<span className="fs-3 fw-bold font-monospace">HEMAT {formatRupiah(nominalBudget - totalOutcome)}</span>
+							<div className="py-3">
+								{totalOutcome === 0 ? (
+									<span className="fs-4 fw-bold font-monospace">
+										Belum ada pengeluaran bulan ini
+									</span>
+								) : (
+									totalOutcome > nominalBudget ? (
+										<span className="fs-4 fw-bold font-monospace">
+											Bulan ini kamu boros sebesar {formatRupiah(totalOutcome - nominalBudget)}
+										</span>
+									) : (
+										<span className="fs-4 fw-bold font-monospace">
+											Bulan ini kamu hemat sebesar {formatRupiah(nominalBudget - totalOutcome)}
+										</span>
+									)
+								)}
 							</div>
 						</div>
 					</div>
