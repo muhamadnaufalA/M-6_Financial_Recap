@@ -18,6 +18,7 @@ export const createIncome = async(req, res) => {
             data: response
         });
     } catch(error) {
+        res.status(500).json({message : error.message});
         console.log(error.message);
     }
 }
@@ -93,6 +94,7 @@ export const updateIncome = async(req, res) => {
         })
         res.status(200).json( { message: "Income updated" } );
     } catch(error) {
+        res.status(500).json({message : error.message});
         console.log(error.message);
     }
 }
@@ -106,6 +108,7 @@ export const deleteIncome = async(req, res) => {
         });
         res.status(200).json( { message: "Income deleted" } );
     } catch(error) {
+        res.status(500).json({message : error.message});
         console.log(error.message);
     }
 }

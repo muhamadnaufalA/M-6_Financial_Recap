@@ -47,17 +47,6 @@ const Income = () => {
             tanggal_pemasukan: tanggalPemasukan,
             walletId: parseInt(idWallet)
         });
-
-        if (respon.status === 201) {
-          await Swal.fire({
-            icon: 'success',
-            title: 'Income Added!',
-            text: respon.data.message,
-            allowOutsideClick: false, // Prevent closing Swal on outside click
-            confirmButtonText: 'OK',
-          });
-  
-        } 
         window.location.reload();
     } catch (error) {
         if(error.response.status === 400){
@@ -84,18 +73,7 @@ const Income = () => {
 
   const deleteIncome = async (id) => {
     try{
-        const respon = await axios.delete(`http://localhost:5000/incomes/${id}`);
-
-        if (respon.status === 200) {
-          await Swal.fire({
-            icon: 'success',
-            title: 'Income Deleted!',
-            text: respon.data.message,
-            allowOutsideClick: false, // Prevent closing Swal on outside click
-            confirmButtonText: 'OK',
-          });
-  
-        }
+        await axios.delete(`http://localhost:5000/incomes/${id}`);
         getListIncomeFunc();
     } catch (error) {
         Swal.fire({

@@ -39,17 +39,6 @@ const EditIncome = () => {
             tanggal_pemasukan,
             walletId: parseInt(idWallet),
         });
-
-        if (respon.status === 200) {
-          await Swal.fire({
-            icon: 'success',
-            title: 'Income Updated!',
-            text: respon.data.message,
-            allowOutsideClick: false, // Prevent closing Swal on outside click
-            confirmButtonText: 'OK',
-          });
-  
-        } 
         history.push("/income");
     }catch (error){
       if(error.response.status === 400){
