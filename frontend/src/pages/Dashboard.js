@@ -13,7 +13,7 @@ function Dashboard() {
 	const [budgetRules, setBudgetRules] = useState([]);
 	const [budgetRulesActual, setBudgetRulesActual] = useState([]);
 	const [budgetRuleList, setBudgetRuleList] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
+  	const [categoryList, setCategoryList] = useState([]);
 	const [wallets, setWallets] = useState([]);
 	const [incomes, setIncomes] = useState([]);
 	const [outcomes, setOutcomes] = useState([]);
@@ -23,7 +23,7 @@ function Dashboard() {
 		getBudgetRulesTarget();
 		getBudgetRulesActual();
 		getListBudgetRuleFunc();
-    getListCategoryFunc();
+    	getListCategoryFunc();
 		getWalletsFunc();
 		getIncomesFunc();
 		getOutcomesFunc();

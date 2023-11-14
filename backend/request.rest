@@ -26,6 +26,19 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:5000/users/
+Content-Type: application/json
+
+{
+    "username": "",
+    "password": "1",
+    "confPassword":"1"
+}
+
+###
+GET http://localhost:5000/users/
+
+###
 POST http://localhost:5000/users/1/category
 Content-Type: application/json
 

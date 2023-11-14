@@ -34,7 +34,7 @@ const Income = () => {
   }
 
   const getListIncomeFunc = async () =>{
-    const response = await axios.get(`http://localhost:5000/users/${UserId}/incomes`);
+    let response = await axios.get(`http://localhost:5000/users/${UserId}/incomes`);
     setIncome(response.data);
   }
 
