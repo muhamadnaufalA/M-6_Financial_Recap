@@ -63,6 +63,8 @@ export const getOutcomeReport = async (req, res) => {
             item.name = budgetruleNames[item.budgetruleId]
         });
 
+        outcomeResponse.sort((a, b) => a.budgetruleId - b.budgetruleId);
+
         res.status(200).json(outcomeResponse);
     } catch (error) {
         console.error(error.message);
