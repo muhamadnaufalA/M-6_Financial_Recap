@@ -44,7 +44,8 @@ export const getBudgetRuleByUserId = async(req, res) => {
         const response = await BudgetRule.findAll({
             where: {
                 userId: req.params.id
-            }
+            },
+            order: [['name', 'ASC']]
         });
         res.status(200).json(response);
     } catch(error) {
