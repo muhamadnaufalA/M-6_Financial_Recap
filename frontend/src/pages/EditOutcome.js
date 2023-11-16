@@ -7,18 +7,17 @@ const EditOutcome = () => {
     const [name, setName] = useState("");
     const [nominal, setNominal] = useState("");
     const [tanggal_pengeluaran, setTanggalPengeluaran] = useState("");
-    let [idBudgetRule, setBudgetRuleId] = useState('');
-    const [nameBudgetRule, setBudgetRuleName] = useState('');
-    let [idCategory, setCategoryId] = useState('');
-    const [nameCategory, setCategoryName] = useState('');
-    let [idWallet, setWalletId] = useState('');
-    const [walletName, setWalletName] = useState('');
     const {id} = useParams();
     const history = useHistory();
     const [wallets, setListWallet] = useState([]);
     const [budgetRules, setListBudgetRule] = useState([]);
     const [categories, setListCategory] = useState([]);
     const UserId = Cookies.get("userId");
+    const [msg, setMsg] = useState('');
+
+    let [idBudgetRule, setBudgetRuleId] = useState('');
+    let [idCategory, setCategoryId] = useState('');
+    let [idWallet, setWalletId] = useState('');
   
     var temp1;
     var temp2;
@@ -32,18 +31,18 @@ const EditOutcome = () => {
     }, []);
   
     const getListWalletFunc = async () =>{
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/wallets`);
-        setListWallet(response.data);
+      const response = await axios.get(`http://localhost:5000/users/${UserId}/wallets`);
+      setListWallet(response.data);
     }
 
     const getListBudgetRuleFunc = async () =>{
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
-        setListBudgetRule(response.data);
+      const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
+      setListBudgetRule(response.data);
     }
 
     const getListCategoryFunc = async () =>{
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/category`);
-        setListCategory(response.data);
+      const response = await axios.get(`http://localhost:5000/users/${UserId}/category`);
+      setListCategory(response.data);
     }
   
     const UpdateOutcome = async (e) =>{
@@ -67,8 +66,8 @@ const EditOutcome = () => {
               categoryId: parseInt(idCategory)
           });
           history.push("/outcome");
-      }catch (error){
-          console.log(error);
+      } catch(error) {
+        setMsg(error.response.data.message);
       }
     };
   
@@ -86,19 +85,20 @@ const EditOutcome = () => {
 
     const formatRupiah = (angka) => {
       const numberFormat = new Intl.NumberFormat("id-ID");
-      return `Rp. ${numberFormat.format(angka)}`;
+      return `Rp${numberFormat.format(angka)}`;
     };
   
     return (
       <section className="hero has-background-white  is-fullwidth">
           <h1 className="h2 mb-3 text-center">
-              <strong>Edit Outcome</strong>
+            <strong>Edit Outcome</strong>
           </h1>
           <div className="hero-body">
             <div className="container">
               <div className="columns is-centered">
                 <div className="column">
                  <form onSubmit={UpdateOutcome}>
+                  <p className="has-text-center has-text-danger">{msg}</p>
                       <div className="field">
                           <label className="label">Name</label>
                           <div className="control">

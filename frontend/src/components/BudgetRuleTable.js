@@ -7,6 +7,7 @@ import { BiTrash } from "react-icons/bi";
 
 export default function BudgetRuleTable() {
     const UserId = Cookies.get("userId");
+    const [message, setMessage] = useState('');
     const [budgetRules, setBudgetRuleList] = useState([]);
 
     useEffect(()=>{
@@ -23,13 +24,14 @@ export default function BudgetRuleTable() {
             await axios.delete(`http://localhost:5000/budgetrule/${id}`);
             getListBudgetRuleFunc();
         } catch (error) {
-            console.log(error);
+            setMessage(error.response.data.message);
         }
     }
 
     return (
       <section className="col-7">
         <div className="box">
+          <p className="has-text-center has-text-danger">{message}</p>
           <table className="table table-hover my-0">
             <thead>
                 <tr>
@@ -48,7 +50,7 @@ export default function BudgetRuleTable() {
                         <td>Nominal</td>
                         <td>{budgetRule.percentage} %</td>
                         <td className="text-center">
-                            <Link to={`/${budgetRule.id}`} className="button is-small is-info">
+                            <Link to={`edit-budget-rule/${budgetRule.id}`} className="button is-small is-info">
                             <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
                             </Link>
                             <button onClick={() => deleteBudgetRule(budgetRule.id)} className="button is-small is-danger">
