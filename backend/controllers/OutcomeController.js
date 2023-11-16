@@ -80,7 +80,7 @@ export const getAllOutcomeUser = async(req, res) => {
                 required: false
               }
             ],
-            order: [['id', 'ASC']]
+            order: [['id', 'DESC']]
         });
         res.status(200).json(response);
     } catch(error) {
@@ -128,13 +128,34 @@ export const getOutcomeById = async(req, res) => {
 }
 
 export const updateOutcome = async(req, res) => {
-    try {
-        await Outcome.update(req.body, {
+    let wallet;
+    
+    if( req.body.walletId ) {
+        wallet = await Wallet.findOne({
             where: {
-                id: req.params.id,
-            }
-        })
-        res.status(200).json( { message: "Outcome updated" } );
+                id: req.body.walletId,
+            },
+            attributes: [
+                'id',
+                'name', 
+                'balance'
+            ],
+        });
+    }
+    try {
+        if (wallet.balance >= req.body.nominal) {
+            await Outcome.update(req.body, {
+                where: {
+                    id: req.params.id,
+                }
+            })
+            res.status(200).json({ message: "Outcome updated" });
+        } else {
+            res.status(422).json({
+                status: 422,
+                message: "Saldo Anda tidak cukup!"
+            });
+        }
     } catch(error) {
         console.log(error.message);
     }
