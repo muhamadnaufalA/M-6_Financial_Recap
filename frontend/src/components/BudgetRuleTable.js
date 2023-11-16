@@ -48,7 +48,7 @@ export default function BudgetRuleTable() {
                         <td>Nominal</td>
                         <td>{budgetRule.percentage} %</td>
                         <td className="text-center">
-                            <Link to={`/${budgetRule.id}`} className="button is-small is-info">
+                            <Link to={`edit-budget-rule/${budgetRule.id}`} className="button is-small is-info">
                             <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
                             </Link>
                             <button onClick={() => deleteBudgetRule(budgetRule.id)} className="button is-small is-danger">
