@@ -1,4 +1,5 @@
 import BudgetRule from "../models/BudgetRuleModel.js";
+import Outcome from "../models/OutcomeModel.js";
 
 export const createBudgetRule = async (req, res) => {
     try {
@@ -97,13 +98,25 @@ export const updateBudgetRule = async(req, res) => {
 }
 
 export const deleteBudgetRule = async(req, res) => {
+
+    const exist = await Outcome.findOne({
+        where: {
+            budgetruleId: req.params.id
+        }
+    })
+
     try {
-        await BudgetRule.destroy({
-            where: {
-                id: req.params.id
-            }
-        })
-        res.status(200).json( { message: "Budget rule deleted" } );
+        if( exist === null ) {
+            await BudgetRule.destroy({
+                where: {
+                    id: req.params.id
+                }
+            })
+            res.status(200).json( { message: "Budget rule deleted" } );
+        } else {
+            return res.status(400).json({ message: "Tidak dapat menghapus budget rule karena terdapat data outcome yang terkait" });
+        }
+        
     } catch(error) {
         console.log(error.message);
     }
