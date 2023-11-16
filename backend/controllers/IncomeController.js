@@ -1,14 +1,21 @@
 import Income from "../models/IncomeModel.js";
 import Wallet from "../models/WalletModel.js"; // Import model Wallet
 
-export const createIncome = async(req, res) => {
+export const createIncome = async (req, res) => {
     try {
         req.body.userId = req.params.id;
         const balance = req.body.balance;
 
-        if (balance <= 0){
+        // Periksa apakah req.body tidak kosong dan memiliki properti yang diperlukan
+        if (!req.body || !req.body.name || !req.body.balance || !req.body.tanggal_pemasukan || !req.body.walletId) {
             return res.status(400).json({
-                message : "invalid input balance"
+                message: "Invalid input data. Make sure all required properties are provided."
+            });
+        }
+
+        if (balance <= 0) {
+            return res.status(400).json({
+                message: "Invalid input balance"
             });
         }
 
@@ -17,11 +24,14 @@ export const createIncome = async(req, res) => {
             message: "Income created",
             data: response
         });
-    } catch(error) {
-        res.status(500).json({message : error.message});
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
         console.log(error.message);
     }
 }
+
 
 export const getIncomeByUserId = async(req, res) => {
     try {

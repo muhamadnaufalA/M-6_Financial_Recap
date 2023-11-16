@@ -206,3 +206,15 @@ DELETE http://localhost:5000/jenispengeluaran/1
 
 ###
 GET http://localhost:5000/users/1/recap
+
+###
+POST http://localhost:5000/users/1/incomes
+Content-Type: application/json
+
+{
+    "name": "",
+    "balance": "0",
+    "tanggal_pemasukan": "23-10-2023",
+    "balance": "123",
+    "walletId": "1"
+}
