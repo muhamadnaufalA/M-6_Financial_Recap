@@ -68,21 +68,24 @@
 
 // const staticCacheName = 'site-static'
 // const assets = [
-//     '/',
-//     '/frontend/src/App.js',
-//     '/adminkit/js/app.js',
-//     '/adminkit/css/app.css',
-//     '/adminkit/js/charts.js',
-//     '/static/js/bundle.js',
-//     'index.html',
-//     '/register',
-//     '/dashboard',
-//     '/budgetrule',
-//     '/category',
-//     '/wallets',
-//     '/income',
-//     '/outcome',
-//     '/recap'
+//       '/',
+//       '/src/App.js',
+//       '/src/pages/Dashboard.js',
+//       '/adminkit/js/app.js',
+//       '/adminkit/css/app.css',
+//       '/adminkit/js/charts.js',
+//       '/static/js/bundle.js',
+//       '/manifest.json',
+//       '/favicon.ico',
+//       'index.html',
+//       '/register',
+//       '/dashboard',
+//       '/budgetrule',
+//       '/category',
+//       '/wallets',
+//       '/income',
+//       '/outcome',
+//       '/recap'
 // ]
 
 // self.addEventListener('install', evt=>{
@@ -128,8 +131,8 @@ this.addEventListener("install", (event) => {
         caches.open(cacheData).then((cache) => {
             return cache.addAll([
                 '/',
-                '/frontend/src/App.js',
-                '/frontend/src/pages/Dashboard.js',
+                '/src/App.js',
+                '/src/pages/Dashboard.js',
                 '/adminkit/js/app.js',
                 '/adminkit/css/app.css',
                 '/adminkit/js/charts.js',
@@ -185,7 +188,7 @@ self.addEventListener('fetch', (event) => {
             if (!response || (response && response.status === 200 && response !== apiResponse)) {
               // Salin response dari API ke dalam cache
               const responseClone = apiResponse.clone();
-              cache.put(event.request, responseClone);
+              cache.put(event.request, responseClone);s
             }
             return apiResponse;
           });

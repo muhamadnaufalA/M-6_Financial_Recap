@@ -9,7 +9,7 @@ const EditCategory = () => {
     const [name, setName] = useState('');
     const [budget, setBudget] = useState('');
     
-    const [budgetruleid, setBudgetRuleId] = useState('');
+    var [budgetruleid, setBudgetRuleId] = useState('');
     const [budgetruleName, setBudgetRuleName] = useState('');
     const [budgetRules, setListBudgetRule] = useState([]);
 
