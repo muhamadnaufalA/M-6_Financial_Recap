@@ -26,9 +26,9 @@ const Register = () => {
   }
 
   return (
-    <section className="hero bg-light is-fullheight is-fullwidth">
+    <section className="hero bg-light is-fullheight is-fullwidth" style={{ background: 'linear-gradient(to right, #8e9eab, #eef2f3)' }}>
     <div className="hero-body">
-        <div className="container">
+        <div className="container" style={{ minHeight: '100vh' }}>
             <div className="row justify-content-center">
                 <div className="col-12 col-md-6" style={{paddingTop:'150px'}}>
                     <form onSubmit={RegisterFunc} className="card p-4">
