@@ -77,107 +77,118 @@ export default function OutcomeTable() {
         }
     };
 
+    let selectedBudgetRuleId = 0
+    budgetRules.map((b) => {
+      if( b.name === selectedBudgetRule ) {
+        selectedBudgetRuleId = b.id
+      }
+    })
+
+    const filteredCategory = categories.filter((c) => {
+      const budgetRuleMatch = selectedBudgetRuleId === 0 || c.budgetruleId === selectedBudgetRuleId;
+      return budgetRuleMatch;
+    })
+
     return (
-        <section className="card flex-fill">
-  <div className="card-header">
-    <h5 className="card-title mb-0">Outcome Table</h5>
-  </div>
-  {/* Tabel Start */}
-  <div className="card-body">
+      <section className="card flex-fill">
+        <div className="card-header">
+          <h5 className="card-title mb-0">Outcome Table</h5>
+        </div>
+        {/* Tabel Start */}
+        <div className="card-body">
 
-    {/* Filter Start */}
-    <div className="d-flex mb-5" style={{ width: "50%" }}>
-      <div className="col-6 px-1">
-        <select
-          className="form-select mr-2 cursor-pointer"
-          value={selectedBudgetRule}
-          onChange={(e) => setSelectedBudgetRule(e.target.value)}
-          disabled={currentPage !== 1}
-          title={currentPage !== 1 ? "Kembali ke page pertama untuk memilih budget rule" : ""}
-        >
-          <option value="All">All Budget Rules</option>
-          {budgetRules.map((budgetRule) => (
-            <option key={budgetRule.id} value={budgetRule.name}>
-              {budgetRule.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="col-6 px-1">
-        <select
-          className="form-select cursor-pointer"
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          disabled={currentPage !== 1}
-          title={currentPage !== 1 ? "Kembali ke page pertama untuk memilih category" : ""}
-        >
-          <option value="All">All Categories</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.name}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
-    {/* Filter End */}
+          {/* Filter Start */}
+          <div className="d-flex mb-5" style={{ width: "50%" }}>
+            <div className="col-6 px-1">
+              <select
+                className={currentPage === 1 ? "form-select mr-2 cursor-pointer" : "form-select mr-2"}
+                value={selectedBudgetRule}
+                onChange={(e) => setSelectedBudgetRule(e.target.value)}
+                disabled={currentPage !== 1}
+                title={currentPage !== 1 ? "Kembali ke halaman pertama untuk memilih budget rule" : ""}
+              >
+                <option value="All">All Budget Rules</option>
+                {budgetRules.map((budgetRule) => (
+                  <option key={budgetRule.id} value={budgetRule.name}>
+                    {budgetRule.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-6 px-1">
+              <select
+                className={currentPage === 1 ? "form-select mr-2 cursor-pointer" : "form-select mr-2"}
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                disabled={currentPage !== 1}
+                title={currentPage !== 1 ? "Kembali ke halaman pertama untuk memilih category" : ""}
+              >
+                <option value="All">All Categories</option>
+                {filteredCategory.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          {/* Filter End */}
 
-    <table className="table table-hover my-0">
-      <thead>
-        <tr>
-          <th style={{ width: '12%' }}>Tanggal</th>
-          <th style={{ width: '15%' }}>Keterangan</th>
-          <th style={{ width: '15%' }}>Nominal</th>
-          <th style={{ width: '15%' }}>Budget Rule</th>
-          <th style={{ width: '15%' }}>Category</th>
-          <th style={{ width: '12%' }}>Wallet</th>
-          <th className="text-center" style={{ width: '12%' }}>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {currentItems.map((outcome) => (
-          <tr key={outcome.id}>
-            <td>{moment(outcome.tanggal_pengeluaran).format('DD-MM-YYYY')}</td>
-            <td>{outcome.name}</td>
-            <td>{formatRupiah(outcome.nominal)}</td>
-            <td>{outcome.budgetrule ? outcome.budgetrule.name : 'Belum ditentukan'}</td>
-            <td>{outcome.category ? outcome.category.name : 'Belum ditentukan'}</td>
-            <td>{outcome.wallet ? outcome.wallet.name : 'Belum ditentukan'}</td>
-            <td className="text-center">
-              <Link to={`edit-outcome/${outcome.id}`} className="btn btn-sm btn-info me-2">
-                <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-              </Link>
-              <button onClick={() => deleteOutcome(outcome.id)} className="btn btn-sm btn-danger">
-                <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-    {/* Pagination buttons */}
-    <div className="d-flex justify-content-between align-items-center mt-5">
-      <button
-        className="btn btn-outline-secondary"
-        onClick={() => handlePageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
-        Prev
-      </button>
-      <div>
-        Page {currentPage} of {totalPages} Total Pages ({(itemsPerPage * (currentPage - 1)) + 1} - {(itemsPerPage * (currentPage - 1)) + 5 > filteredOutcomes.length ? filteredOutcomes.length : (itemsPerPage * (currentPage - 1)) + 5} of {filteredOutcomes.length})
-      </div>
-      <button
-        className="btn btn-outline-secondary"
-        onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
-        Next
-      </button>
-    </div>
-  </div>
-  {/* Tabel End */}
-</section>
-
+          <table className="table table-hover my-0">
+            <thead>
+              <tr>
+                <th style={{ width: '12%' }}>Tanggal</th>
+                <th style={{ width: '15%' }}>Keterangan</th>
+                <th style={{ width: '15%' }}>Nominal</th>
+                <th style={{ width: '15%' }}>Budget Rule</th>
+                <th style={{ width: '15%' }}>Category</th>
+                <th style={{ width: '12%' }}>Wallet</th>
+                <th className="text-center" style={{ width: '12%' }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentItems.map((outcome) => (
+                <tr key={outcome.id}>
+                  <td>{moment(outcome.tanggal_pengeluaran).format('DD-MM-YYYY')}</td>
+                  <td>{outcome.name}</td>
+                  <td>{formatRupiah(outcome.nominal)}</td>
+                  <td>{outcome.budgetrule ? outcome.budgetrule.name : 'Belum ditentukan'}</td>
+                  <td>{outcome.category ? outcome.category.name : 'Belum ditentukan'}</td>
+                  <td>{outcome.wallet ? outcome.wallet.name : 'Belum ditentukan'}</td>
+                  <td className="text-center">
+                    <Link to={`edit-outcome/${outcome.id}`} className="btn btn-sm btn-info me-2">
+                      <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                    </Link>
+                    <button onClick={() => deleteOutcome(outcome.id)} className="btn btn-sm btn-danger">
+                      <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {/* Pagination buttons */}
+          <div className="d-flex justify-content-between align-items-center mt-5">
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Prev
+            </button>
+            <div>
+              Page {currentPage} of {totalPages} Total Pages ({(itemsPerPage * (currentPage - 1)) + 1} - {(itemsPerPage * (currentPage - 1)) + 5 > filteredOutcomes.length ? filteredOutcomes.length : (itemsPerPage * (currentPage - 1)) + 5} of {filteredOutcomes.length})
+            </div>
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+        {/* Tabel End */}
+      </section>
     )
 }
