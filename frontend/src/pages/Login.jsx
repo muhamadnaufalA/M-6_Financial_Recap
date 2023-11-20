@@ -28,57 +28,53 @@ const Login = () => {
   }
 
   return (
-    <section className="hero has-background-grey-light is-fullheight">
-        <div className="hero-body">
-            <div className="container">
-            <div className="columns is-centered">
-                <div className="column is-10-mobile is-6-tablet is-4-desktop">
-                <form onSubmit={LoginFunc} className="box">
+<section className="hero" style={{ background: 'linear-gradient(to right, #8e9eab, #eef2f3)' }}>
+    <div className="container  align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+        <div className="row justify-content-center">
+            <div className="col-12 col-md-8 col-lg-6" style={{paddingTop:'180px'}}>
+                <form onSubmit={LoginFunc} className="card p-4">
                     <h1 className="h2 mb-3 text-center">
                         <strong>Login</strong>
                     </h1>
-                    <p className="has-text-centered has-text-danger">{msg}</p>
-                    <div className="field">
-                    <label className="label">Username</label>
-                    <div className="control">
+                    <p className="text-center text-danger">{msg}</p>
+                    <div className="mb-3">
+                        <label htmlFor="username" className="form-label">Username</label>
                         <input
-                        type="text"
-                        className="input"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            id="username"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
-                    </div>
-                    <div className="field">
-                    <label className="label">Password</label>
-                    <div className="control">
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">Password</label>
                         <input
-                        type="password"
-                        className="input"
-                        placeholder="**********"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                            type="password"
+                            className="form-control"
+                            id="password"
+                            placeholder="**********"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
+                    <div className="mb-3 text-center">
+                        <button type="submit" className="btn btn-success rounded-pill">Login</button>
                     </div>
-                    <div className="field">
-                    <div className='has-text-centered'>
-                    <button className="button is-success is-rounded">Login</button>
-                    </div>
-                    </div>
-                    <div className="field">
-                    <p className="has-text-centered">
-                        Don't have an account?{' '}
-                        <Link to="/register">Register here</Link>
-                    </p>
+                    <div className="mb-3 text-center">
+                        <p>
+                            Don't have an account?{' '}
+                            <Link to="/register">Register here</Link>
+                        </p>
                     </div>
                 </form>
-                </div>
-            </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
   )
 }
 
