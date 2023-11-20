@@ -69,8 +69,8 @@ function App() {
             <Sidebar/>
             <div className="main">
               <Navbar/>
-              <main className="content">
-                  <div className="container-fluid p-0">
+              <main className="content" >
+                  <div className="container-fluid p-0 ">
                     <Income/>
                   </div>
               </main>
