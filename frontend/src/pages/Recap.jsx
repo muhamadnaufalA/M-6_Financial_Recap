@@ -81,7 +81,7 @@ function Recap() {
     return (
         <>
             <h1 className="h3 mb-3">
-                Recap
+                <strong>Recap</strong>
             </h1>
             <div className="row">
                 <div className="col-12 col-lg-12 col-xxl-12 d-flex">
@@ -89,12 +89,12 @@ function Recap() {
 						<div className="card-header">
 							<h5 className="card-title mb-0">Monthly Recap</h5>
 						</div>
-						<div className="box">
+						<div className="card-body">
 							{/* Filter Start */}
 							<div className="d-flex mb-5" style={{ width: "100%" }}>
 								<div className="col-2 px-1">
 									<select
-										className="form-control mr-2"
+										className="form-select mr-2"
 										value={selectedTransactionMonthly}
 										onChange={(e) => setSelectedTransactionMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -107,7 +107,7 @@ function Recap() {
 								</div>
 								<div className="col-2 px-1">
 									<select
-										className="form-control mr-2"
+										className="form-select mr-2"
 										value={selectedBudgetRuleMonthly}
 										onChange={(e) => setSelectedBudgetRuleMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -123,7 +123,7 @@ function Recap() {
 								</div>
 								<div className="col-2 px-1">
 									<select
-										className="form-control"
+										className="form-select"
 										value={selectedCategoryMonthly}
 										onChange={(e) => setSelectedCategoryMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -139,7 +139,7 @@ function Recap() {
 								</div>
 								<div className="col-2 px-1">
 									<select
-										className="form-control mr-2"
+										className="form-select mr-2"
 										value={selectedMonthMonthly}
 										onChange={(e) => setSelectedMonthMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -162,7 +162,7 @@ function Recap() {
 								</div>
 								<div className="col-2 px-1">
 									<select
-										className="form-control mr-2"
+										className="form-select mr-2"
 										value={selectedYearMonthly}
 										onChange={(e) => setSelectedYearMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -210,7 +210,7 @@ function Recap() {
 							{/* Pagination buttons */}
 							<div className="d-flex justify-content-between align-items-center mt-5">
 								<button
-									className="btn btn-secondary"
+									className="btn btn-primary"
 									onClick={() => handlePageChangeMonthly(currentPageMonthly - 1)}
 									disabled={currentPageMonthly === 1}
 								>
@@ -220,7 +220,7 @@ function Recap() {
 									Page { currentPageMonthly } of { totalPagesMonthly } Total Pages ({(itemsPerPageMonthly * (currentPageMonthly-1)) + 1} - {(itemsPerPageMonthly * (currentPageMonthly-1)) + 5 > filteredMonthlyRecap.length ? filteredMonthlyRecap.length : (itemsPerPageMonthly * (currentPageMonthly-1)) + 5} of {filteredMonthlyRecap.length})
 								</div>
 								<button
-									className="btn btn-secondary"
+									className="btn btn-primary"
 									onClick={() => handlePageChangeMonthly(currentPageMonthly + 1)}
 									disabled={currentPageMonthly === totalPagesMonthly}
 								>
