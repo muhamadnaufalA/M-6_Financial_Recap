@@ -37,24 +37,29 @@ export default defineConfig({
               theme_color: '#007bff',
               description: 'Budget Buddy is a finance application',
               icons: [
-                {
-                  src: '/img/android-chrome-512x512.png',
-                  sizes: '512x512',
-                  type: 'image/png',
-                },
-                {
-                  src: '/img/android-chrome-192x192.png',
-                  sizes: '192x192',
-                  type: 'image/png',
-                },
-                {
-                  src: '/img/apple-touch-icon.png',
-                  sizes: '180x180',
-                  type: 'image/png',
-                },
-              ],
-            },
-            workbox: {
+                  {
+                    src: '/img/android-chrome-512x512.png',
+                    sizes: '512x512',
+                    type: 'image/png',
+                  },
+                  {
+                    src: '/img/android-chrome-192x192.png',
+                    sizes: '192x192',
+                    type: 'image/png',
+                  },
+                  {
+                    src: '/img/apple-touch-icon.png',
+                    sizes: '180x180',
+                    type: 'image/png',
+                  },
+                ],
+              },
+              // HERE! For custom service worker
+              src: '/public/sw.js',
+              strategies: 'injectManifest',
+
+
+              workbox: {
               globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
               runtimeCaching: [
                 {
@@ -68,7 +73,9 @@ export default defineConfig({
                   },
                 },
               ],
-            },
+            },      
+            // Menggunakan service-worker.js yang sudah di-custom
+            // src: '/public/sw.js',
           }),
     ],
 });

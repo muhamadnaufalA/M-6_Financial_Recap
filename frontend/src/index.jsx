@@ -13,3 +13,7 @@ root.render(
 
 // swDev();
 
+// Jika ingin mendukung fitur push notification, pastikan izin notifikasi diizinkan oleh pengguna.
+if ('Notification' in window && Notification.permission !== 'denied') {
+  Notification.requestPermission();
+}
