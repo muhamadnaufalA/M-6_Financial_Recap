@@ -20,6 +20,21 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 function App() { 
+  const Layout = ({ children }) => {
+    return (
+      <div className="wrapper">
+        <Sidebar />
+        <div className="main">
+          <Navbar />
+          <main className="content">
+            <div className="container-fluid p-0">{children}</div>
+          </main>
+          <Footer />
+        </div>
+      </div>
+    );
+  };
+  
   return (
     <BrowserRouter>
       <Switch>
@@ -33,82 +48,27 @@ function App() {
 
          {/* Dashboard */}
           <Route exact path="/dashboard">
-          <div className="wrapper">
-            <Sidebar/>
-              <div className="main">
-                <Navbar/>
-                <main className="content">
-                  <div className="container-fluid p-0">
-                    <Dashboard/>
-                  </div>
-                </main>
-                <Footer/>
-              </div>
-            </div>
+            <Layout><Dashboard/></Layout>
           </Route>
         
         {/* Recap */}
         <Route exact path="/recap">
-          <div className="wrapper">
-            <Sidebar/>
-              <div className="main">
-                <Navbar/>
-                <main className="content">
-                  <div className="container-fluid p-0">
-                    <Recap/>
-                  </div>
-                </main>
-                <Footer/>
-              </div>
-            </div>
-          </Route>
+          <Layout><Recap/></Layout>
+        </Route>
 
         {/* Income Page */}
         <Route exact path="/income">
-          <div className="wrapper">
-            <Sidebar/>
-            <div className="main">
-              <Navbar/>
-              <main className="content" >
-                  <div className="container-fluid p-0 ">
-                    <Income/>
-                  </div>
-              </main>
-              <Footer/>
-            </div>
-          </div>
+          <Layout><Income/></Layout>        
         </Route>
 
         {/* Edit Income Page */}
         <Route exact path="/editIncome/:id">
-          <div className="wrapper">
-            <Sidebar/>
-              <div className="main">
-                <Navbar/>
-                <main className="content">
-                  <div className="container-fluid p-0">
-                    <EditIncome/>
-                  </div>
-                </main>
-                <Footer/>
-              </div>
-          </div>
+          <Layout><EditIncome/></Layout>      
         </Route>
 
         {/* Outcome Page */}
         <Route exact path="/outcome">
-          <div className="wrapper">
-            <Sidebar/>
-            <div className="main">
-              <Navbar/>
-              <main className="content">
-                  <div className="container-fluid p-0">
-                    <Outcome/>
-                  </div>
-              </main>
-              <Footer/>
-            </div>
-          </div>
+          <Layout><Outcome/></Layout>     
         </Route>
 
         {/* Edit Outcome Page */}
@@ -129,34 +89,12 @@ function App() {
 
         {/* Budget Rule Page */}
         <Route exact path="/budgetrule">
-          <div className="wrapper">
-            <Sidebar/>
-            <div className="main">
-              <Navbar/>
-              <main className="content">
-                  <div className="container-fluid p-0">
-                    <BudgetRule/>
-                  </div>
-              </main>
-              <Footer/>
-            </div>
-          </div>
+          <Layout><BudgetRule/></Layout>    
         </Route>
 
         {/* Category Page */}
         <Route exact path="/category">
-          <div className="wrapper">
-            <Sidebar/>
-            <div className="main">
-              <Navbar/>
-              <main className="content">
-                  <div className="container-fluid p-0">
-                    <Category/>
-                  </div>
-              </main>
-              <Footer/>
-            </div>
-          </div>
+          <Layout><Category/></Layout> 
         </Route>
 
         {/* Edit Category Page */}
