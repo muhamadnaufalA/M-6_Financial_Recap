@@ -89,123 +89,108 @@ const EditOutcome = () => {
     };
   
     return (
-      <section className="hero has-background-white  is-fullwidth">
-          <h1 className="h2 mb-3 text-center">
-            <strong>Edit Outcome</strong>
-          </h1>
-          <div className="hero-body">
-            <div className="container">
-              <div className="columns is-centered">
-                <div className="column">
-                 <form onSubmit={UpdateOutcome}>
-                  <p className="has-text-center has-text-danger">{msg}</p>
-                      <div className="field">
-                          <label className="label">Name</label>
-                          <div className="control">
-                              <input 
-                              type="text" 
-                              className="input" 
-                              value={name} 
-                              onChange={(e)=> setName(e.target.value)}
-                              placeholder='Contoh: Gaji Pokok'/>
-                          </div>
-                      </div>
-                      <div className="field">
-                          <label className="label">Nominal</label>
-                          <div className="control">
-                              <input 
-                              type="text" 
-                              className="input"                         
-                              value={formatRupiah(nominal)}
-                              onChange={(e)=> {
-                                const value = e.target.value.replace(/\D/g, ''); // Hapus karakter selain angka saat mengambil input
-                                setNominal(value);
-                              }}/>
-                          </div>
-                      </div>
-                      <div className="field">
-                          <label className="label">Tanggal Pengeluaran</label>
-                          <div className="control">
-                              <input 
-                              type="date" 
-                              className="input"                         
-                              value={tanggal_pengeluaran} 
-                              onChange={(e)=> setTanggalPengeluaran(e.target.value)}
-                              />
-                          </div>
-                      </div>
-
-                      <div className="field mt-5">
-                        <label className="label">Budget Rule</label>
-                        <div className="control">
-                            <select
-                            className="input"
-                            id="budgetrule"
-                            name="budgetrule"
-                            value={idBudgetRule} 
-                            onChange={(e) => setBudgetRuleId(e.target.value)}
-                            >
-                            {/* <option value="Pilih wallet">Pilih wallet</option> */}
-                            {budgetRules.map((br) => (
-                                <option key={br.id} value={br.id}>
-                                {br.name}
-                                </option>
-                            ))}
-                            </select>
-                        </div>
-                      </div>
-
-                      <div className="field mt-5">
-                        <label className="label">Category</label>
-                        <div className="control">
-                            <select
-                            className="input"
-                            id="category"
-                            name="category"
-                            value={idCategory} 
-                            onChange={(e) => setCategoryId(e.target.value)}
-                            >
-                            {/* <option value="Pilih wallet">Pilih wallet</option> */}
-                            {categories.map((c) => (
-                                <option key={c.id} value={c.id}>
-                                {c.name}
-                                </option>
-                            ))}
-                            </select>
-                        </div>
-                      </div>
-
-                      <div className="field mt-5">
-                        <label className="label">Jenis Wallet</label>
-                        <div className="control">
-                            <select
-                            className="input"
-                            id="wallet"
-                            name="wallet"
-                            value={idWallet} 
-                            onChange={(e) => setWalletId(e.target.value)}
-                            >
-                            {/* <option value="Pilih wallet">Pilih wallet</option> */}
-                            {wallets.map((wallet) => (
-                                <option key={wallet.id} value={wallet.id}>
-                                {wallet.name}
-                                </option>
-                            ))}
-                            </select>
-                        </div>
-                      </div>
-  
-                      <div className="field">
-                          <button type='submit' className='button is-success'>
-                              Update
-                          </button>
-                      </div>
-                  </form>
-              </div>
-            </div>
+      <div className="container">
+  <h1 className="h2 mb-3 text-center">
+    <strong>Edit Outcome</strong>
+  </h1>
+  <div className="hero-body">
+    <div className="row justify-content-center">
+      <div className="col-md-6">
+        <form onSubmit={UpdateOutcome} className="card p-4">
+          <p className="text-center text-danger">{msg}</p>
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder='Contoh: Gaji Pokok'
+            />
           </div>
-        </div>
-      </section>
+          <div className="mb-3">
+            <label htmlFor="nominal" className="form-label">Nominal</label>
+            <input
+              type="text"
+              className="form-control"
+              id="nominal"
+              value={formatRupiah(nominal)}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, '');
+                setNominal(value);
+              }}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="tanggalPengeluaran" className="form-label">Tanggal Pengeluaran</label>
+            <input
+              type="date"
+              className="form-control"
+              id="tanggalPengeluaran"
+              value={tanggal_pengeluaran}
+              onChange={(e) => setTanggalPengeluaran(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="budgetrule" className="form-label">Budget Rule</label>
+            <select
+              className="form-select"
+              id="budgetrule"
+              name="budgetrule"
+              value={idBudgetRule}
+              onChange={(e) => setBudgetRuleId(e.target.value)}
+            >
+              {budgetRules.map((br) => (
+                <option key={br.id} value={br.id}>
+                  {br.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="category" className="form-label">Category</label>
+            <select
+              className="form-select"
+              id="category"
+              name="category"
+              value={idCategory}
+              onChange={(e) => setCategoryId(e.target.value)}
+            >
+              {categories.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="wallet" className="form-label">Jenis Wallet</label>
+            <select
+              className="form-select"
+              id="wallet"
+              name="wallet"
+              value={idWallet}
+              onChange={(e) => setWalletId(e.target.value)}
+            >
+              {wallets.map((wallet) => (
+                <option key={wallet.id} value={wallet.id}>
+                  {wallet.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-3">
+            <button type='submit' className='btn btn-success'>
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
     )
   }
   

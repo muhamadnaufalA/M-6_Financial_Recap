@@ -246,9 +246,9 @@ const Income = () => {
             <td>{income.name}</td>
             <td>{formatRupiah(income.balance)}</td>
             <td>{income.wallet ? income.wallet.name : 'Belum ditentukan'}</td>
-            <td style={{ paddingLeft: '60px' }}>
+            <td className="text-center">
               <div className="btn-group">
-                <Link to={`editIncome/${income.id}`} className="btn btn-sm btn-info">
+                <Link to={`editIncome/${income.id}`} className="btn btn-sm btn-info me-2">
                   <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
                 </Link>
                 <button onClick={() => deleteIncome(income.id)} className="btn btn-sm btn-danger">
@@ -267,7 +267,7 @@ const Income = () => {
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
-        Previous
+        Prev
       </button>
       <div>
         Page {currentPage} of {totalPages} Total Pages (
