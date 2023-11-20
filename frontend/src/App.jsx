@@ -73,18 +73,7 @@ function App() {
 
         {/* Edit Outcome Page */}
         <Route exact path="/edit-outcome/:id">
-          <div className="wrapper">
-            <Sidebar/>
-              <div className="main">
-                <Navbar/>
-                <main className="content">
-                  <div className="container-fluid p-0">
-                    <EditOutcome/>
-                  </div>
-                </main>
-                <Footer/>
-              </div>
-          </div>
+          <Layout><EditOutcome/></Layout>
         </Route>
 
         {/* Budget Rule Page */}
@@ -99,67 +88,24 @@ function App() {
 
         {/* Edit Category Page */}
         <Route exact path="/editCategory/:id">
-          <div className="wrapper">
-            <Sidebar/>
-              <div className="main">
-                <Navbar/>
-                <main className="content">
-                  <div className="container-fluid p-0">
-                    <EditCategory/>
-                  </div>
-                </main>
-                <Footer/>
-              </div>
-          </div>
+          <Layout><EditCategory/></Layout>
         </Route>
 
         {/* Wallet Page */}
         <Route exact path="/wallet">
-          <div className="wrapper">
-            <Sidebar/>
-              <div className="main">
-                <Navbar/>
-                <main className="content">
-                  <div className="container-fluid p-0">
-                  <Wallet/>
-                  </div>
-                </main>
-                <Footer/>
-              </div>
-          </div>
+          <Layout><Wallet/></Layout>
         </Route>
 
         {/* Edit Wallet Page */}
         <Route exact path="/editWallet/:id">
-          <div className="wrapper">
-            <Sidebar/>
-              <div className="main">
-                <Navbar/>
-                <main className="content">
-                  <div className="container-fluid p-0">
-                  <EditWallet/>
-                  </div>
-                </main>
-                <Footer/>
-              </div>
-          </div>
+          <Layout><EditWallet/></Layout>
         </Route>
 
         {/* Edit Wallet Page */}
         <Route exact path="/edit-budget-rule/:id">
-          <div className="wrapper">
-            <Sidebar/>
-              <div className="main">
-                <Navbar/>
-                <main className="content">
-                  <div className="container-fluid p-0">
-                  <EditBudgetRule/>
-                  </div>
-                </main>
-                <Footer/>
-              </div>
-          </div>
+          <Layout><EditBudgetRule/></Layout>
         </Route>
+        
       </Switch>
     </BrowserRouter>
   );
