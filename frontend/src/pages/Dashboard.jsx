@@ -173,7 +173,7 @@ function Dashboard() {
 			</h1>
 			<div className="row">
 				{/* Saldo Start */}
-				<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+				<div className="col-lg-6 col-xxl-6 d-flex">
 					<div className="card flex-fill">
 						<div className="card-header">
 							<h5 className="card-title mb-0">Saldo</h5>
@@ -181,7 +181,7 @@ function Dashboard() {
 						<div>
 							<div className="col-4 p-3">
 								<select
-									className="form-control mr-2"
+									className="form-select mr-2 cursor-pointer"
 									value={selectedWallet}
 									onChange={(e) => setSelectedWallet(e.target.value)}
 								>
@@ -203,16 +203,16 @@ function Dashboard() {
 							)}
 							
 							{isShown ? (
-								<BiSolidShow className="fs-1 mx-3" onClick={handleClick} />
+								<BiSolidShow className="fs-1 mx-3 cursor-pointer" onClick={handleClick} />
 							) : (
-								<BiSolidHide className="fs-1 mx-3" onClick={handleClick} />
+								<BiSolidHide className="fs-1 mx-3 cursor-pointer" onClick={handleClick} />
 							)}
 						</div>
 					</div>
 				</div>
 				{/* Saldo End */}
 				{/* Catatan Keuangan Start */}
-				<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+				<div className="col-lg-6 col-xxl-6 d-flex">
 					<div className="card flex-fill">
 						<div className="card-header">
 							<h5 className="card-title mb-0">Catatan Keuangan</h5>
@@ -220,7 +220,7 @@ function Dashboard() {
 						<div className="row p-3">
 							<div className="col-6">
 								<select
-									className="form-control mr-2"
+									className="form-select mr-2 cursor-pointer"
 									value={selectedBudgetRule}
 									onChange={(e) => setSelectedBudgetRule(e.target.value)}
 								>
@@ -234,7 +234,7 @@ function Dashboard() {
 							</div>
 							<div className="col-6">
 								<select
-									className="form-control mr-2"
+									className="form-select mr-2 cursor-pointer"
 									value={selectedCategory}
 									onChange={(e) => setSelectedCategory(e.target.value)}
 								>
@@ -274,7 +274,7 @@ function Dashboard() {
 				</div>
 				{/* Catatan Keuangan End */}
 				{/* Outcome Target */}
-				<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+				<div className="col-lg-6 col-xxl-6 d-flex">
 					<div className="card flex-fill">
 						<div className="card-header">
 							<h5 className="card-title mb-0">Outcome Target</h5>
@@ -300,7 +300,7 @@ function Dashboard() {
 					</div>
 				</div>
 				{/* Outcome Report */}
-				<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+				<div className="col-lg-6 col-xxl-6 d-flex">
 					<div className="card flex-fill">
 						<div className="card-header">
 							<h5 className="card-title mb-0">Outcome Report</h5>

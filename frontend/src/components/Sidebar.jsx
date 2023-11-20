@@ -42,7 +42,7 @@ function Sidebar() {
             </a>    
           </li>
 
-          <li className={`sidebar-item ${currentPath === '/income' ? 'active' : ''}`}>
+          <li className={`sidebar-item ${currentPath === '/income' ? 'active' : '' || currentPath.startsWith('/editIncome/') ? 'active' : '' }`}>
             <a className="sidebar-link" href="/income">
               <i className="align-middle">
                 <BiSolidLogIn style={{ fontSize: '24px', marginRight: '5px', verticalAlign: 'middle', paddingLeft: '0px' }} />
@@ -53,7 +53,7 @@ function Sidebar() {
             </a>
           </li>
 
-          <li className={`sidebar-item ${currentPath === '/outcome' ? 'active' : ''}`}>
+          <li className={`sidebar-item ${currentPath === '/outcome' ? 'active' : '' || currentPath.startsWith('/edit-outcome/') ? 'active' : '' }`}>
             <a className="sidebar-link" href="/outcome">
               <i className="align-middle">
                 <BiSolidLogOut style={{ fontSize: '24px', marginRight: '5px', verticalAlign: 'middle', paddingLeft: '0px' }} />
@@ -64,7 +64,7 @@ function Sidebar() {
             </a>
           </li>
 
-          <li className={`sidebar-item ${currentPath === '/budgetrule' ? 'active' : ''}`}>
+          <li className={`sidebar-item ${currentPath === '/budgetrule' ? 'active' : '' || currentPath.startsWith('/edit-budget-rule/') ? 'active' : '' }`}>
             <a className="sidebar-link" href="/budgetrule">
               <i className="align-middle">
                 <BiAbacus style={{ fontSize: '24px', marginRight: '5px', verticalAlign: 'middle', paddingLeft: '0px' }} />
@@ -75,7 +75,7 @@ function Sidebar() {
             </a>
           </li>
           
-          <li className={`sidebar-item ${currentPath === '/category' ? 'active' : ''}`}>
+          <li className={`sidebar-item ${currentPath === '/category' ? 'active' : '' || currentPath.startsWith('/editCategory/') ? 'active' : '' }`}>
             <a className="sidebar-link" href="/category">
             <i className="align-middle">
                 <BiSolidCategory style={{ fontSize: '24px', marginRight: '5px', verticalAlign: 'middle', paddingLeft: '0px' }} />
@@ -86,7 +86,7 @@ function Sidebar() {
             </a>
           </li>
           
-          <li className={`sidebar-item ${currentPath === '/wallet' ? 'active' : ''}`}>
+          <li className={`sidebar-item ${currentPath === '/wallet' ? 'active' : '' || currentPath.startsWith('/editWallet/') ? 'active' : '' }`}>
             <a className="sidebar-link" href="/wallet">
               <i className="align-middle">
                 <BiWallet style={{ fontSize: '24px', marginRight: '5px', verticalAlign: 'middle', paddingLeft: '0px' }} />

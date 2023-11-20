@@ -102,6 +102,11 @@ export default function OutcomeForm() {
         return `Rp${numberFormat.format(angka)}`;
     };
 
+    const filteredCategory = categories.filter((c) => {
+		const budgetRuleMatch = formData.outcomeType === "" || c.budgetruleId === parseInt(formData.outcomeType);
+		return budgetRuleMatch;
+	})
+
     return (
     <div className="card flex-fill">
         <div className="card-header">
@@ -170,7 +175,7 @@ export default function OutcomeForm() {
                         <div className="col-4">
                             <div className="mb-3">
                                 <select
-                                    className="form-select"
+                                    className="form-select cursor-pointer"
                                     id="outcomeType"
                                     name="outcomeType"
                                     value={formData.outcomeType}
@@ -189,7 +194,7 @@ export default function OutcomeForm() {
                         <div className="col-4">
                             <div className="mb-3">
                                 <select
-                                    className="form-select"
+                                    className="form-select cursor-pointer"
                                     id="category"
                                     name="category"
                                     value={formData.category}
@@ -197,7 +202,7 @@ export default function OutcomeForm() {
                                     required
                                 >
                                     <option value={""}>Pilih Kategori</option>
-                                    {categories.map((category) => (
+                                    {filteredCategory.map((category) => (
                                         <option key={category.id} value={category.id}>
                                             {category.name}
                                         </option>
@@ -208,7 +213,7 @@ export default function OutcomeForm() {
                         <div className="col-4">
                             <div className="mb-3">
                                 <select
-                                    className="form-select"
+                                    className="form-select cursor-pointer"
                                     id="wallet"
                                     name="wallet"
                                     value={formData.wallet}
