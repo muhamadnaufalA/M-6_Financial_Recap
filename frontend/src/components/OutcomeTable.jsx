@@ -158,7 +158,7 @@ export default function OutcomeTable() {
     {/* Pagination buttons */}
     <div className="d-flex justify-content-between align-items-center mt-5">
       <button
-        className="btn btn-outline-secondary"
+        className="btn btn-primary"
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
@@ -168,7 +168,7 @@ export default function OutcomeTable() {
         Page {currentPage} of {totalPages} Total Pages ({(itemsPerPage * (currentPage - 1)) + 1} - {(itemsPerPage * (currentPage - 1)) + 5 > filteredOutcomes.length ? filteredOutcomes.length : (itemsPerPage * (currentPage - 1)) + 5} of {filteredOutcomes.length})
       </div>
       <button
-        className="btn btn-outline-secondary"
+        className="btn btn-primary"
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       >
