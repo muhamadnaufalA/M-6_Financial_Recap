@@ -99,73 +99,75 @@ const EditCategory = () => {
 
     return (
     <section>
-        <div className="buttons">
-            <Link to={`/category`} className="button is-small is-info">
-            <BiArrowBack style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+        <div className="d-flex justify-content-start mt-2">
+            <Link to={`/category`} className="btn btn-sm btn-info">
+                <BiArrowBack style={{ fontSize: '20px', verticalAlign: 'middle' }} /> Back
             </Link>
         </div>
-        
+
         <div className="card flex-fill">
-        <h1 className="h2 mb-3 text-center">
-              <strong>Edit Category</strong>
-          </h1>
-        <div className="row justify-content-center">
-          <div className="col-12">
-            <form onSubmit={UpdateCategory} className="box">
-              <div className="row">
-                <div className="col-md-4">
-                  <div className="control">
-                    <input
-                      className="input"
-                      style={{ backgroundColor: '#f7f7f7' }}
-                      type="text"
-                      placeholder="Nama atau Keterangan Category"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                    />
-                  </div>
+            <h1 className="h2 mb-3 text-center">
+                <strong>Edit Category</strong>
+            </h1>
+            <div className="row justify-content-center">
+                <div className="col-12 col-md-8 col-lg-6">
+                    <form onSubmit={UpdateCategory} className="box">
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="name">Nama atau Keterangan Category</label>
+                                    <input
+                                        className="form-control"
+                                        style={{ backgroundColor: '#f7f7f7' }}
+                                        type="text"
+                                        placeholder="Nama atau Keterangan Category"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="budget">Budget</label>
+                                    <input
+                                        className="form-control"
+                                        style={{ backgroundColor: '#f7f7f7' }}
+                                        type="text"
+                                        placeholder="Budget"
+                                        value={formatRupiah(budget)}
+                                        onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="budgetruleid">Budget Rule</label>
+                            <select
+                                className="form-control"
+                                style={{ backgroundColor: '#f7f7f7' }}
+                                value={budgetruleid}
+                                onChange={(e) => setBudgetRuleId(e.target.value)}
+                                required
+                            >
+                                <option value={""}>Pilih budget rule</option>
+                                {budgetRules.map((budgetRule) => (
+                                    <option key={budgetRule.id} value={budgetRule.id}>
+                                        {budgetRule.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group mt-5">
+                            <button className="btn btn-success btn-block">Tambahkan</button>
+                        </div>
+                    </form>
                 </div>
-                <div className="col-md-4">
-                  <div className="control">
-                    <input
-                      className="input"
-                      style={{ backgroundColor: '#f7f7f7' }}
-                      type="text"
-                      placeholder="Budget"
-                      value={formatRupiah(budget)}
-                      onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="control">
-                    <select
-                      className="input"
-                      style={{ backgroundColor: '#f7f7f7' }}
-                      value={budgetruleid}
-                      onChange={(e) => setBudgetRuleId(e.target.value)}
-                      required
-                    >
-                      <option value={""}>Pilih budget rule</option>
-                      {budgetRules.map((budgetRule) => (
-                        <option key={budgetRule.id} value={budgetRule.id}>
-                          {budgetRule.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div className="field mt-5">
-                <button className="container button is-success d-flex justify-content-center align-items-center">Tambahkan</button>
-              </div>
-            </form>
-          </div>
+            </div>
         </div>
-      </div>
     </section>
+
         
     )
 }

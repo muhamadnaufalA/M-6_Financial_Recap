@@ -25,7 +25,7 @@ const Wallet = ()=> {
         confirmButtonText: 'OK',
       });
       return;
-          }
+    }
     try {
         const respon = await axios.post(`http://localhost:5000/users/${UserId}/wallets`,{
             name: name,
@@ -81,78 +81,75 @@ const Wallet = ()=> {
     return `Rp. ${numberFormat.format(angka)}`;
   };
     return (
-        <section className="hero has-background-white is-fullwidth">
-        <h1 className="h2 mt-3 mb-3 text-center">
-            <strong>Wallet</strong>
-        </h1>
-        <div className="hero-body">
+    <section className="container-fluid bg-white p-5">
+      <h1 className="h2 mt-3 mb-3 text-center">
+          <strong>Wallet</strong>
+      </h1>
+      <div className="hero-body">
           <div className="container">
-            <div className="columns is-centered">
-              <div className="column">
-                <form onSubmit={addWallet} className="box">
-                  <p className="has-text-center has-text-danger">{msg}</p>
-                  <div className="field">
-                    <label className="label">Name</label>
-                    <div className="control">
-                      <input
-                        type="text"
-                        className="input"
-                        placeholder="Contoh: BCA/BRI"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </div>
+              <div className="row justify-content-center">
+                  <div className="col">
+                      <form onSubmit={addWallet} className="border rounded p-4">
+                          <p className="text-center text-danger">{msg}</p>
+                          <div className="form-group">
+                              <label htmlFor="name" className="label">Name</label>
+                              <div className="control">
+                                  <input
+                                      type="text"
+                                      className="form-control"
+                                      id="name"
+                                      placeholder="Contoh: BCA/BRI"
+                                      value={name}
+                                      onChange={(e) => setName(e.target.value)}
+                                  />
+                              </div>
+                          </div>
+                          <div className="form-group mt-5">
+                              <button className="btn btn-success d-flex justify-content-center align-items-center">Tambahkan</button>
+                          </div>
+                      </form>
                   </div>
-  
-  
-                  <div className="field mt-5">
-                    <button className="container button is-success d-flex justify-content-center align-items-center">Tambahkan</button>
-                  </div>
-                </form>
               </div>
-            </div>
           </div>
-        </div>
-        
-        {/* TABEL */}
-        <div className="hero has-background-white is-fullwidth">
-          <div className="columns is-centered">
-            <div className="column is-two-thirds">
-              <table className="table is-striped is-fullwidth">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>Balance</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {wallets.map((wallet, index) => (
-                    <tr key={wallet.id}>
-                      <td>{index + 1}</td>
-                      <td>{wallet.name}</td>
-                      <td>{formatRupiah(wallet.balance)}</td>
-                      <td>
-                        <div className="buttons">
-                          <Link to={`editWallet/${wallet.id}`} className="button is-small is-info">
-                            <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-                          </Link>
-                          <button onClick={() => deleteWallet(wallet.id)} className="button is-small is-danger">
-                            <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+      </div>
+  
+      {/* TABEL */}
+      <div className="hero has-background-white is-fullwidth">
+          <div className="row justify-content-center">
+              <div className="col-8">
+                  <table className="table table-striped table-fullwidth">
+                      <thead>
+                          <tr>
+                              <th>No</th>
+                              <th>Name</th>
+                              <th>Balance</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {wallets.map((wallet, index) => (
+                              <tr key={wallet.id}>
+                                  <td>{index + 1}</td>
+                                  <td>{wallet.name}</td>
+                                  <td>{formatRupiah(wallet.balance)}</td>
+                                  <td>
+                                      <div className="btn-group">
+                                          <Link to={`editWallet/${wallet.id}`} className="btn btn-info btn-sm">
+                                              <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                                          </Link>
+                                          <button onClick={() => deleteWallet(wallet.id)} className="btn btn-danger btn-sm">
+                                              <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                                          </button>
+                                      </div>
+                                  </td>
+                              </tr>
+                          ))}
+                      </tbody>
+                  </table>
+              </div>
           </div>
-        </div>
-
-
-      </section>
+      </div>
+    </section>  
   )
 }
 

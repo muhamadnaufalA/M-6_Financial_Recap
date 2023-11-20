@@ -208,9 +208,9 @@ function Recap() {
 								</tbody>
 							</table>
 							{/* Pagination buttons */}
-							<div className="pagination mt-5">
+							<div className="d-flex justify-content-between align-items-center mt-5">
 								<button
-									className="button"
+									className="btn btn-secondary"
 									onClick={() => handlePageChangeMonthly(currentPageMonthly - 1)}
 									disabled={currentPageMonthly === 1}
 								>
@@ -220,7 +220,7 @@ function Recap() {
 									Page { currentPageMonthly } of { totalPagesMonthly } Total Pages ({(itemsPerPageMonthly * (currentPageMonthly-1)) + 1} - {(itemsPerPageMonthly * (currentPageMonthly-1)) + 5 > filteredMonthlyRecap.length ? filteredMonthlyRecap.length : (itemsPerPageMonthly * (currentPageMonthly-1)) + 5} of {filteredMonthlyRecap.length})
 								</div>
 								<button
-									className="button"
+									className="btn btn-secondary"
 									onClick={() => handlePageChangeMonthly(currentPageMonthly + 1)}
 									disabled={currentPageMonthly === totalPagesMonthly}
 								>

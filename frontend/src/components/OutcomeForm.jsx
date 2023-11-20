@@ -103,9 +103,11 @@ export default function OutcomeForm() {
     };
 
     return (
-        <div className="card flex-fill">
+    <div className="card flex-fill">
         <div className="card-header">
-            <h5 className="card-title mb-0">Outcome</h5>
+            <h5 className="card-title mb-0">
+               Outcome
+            </h5>
         </div>
         <div className="row justify-content-center">
             <div className="col-12">

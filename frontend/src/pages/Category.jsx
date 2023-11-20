@@ -143,151 +143,149 @@ const Category = () => {
 
   return (
     <section>
-      <div className="card flex-fill">
+    <div className="card flex-fill">
         <div className="card-header">
-          <h5 className="card-title mb-0">Category</h5>
+            <h5 className="card-title mb-0">Category</h5>
         </div>
         <div className="row justify-content-center">
-          <div className="col-12">
-            <form onSubmit={addCatFunc} className="box">
-              <p className="has-text-center has-text-danger">{msg}</p>
-              <div className="row">
-                <div className="col-md-4">
-                  <div className="control">
-                    <input
-                      className="input"
-                      style={{ backgroundColor: '#f7f7f7' }}
-                      type="text"
-                      placeholder="Nama atau Keterangan Category"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="control">
-                    <input
-                      className="input"
-                      style={{ backgroundColor: '#f7f7f7' }}
-                      type="text"
-                      placeholder="Budget"
-                      value={formatRupiah(budget)}
-                      onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="control">
-                    <select
-                      className="input"
-                      style={{ backgroundColor: '#f7f7f7' }}
-                      value={budgetruleid}
-                      onChange={(e) => setBudgetRuleId(e.target.value)}
-                      required
-                    >
-                      <option value={""}>Pilih budget rule</option>
-                      {budgetRules.map((budgetRule) => (
-                        <option key={budgetRule.id} value={budgetRule.id}>
-                          {budgetRule.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div className="field mt-5">
-                <button className="container button is-success d-flex justify-content-center align-items-center">Tambahkan</button>
-              </div>
-            </form>
-          </div>
+            <div className="col-12">
+                <form onSubmit={addCatFunc} className="card-body">
+                    <p className="text-center text-danger">{msg}</p>
+                    <div className="row">
+                        <div className="col-md-4">
+                            <label htmlFor="name">Name</label>
+                            <input
+                                className="form-control"
+                                style={{ backgroundColor: '#f7f7f7' }}
+                                type="text"
+                                placeholder="Nama atau Keterangan Category"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="col-md-4">
+                            <label htmlFor="budget">Budget</label>
+                            <input
+                                className="form-control"
+                                style={{ backgroundColor: '#f7f7f7' }}
+                                type="text"
+                                placeholder="Budget"
+                                value={formatRupiah(budget)}
+                                onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}
+                                required
+                            />
+                        </div>
+                        <div className="col-md-4">
+                            <label htmlFor="budgetRuleId">Budget Rule</label>
+                            <select
+                                className="form-control"
+                                style={{ backgroundColor: '#f7f7f7' }}
+                                value={budgetruleid}
+                                onChange={(e) => setBudgetRuleId(e.target.value)}
+                                required
+                            >
+                                <option value={""}>Pilih budget rule</option>
+                                {budgetRules.map((budgetRule) => (
+                                    <option key={budgetRule.id} value={budgetRule.id}>
+                                        {budgetRule.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group mt-5">
+                        <button className="btn btn-success d-flex justify-content-center align-items-center">Tambahkan</button>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
-      {/* TABEL */}
-      <div className="card flex-fill">
-          <div className="card-header">
-              <h5 className="card-title mb-0">Category Table</h5>
-          </div>
-          <div className="box">
+    </div>
+    {/* TABEL */}
+    <div className="card flex-fill">
+        <div className="card-header">
+            <h5 className="card-title mb-0">Category Table</h5>
+        </div>
+        <div className="card-body">
             {/* Filter Start */}
             <div className="d-flex mb-5" style={{ width: "40%" }}>
-                    <div className="col-5 px-1">
-                        <select
-                            className="form-control mr-2"
-                            value={selectedBudgetRule}
-                            onChange={(e) => setSelectedBudgetRule(e.target.value)}
-                            disabled={currentPage !== 1}
-                            title={currentPage !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
-                        >
-                            <option value="All">All Budget Rules</option>
-                            {budgetRules.map((budgetRule) => (
-                                <option key={budgetRule.id} value={budgetRule.name}>
-                                    {budgetRule.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="col-2 px-1">
-                        <BiSolidHelpCircle 
-                            style={{  }}
-                            title="Filter hanya aktif ketika berada di page 1"
-                        />
-                    </div>
+                <div className="col-5 px-1">
+                    <select
+                        className="form-control mr-2"
+                        value={selectedBudgetRule}
+                        onChange={(e) => setSelectedBudgetRule(e.target.value)}
+                        disabled={currentPage !== 1}
+                        title={currentPage !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
+                    >
+                        <option value="All">All Budget Rules</option>
+                        {budgetRules.map((budgetRule) => (
+                            <option key={budgetRule.id} value={budgetRule.name}>
+                                {budgetRule.name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
-                {/* Filter End */}
-              <table className="table text-center">
+                <div className="col-2 px-1">
+                    <BiSolidHelpCircle
+                        style={{}}
+                        title="Filter hanya aktif ketika berada di page 1"
+                    />
+                </div>
+            </div>
+            {/* Filter End */}
+            <table className="table text-center">
                 <thead>
-                  <tr>
-                    <th style={{ width: '20%' }}>Name</th>
-                    <th style={{ width: '20%' }}>Budget</th>
-                    <th style={{ width: '20%' }}>Budget Rule</th>
-                    <th style={{ width: '20%' }}>Actions</th>
-                  </tr>
+                    <tr>
+                        <th style={{ width: '20%' }}>Name</th>
+                        <th style={{ width: '20%' }}>Budget</th>
+                        <th style={{ width: '20%' }}>Budget Rule</th>
+                        <th style={{ width: '20%' }}>Actions</th>
+                    </tr>
                 </thead>
                 <tbody>
-                  {currentItems.map((category, index) => (
-                    <tr key={category.id}>
-                      <td>{category.name}</td>
-                      <td>{formatRupiah(category.budget)}</td>
-                      <td>{category.budgetrule ? category.budgetrule.name : 'Belum ditentukan'}</td>
-                      <td style={{paddingLeft:'90px'}}>
-                        <div className="buttons">
-                          <Link to={`editCategory/${category.id}`} className="button is-small is-info">
-                            <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-                          </Link>
-                          <button onClick={() => deleteCategory(category.id)} className="button is-small is-danger">
-                            <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                    {currentItems.map((category, index) => (
+                        <tr key={category.id}>
+                            <td>{category.name}</td>
+                            <td>{formatRupiah(category.budget)}</td>
+                            <td>{category.budgetrule ? category.budgetrule.name : 'Belum ditentukan'}</td>
+                            <td className='text-center'>
+                                <div className="buttons">
+                                    <Link to={`editCategory/${category.id}`} className="btn btn-sm btn-info me-2">
+                                        <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                                    </Link>
+                                    <button onClick={() => deleteCategory(category.id)} className="btn btn-sm btn-danger">
+                                        <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
-              </table>
-              {/* Pagination buttons */}
-              <div className="pagination mt-5">
+            </table>
+            {/* Pagination buttons */}
+            <div className="d-flex justify-content-between align-items-center mt-5">
                 <button
-                  className="button"
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
+                    className="btn btn-primary"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
                 >
-                  Previous
+                    Prev
                 </button>
                 <div>
-                        Page { currentPage } of { totalPages } Total Pages ({(itemsPerPage * (currentPage-1)) + 1} - {(itemsPerPage * (currentPage-1)) + 5 > filteredCategory.length ? filteredCategory.length : (itemsPerPage * (currentPage-1)) + 5} of {filteredCategory.length})
-                    </div>
+                    Page {currentPage} of {totalPages} Total Pages ({(itemsPerPage * (currentPage - 1)) + 1} - {(itemsPerPage * (currentPage - 1)) + 5 > filteredCategory.length ? filteredCategory.length : (itemsPerPage * (currentPage - 1)) + 5} of {filteredCategory.length})
+                </div>
                 <button
-                  className="button"
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
+                    className="btn btn-primary"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
                 >
-                  Next
+                    Next
                 </button>
-              </div>
-          </div>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+
   );
   
   
