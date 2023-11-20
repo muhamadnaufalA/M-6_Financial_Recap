@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -39,7 +39,7 @@ const Register = () => {
                         <div className="field mt-5">
                             <div className="label">Username</div>
                             <div className="controls">
-                                <input type="text" className='input' placeholder='username'
+                                <input type="text" className='input' placeholder='Username'
                                 value={username} onChange={(e) => setUsername(e.target.value)}/>
                             </div>
                         </div>
@@ -58,7 +58,15 @@ const Register = () => {
                             </div>
                         </div>
                         <div className="field mt-5">
-                            <button className='button is-success is-fullwidth'>Register</button>
+                            <p className='has-text-centered'>
+                                <button className='button is-success is-rounded'>Register</button>
+                            </p>
+                        </div>
+                        <div className="field">
+                        <p className="has-text-centered">
+                            Already Have an Account?{' '}
+                            <Link to="/">Login here</Link>
+                        </p>
                         </div>
                     </form>
                 </div>

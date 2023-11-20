@@ -63,7 +63,9 @@ const Login = () => {
                     </div>
                     </div>
                     <div className="field">
-                    <button className="button is-success is-fullwidth">Login</button>
+                    <div className='has-text-centered'>
+                    <button className="button is-success is-rounded">Login</button>
+                    </div>
                     </div>
                     <div className="field">
                     <p className="has-text-centered">

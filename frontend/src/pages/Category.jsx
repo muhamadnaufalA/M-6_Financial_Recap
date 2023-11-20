@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useHistory, Link} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { BiEdit } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
 import { BiSolidHelpCircle } from "react-icons/bi";
@@ -15,7 +15,6 @@ const Category = () => {
   const [budgetRules, setListBudgetRule] = useState([]);
 
   const [msg, setMsg] = useState('');
-  const history = useHistory();
 
   // Get UserId with Cookie
   const UserId = Cookies.get("userId");

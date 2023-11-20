@@ -8,7 +8,7 @@ const EditIncome = () => {
   const [name, setName] = useState("");
   const [balance, setBalance] = useState("");
   const [tanggal_pemasukan, setTanggalPemasukan] = useState("");
-  const [idWallet, setWalletId] = useState('');
+  var [idWallet, setWalletId] = useState('');
   const [walletName, setWalletName] = useState('');
   const {id} = useParams();
   const history = useHistory();

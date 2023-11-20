@@ -16,7 +16,6 @@ function Dashboard() {
   const [categoryList, setCategoryList] = useState([]);
 	const [wallets, setWallets] = useState([]);
 	const [incomes, setIncomes] = useState([]);
-	const [outcomes, setOutcomes] = useState([]);
 
 	useEffect(()=>{
 		getRecap(); 
@@ -26,7 +25,6 @@ function Dashboard() {
     getListCategoryFunc();
 		getWalletsFunc();
 		getIncomesFunc();
-		getOutcomesFunc();
 	}, []);
 
 	const getRecap = async () => {
@@ -62,11 +60,6 @@ function Dashboard() {
 	const getIncomesFunc = async () => {
 		const response = await axios.get(`http://localhost:5000/users/${UserId}/incomes`)
 		setIncomes(response.data)
-	}
-
-	const getOutcomesFunc = async () => {
-		const response = await axios.get(`http://localhost:5000/users/${UserId}/outcomes`)
-		setOutcomes(response.data)
 	}
 
 	const formatRupiah = (angka) => {

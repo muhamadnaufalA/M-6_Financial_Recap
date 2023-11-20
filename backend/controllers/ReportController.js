@@ -63,7 +63,11 @@ export const getOutcomeReport = async (req, res) => {
             item.name = budgetruleNames[item.budgetruleId]
         });
 
-        outcomeResponse.sort((a, b) => a.budgetruleId - b.budgetruleId);
+        outcomeResponse.sort((a, b) => {
+            const nameA = budgetruleNames[a.budgetruleId] || '';
+            const nameB = budgetruleNames[b.budgetruleId] || '';
+            return nameA.localeCompare(nameB);
+        });
 
         res.status(200).json(outcomeResponse);
     } catch (error) {

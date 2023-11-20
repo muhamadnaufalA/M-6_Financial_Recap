@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useHistory, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import { BiEdit } from "react-icons/bi";
 import { BiTrash } from "react-icons/bi";
 import Swal from "sweetalert2";
@@ -18,7 +18,6 @@ const Income = () => {
   const [wallets, setListWallet] = useState([]);
 
   const [msg, setMsg] = useState(''); 
-  const history = useHistory();
 
   // Get UserId with Cookie
   const UserId = Cookies.get("userId");
@@ -47,6 +46,17 @@ const Income = () => {
             tanggal_pemasukan: tanggalPemasukan,
             walletId: parseInt(idWallet)
         });
+
+        if (respon.status === 201) {
+          await Swal.fire({
+              icon: 'success',
+              title: 'Income Added!',
+              text: respon.data.message,
+              allowOutsideClick: false,
+              confirmButtonText: 'OK',
+          });
+        }
+
         window.location.reload();
     } catch (error) {
         if(error.response.status === 400){
@@ -138,6 +148,7 @@ const Income = () => {
                         placeholder="Contoh: Gaji Pokok"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        required
                       />
                     </div>
                   </div>
@@ -149,6 +160,7 @@ const Income = () => {
                         className="input"
                         value={formatRupiah(balance)}
                         onChange={(e) => setBalance(e.target.value.replace(/\D/g, ''))}
+                        required
                       />
                     </div>
                   </div>
@@ -160,6 +172,7 @@ const Income = () => {
                         className="input"
                         value={tanggalPemasukan}
                         onChange={(e) => setTanggalPemasukan(e.target.value)}
+                        required
                       />
                     </div>
                   </div>
@@ -173,8 +186,9 @@ const Income = () => {
                         name="wallet"
                         value={idWallet} // Ini harus menjadi nilai yang sesuai dengan wallet yang dipilih
                         onChange={(e) => setWalletId(e.target.value)}
+                        required
                       >
-                        <option value="Pilih wallet">Pilih wallet</option>
+                        <option value={""}>Pilih wallet</option>
                         {wallets.map((wallet) => (
                           <option key={wallet.id} value={wallet.id}>
                             {wallet.name}
@@ -183,8 +197,6 @@ const Income = () => {
                       </select>
                     </div>
                   </div>
-
-
                   <div className="field mt-5">
                     <button className="container button is-success d-flex justify-content-center align-items-center">Tambahkan</button>
                   </div>
