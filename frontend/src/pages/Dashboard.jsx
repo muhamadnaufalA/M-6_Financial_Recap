@@ -181,7 +181,7 @@ function Dashboard() {
 						<div>
 							<div className="col-4 p-3">
 								<select
-									className="form-control mr-2"
+									className="form-select mr-2 cursor-pointer"
 									value={selectedWallet}
 									onChange={(e) => setSelectedWallet(e.target.value)}
 								>
@@ -203,9 +203,9 @@ function Dashboard() {
 							)}
 							
 							{isShown ? (
-								<BiSolidShow className="fs-1 mx-3" onClick={handleClick} />
+								<BiSolidShow className="fs-1 mx-3 cursor-pointer" onClick={handleClick} />
 							) : (
-								<BiSolidHide className="fs-1 mx-3" onClick={handleClick} />
+								<BiSolidHide className="fs-1 mx-3 cursor-pointer" onClick={handleClick} />
 							)}
 						</div>
 					</div>
@@ -220,7 +220,7 @@ function Dashboard() {
 						<div className="row p-3">
 							<div className="col-6">
 								<select
-									className="form-control mr-2"
+									className="form-select mr-2 cursor-pointer"
 									value={selectedBudgetRule}
 									onChange={(e) => setSelectedBudgetRule(e.target.value)}
 								>
@@ -234,7 +234,7 @@ function Dashboard() {
 							</div>
 							<div className="col-6">
 								<select
-									className="form-control mr-2"
+									className="form-select mr-2 cursor-pointer"
 									value={selectedCategory}
 									onChange={(e) => setSelectedCategory(e.target.value)}
 								>

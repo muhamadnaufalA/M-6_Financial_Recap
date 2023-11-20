@@ -102,15 +102,10 @@ export default function OutcomeForm() {
         return `Rp${numberFormat.format(angka)}`;
     };
 
-    console.log(categories)
-    console.log(formData.outcomeType)
-
     const filteredCategory = categories.filter((c) => {
 		const budgetRuleMatch = formData.outcomeType === "" || c.budgetruleId === parseInt(formData.outcomeType);
 		return budgetRuleMatch;
 	})
-
-    console.log(filteredCategory)
 
     return (
         <div className="card flex-fill">
@@ -178,7 +173,7 @@ export default function OutcomeForm() {
                         <div className="col-4">
                             <div className="mb-3">
                                 <select
-                                    className="form-select"
+                                    className="form-select cursor-pointer"
                                     id="outcomeType"
                                     name="outcomeType"
                                     value={formData.outcomeType}
@@ -197,7 +192,7 @@ export default function OutcomeForm() {
                         <div className="col-4">
                             <div className="mb-3">
                                 <select
-                                    className="form-select"
+                                    className="form-select cursor-pointer"
                                     id="category"
                                     name="category"
                                     value={formData.category}
@@ -216,7 +211,7 @@ export default function OutcomeForm() {
                         <div className="col-4">
                             <div className="mb-3">
                                 <select
-                                    className="form-select"
+                                    className="form-select cursor-pointer"
                                     id="wallet"
                                     name="wallet"
                                     value={formData.wallet}
