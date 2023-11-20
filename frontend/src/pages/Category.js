@@ -35,46 +35,58 @@ const Category = () => {
     setListBudgetRule(response.data);
   }
 
-  const addCatFunc = async(e) => {
+  const addCatFunc = async (e) => {
     e.preventDefault();
+    if (name.trim() === '' || budget === '' || budgetruleid === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Input Failed',
+        text: 'Please fill in all fields',
+        allowOutsideClick: false, // Prevent closing Swal on outside click
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
+  
     try {
-        const respon = await axios.post(`http://localhost:5000/users/${UserId}/category`,{
-            name: name,
-            budget: parseInt(budget),
-            budgetruleId: parseInt(budgetruleid)
+      const respon = await axios.post(`http://localhost:5000/users/${UserId}/category`, {
+        name: name,
+        budget: parseInt(budget),
+        budgetruleId: parseInt(budgetruleid),
+      });
+      if (respon.status === 201) {
+        await Swal.fire({
+          icon: 'success',
+          title: 'Category Added!',
+          text: respon.data.message,
+          allowOutsideClick: false, // Prevent closing Swal on outside click
+          confirmButtonText: 'OK',
         });
-        if (respon.status === 201) {
-          await Swal.fire({
-            icon: 'success',
-            title: 'Category Added!',
-            text: respon.data.message,
-            allowOutsideClick: false, // Prevent closing Swal on outside click
-            confirmButtonText: 'OK',
-          });
-        } 
-        window.location.reload();
+      }
+      window.location.reload();
     } catch (error) {
-        if(error.response.status === 400){
-          Swal.fire({
-            icon: 'error',
-            title: 'Input Failed',
-            text:error.response.data.message,
-            allowOutsideClick: false, // Prevent closing Swal on outside click
-            confirmButtonText: 'OK',
+      if (error.response.status === 400) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Input Failed',
+          text: error.response.data.message,
+          allowOutsideClick: false, // Prevent closing Swal on outside click
+          confirmButtonText: 'OK',
         });
         setMsg(error.response.data.msg);
-        }else{
-          Swal.fire({
-            icon: 'error',
-            title: 'Input Failed!',
-            text:error.response.data.message,
-            allowOutsideClick: false, // Prevent closing Swal on outside click
-            confirmButtonText: 'OK',
-          });
-          setMsg(error.response.data.msg);
-        }
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Input Failed!',
+          text: error.response.data.message,
+          allowOutsideClick: false, // Prevent closing Swal on outside click
+          confirmButtonText: 'OK',
+        });
+        setMsg(error.response.data.msg);
+      }
     }
-  }
+  };
+  
 
   const deleteCategory = async (id) => {
     try{
