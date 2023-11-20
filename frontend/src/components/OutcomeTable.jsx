@@ -86,10 +86,10 @@ export default function OutcomeTable() {
   <div className="card-body">
 
     {/* Filter Start */}
-    <div className="d-flex mb-5" style={{ width: "40%" }}>
-      <div className="col-5 px-1">
+    <div className="d-flex mb-5" style={{ width: "50%" }}>
+      <div className="col-6 px-1">
         <select
-          className="form-control mr-2"
+          className="form-select mr-2"
           value={selectedBudgetRule}
           onChange={(e) => setSelectedBudgetRule(e.target.value)}
           disabled={currentPage !== 1}
@@ -103,9 +103,9 @@ export default function OutcomeTable() {
           ))}
         </select>
       </div>
-      <div className="col-5 px-1">
+      <div className="col-6 px-1">
         <select
-          className="form-control"
+          className="form-select"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
           disabled={currentPage !== 1}
@@ -118,12 +118,6 @@ export default function OutcomeTable() {
             </option>
           ))}
         </select>
-      </div>
-      <div className="col-2 px-1">
-        <BiSolidHelpCircle
-          style={{  }}
-          title="Filter hanya aktif ketika berada di page 1"
-        />
       </div>
     </div>
     {/* Filter End */}

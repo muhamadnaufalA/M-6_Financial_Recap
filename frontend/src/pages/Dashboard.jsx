@@ -173,7 +173,7 @@ function Dashboard() {
 			</h1>
 			<div className="row">
 				{/* Saldo Start */}
-				<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+				<div className="col-lg-6 col-xxl-6 d-flex">
 					<div className="card flex-fill">
 						<div className="card-header">
 							<h5 className="card-title mb-0">Saldo</h5>
@@ -212,7 +212,7 @@ function Dashboard() {
 				</div>
 				{/* Saldo End */}
 				{/* Catatan Keuangan Start */}
-				<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+				<div className="col-lg-6 col-xxl-6 d-flex">
 					<div className="card flex-fill">
 						<div className="card-header">
 							<h5 className="card-title mb-0">Catatan Keuangan</h5>
@@ -274,7 +274,7 @@ function Dashboard() {
 				</div>
 				{/* Catatan Keuangan End */}
 				{/* Outcome Target */}
-				<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+				<div className="col-lg-6 col-xxl-6 d-flex">
 					<div className="card flex-fill">
 						<div className="card-header">
 							<h5 className="card-title mb-0">Outcome Target</h5>
@@ -300,7 +300,7 @@ function Dashboard() {
 					</div>
 				</div>
 				{/* Outcome Report */}
-				<div className="col-6 col-lg-6 col-xxl-6 d-flex">
+				<div className="col-lg-6 col-xxl-6 d-flex">
 					<div className="card flex-fill">
 						<div className="card-header">
 							<h5 className="card-title mb-0">Outcome Report</h5>
