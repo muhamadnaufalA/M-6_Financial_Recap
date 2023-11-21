@@ -1,8 +1,9 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link} from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { BiSolidHelpCircle } from "react-icons/bi";
+import { BiArrowBack } from "react-icons/bi";
 
 const EditBudgetRule = () => {
   const history = useHistory();
@@ -53,9 +54,14 @@ const EditBudgetRule = () => {
 
   return (
     <div className="card flex-fill">
-        <div className="card-header">
-            <h5 className="card-title mb-0">Edit Budget Rule</h5>
+        <div className="d-flex justify-content-start m-2">
+          <Link to={`/budgetrule`} className="btn btn-sm btn-info">
+              <BiArrowBack style={{ fontSize: '20px', verticalAlign: 'middle' }} /> Back
+          </Link>
         </div>
+        <h1 className="h2 text-center">
+            <strong>Edit Budget Rule</strong>
+        </h1>
         <div className="row justify-content-center">
             <div className="col-md-5 p-5">
                 <form onSubmit={updateBudgetRule} className="box">

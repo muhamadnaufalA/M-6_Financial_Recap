@@ -259,11 +259,11 @@ function Dashboard() {
 								</span>
 							) : (
 								totalOutcome > nominalBudget ? (
-									<span className="fs-4 fw-bold font-monospace">
+									<span className="fs-4 fw-bold font-monospace text-danger">
 										Bulan ini kamu boros sebesar {formatRupiah(totalOutcome - nominalBudget)}
 									</span>
 								) : (
-									<span className="fs-4 fw-bold font-monospace">
+									<span className="fs-4 fw-bold font-monospace text-success">
 										Bulan ini kamu hemat sebesar {formatRupiah(nominalBudget - totalOutcome)}
 									</span>
 								)

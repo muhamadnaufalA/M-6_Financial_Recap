@@ -1,7 +1,8 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { BiArrowBack } from "react-icons/bi";
 
 const EditOutcome = () => {
     const [name, setName] = useState("");
@@ -90,6 +91,11 @@ const EditOutcome = () => {
   
     return (
       <div className="container">
+        <div className="d-flex justify-content-start m-2">
+          <Link to={`/outcome`} className="btn btn-sm btn-info">
+              <BiArrowBack style={{ fontSize: '20px', verticalAlign: 'middle' }} /> Back
+          </Link>
+        </div>
         <h1 className="h2 mb-3 text-center">
           <strong>Edit Outcome</strong>
         </h1>

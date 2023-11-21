@@ -1,7 +1,8 @@
 import React,{useState, useEffect} from 'react';
 import axios from "axios";
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import Swal from "sweetalert2";
+import { BiArrowBack } from "react-icons/bi";
 
 const EditWallet = () => {
   const [name, setName] = useState('');
@@ -50,38 +51,34 @@ const EditWallet = () => {
   };
 
   return (
-    <section className="hero has-background-white  is-fullwidth">
-        <h1 className="h2 mb-5 text-center">
+    <div className="container">
+      <div className="d-flex justify-content-start m-2">
+        <Link to={`/wallet`} className="btn btn-sm btn-info">
+            <BiArrowBack style={{ fontSize: '20px', verticalAlign: 'middle' }} /> Back
+        </Link>
+      </div>
+        <h1 className="h2 mb-3 text-center">
             <strong>Edit Wallet</strong>
         </h1>
-        <div className="hero-body">
-          <div className="container">
-            <div className="columns is-centered">
-              <div className="column">
-               <form onSubmit={UpdateWallet}>
-                    <div className="field">
-                        <label className="label">Name</label>
-                        <div className="control">
-                            <input 
-                            type="text" 
-                            className="input" 
-                            value={name} 
-                            onChange={(e)=> setName(e.target.value)}
-                            placeholder='Contoh: Gaji Pokok'/>
-                        </div>
+        <div className="row justify-content-center">
+            <div className="col-md-6">
+                <form onSubmit={UpdateWallet} className="card p-4">
+                    <div className="mb-3">
+                        <label htmlFor="name" className="form-label">Name</label>
+                        <input type="text" className="form-control" id="name" value={name} onChange={(e)=>
+                        setName(e.target.value)}
+                        placeholder='Contoh: BRI'
+                        />
                     </div>
-                    
-                    <div className="field">
-                        <button type='submit' className='button is-success '>
+                    <div className="mb-3 text-end">
+                        <button type='submit' className='btn btn-success'>
                             Update
                         </button>
                     </div>
                 </form>
             </div>
-          </div>
         </div>
-      </div>
-    </section>
+    </div>
   )
 }
 
