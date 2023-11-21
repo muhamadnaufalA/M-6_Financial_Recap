@@ -29,7 +29,7 @@ export default function BudgetRuleTable() {
     }
 
     return (
-        <section className="col-7">
+        <section className="col-8">
         <div className="box">
             <p className="text-center text-danger">{message}</p>
             <table className="table table-hover">

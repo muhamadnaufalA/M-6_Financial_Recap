@@ -186,7 +186,7 @@ function Recap() {
 							<table className="table table-hover my-0">
 								<thead>
 									<tr>
-										<th className="d-none d-md-table-cell">Tanggal</th>
+										<th>Tanggal</th>
 										<th>Keterangan</th>
 										<th>Budget Rule</th>
 										<th>Kategori</th>
@@ -197,12 +197,12 @@ function Recap() {
 								<tbody>
 									{currentItemsMonthly.map((l) => (
 										<tr key={l.id}>
-											<td className="d-none d-md-table-cell">{moment(l.tanggal).format('DD-MM-YYYY')}</td>
-											<td className="d-none d-xl-table-cell">{l.keterangan}</td>
-											<td className="d-none d-md-table-cell">{l.budgetrule}</td>
-											<td className="d-none d-md-table-cell">{l.category}</td>
-											<td className="d-none d-xl-table-cell"><span className={l.transaction_type !== "Outcome" ? "badge bg-success" : "badge bg-danger"}>{formatRupiah(l.balance ? l.balance : l.nominal)}</span></td>
-											<td className="d-none d-md-table-cell">{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
+											<td>{moment(l.tanggal).format('DD-MM-YYYY')}</td>
+											<td>{l.keterangan}</td>
+											<td>{l.budgetrule}</td>
+											<td>{l.category}</td>
+											<td><span className={l.transaction_type !== "Outcome" ? "badge bg-success" : "badge bg-danger"}>{formatRupiah(l.balance ? l.balance : l.nominal)}</span></td>
+											<td>{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
 										</tr>
 									))}
 								</tbody>

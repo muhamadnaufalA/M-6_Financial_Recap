@@ -259,11 +259,11 @@ function Dashboard() {
 									</span>
 								) : (
 									totalOutcome > nominalBudget ? (
-										<span className="fs-4 fw-bold font-monospace">
+										<span className="fs-4 fw-bold font-monospace text-danger">
 											Bulan ini kamu boros sebesar {formatRupiah(totalOutcome - nominalBudget)}
 										</span>
 									) : (
-										<span className="fs-4 fw-bold font-monospace">
+										<span className="fs-4 fw-bold font-monospace text-success">
 											Bulan ini kamu hemat sebesar {formatRupiah(nominalBudget - totalOutcome)}
 										</span>
 									)
@@ -279,24 +279,26 @@ function Dashboard() {
 						<div className="card-header">
 							<h5 className="card-title mb-0">Outcome Target</h5>
 						</div>
-						<table className="table table-hover my-0">
-							<thead>
-								<tr>
-									<th>Budget Rule</th>
-									<th>Percentage</th>
-									<th>Nominal</th>
-								</tr>
-							</thead>
-							<tbody>
-								{budgetRules.map((budgetRule) => (
-									<tr key={budgetRule.id}>
-										<td className="d-none d-md-table-cell">{budgetRule.name}</td>
-										<td className="d-none d-md-table-cell">{budgetRule.percentage}%</td>
-										<td className="d-none d-md-table-cell">{formatRupiah(budgetRule.percentage/100*totalIncome)}</td>
+						<div className="card-body">
+							<table className="table table-hover my-0">
+								<thead>
+									<tr>
+										<th>Budget Rule</th>
+										<th>Percentage</th>
+										<th>Nominal</th>
 									</tr>
-								))}
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									{budgetRules.map((budgetRule) => (
+										<tr key={budgetRule.id}>
+											<td>{budgetRule.name}</td>
+											<td>{budgetRule.percentage}%</td>
+											<td>{formatRupiah(budgetRule.percentage/100*totalIncome)}</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 				{/* Outcome Report */}
@@ -316,9 +318,9 @@ function Dashboard() {
 							<tbody>
 								{budgetRulesActual.map((budgetRuleActual, i) => (
 									<tr key={budgetRuleActual.id}>
-										<td className="d-none d-md-table-cell">{budgetRuleActual.name}</td>
-										<td className="d-none d-md-table-cell">{formatRupiah(budgetRuleActual.totalPengeluaran)}</td>
-										<td className="d-none d-md-table-cell">{(budgetRuleActual.totalPengeluaran / totalIncome * 100).toFixed(2)}%</td>
+										<td>{budgetRuleActual.name}</td>
+										<td>{formatRupiah(budgetRuleActual.totalPengeluaran)}</td>
+										<td>{(budgetRuleActual.totalPengeluaran / totalIncome * 100).toFixed(2)}%</td>
 									</tr>
 								))}
 							</tbody>

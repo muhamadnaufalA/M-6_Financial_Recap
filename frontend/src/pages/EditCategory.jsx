@@ -99,13 +99,12 @@ const EditCategory = () => {
 
     return (
     <section>
-        <div className="d-flex justify-content-start mt-2">
-            <Link to={`/category`} className="btn btn-sm btn-info">
-                <BiArrowBack style={{ fontSize: '20px', verticalAlign: 'middle' }} /> Back
-            </Link>
-        </div>
-
         <div className="card flex-fill">
+            <div className="d-flex justify-content-start m-2">
+                <Link to={`/category`} className="btn btn-sm btn-info">
+                    <BiArrowBack style={{ fontSize: '20px', verticalAlign: 'middle' }} /> Back
+                </Link>
+            </div>
             <h1 className="h2 mb-3 text-center">
                 <strong>Edit Category</strong>
             </h1>
@@ -159,7 +158,7 @@ const EditCategory = () => {
                                 ))}
                             </select>
                         </div>
-                        <div className="form-group mt-5">
+                        <div className="form-group mt-5 mb-3">
                             <button className="btn btn-success btn-block">Tambahkan</button>
                         </div>
                     </form>

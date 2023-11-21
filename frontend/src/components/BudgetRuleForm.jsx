@@ -42,7 +42,7 @@ export default function OutcomeForm() {
     };
 
     return (
-        <div className="col-md-5">
+        <div className="col-md-4">
             <form onSubmit={handleSubmit} className="box">
                 <p className="text-center text-danger">{message}</p>
                 <div className="mb-3">
@@ -60,7 +60,7 @@ export default function OutcomeForm() {
                     />
                 </div>
                 <div className="row mb-3">
-                    <div className="col-9">
+                    <div className="col-11">
                         <label htmlFor="percentage" className="form-label">Budget (%)</label>
                         <input
                             className="form-control"
@@ -74,7 +74,7 @@ export default function OutcomeForm() {
                             required
                         />
                     </div>
-                    <div className="col-2 d-flex align-items-center">
+                    <div className="col-1 d-flex align-items-center">
                         <BiSolidHelpCircle 
                             style={{ marginLeft: -10 }}
                             title="Persentase dari Total Pemasukan"
