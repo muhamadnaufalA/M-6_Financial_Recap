@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useHistory, Link } from 'react-router-dom';
+import { FaMoneyBillTransfer } from "react-icons/fa6";
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -28,53 +29,54 @@ const Login = () => {
   }
 
   return (
-<section className="hero" style={{ background: 'linear-gradient(to right, #8e9eab, #eef2f3)' }}>
-    <div className="container  align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
-        <div className="row justify-content-center">
-            <div className="col-12 col-md-8 col-lg-6" style={{paddingTop:'180px'}}>
-                <form onSubmit={LoginFunc} className="card p-4">
-                    <h1 className="h2 mb-3 text-center">
-                        <strong>Login</strong>
-                    </h1>
-                    <p className="text-center text-danger">{msg}</p>
-                    <div className="mb-3">
-                        <label htmlFor="username" className="form-label">Username</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="username"
-                            placeholder="Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">Password</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="password"
-                            placeholder="**********"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3 text-center">
-                        <button type="submit" className="btn btn-success rounded-pill">Login</button>
-                    </div>
-                    <div className="mb-3 text-center">
-                        <p>
-                            Don't have an account?{' '}
-                            <Link to="/register">Register here</Link>
-                        </p>
-                    </div>
-                </form>
+    <div style={{ background: 'linear-gradient(to bottom right, #222e3c, #0a3944)' }}>
+        <div className="container d-flex align-items-center min-vh-100">
+            <div className="row justify-content-center w-100">
+                <div className="col-lg-5 col-md-5 col-xxl-5 mx-auto">
+                    <form onSubmit={LoginFunc} className="card p-4">
+                        <div class="d-flex justify-content-center align-items-center pb-3">
+                            <FaMoneyBillTransfer className="display-4" style={{ color: '#222e3c' }}/>
+                        </div>
+                        <h1 className="h2 mb-2">
+                            <strong>Login to PWA-2 Finance App</strong>
+                        </h1>
+                        <p className="text-center text-danger">{msg}</p>
+                        <div className="mb-3">
+                            <label htmlFor="username" className="form-label">Username</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="username"
+                                placeholder="Username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label">Password</label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                id="password"
+                                placeholder="**********"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3 text-center col-lg-12 col-md-12 col-xxl-12 ">
+                            <button type="submit" className="btn btn-primary rounded-pill btn-lg px-7 py-2">Login</button>
+                        </div>
+                        <div className="mb-3 text-center">
+                            <p>
+                                Don't have an account?{' '}
+                                <Link to="/register">Register here</Link>
+                            </p>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</section>
-
-
   )
 }
 
