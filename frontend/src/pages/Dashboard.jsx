@@ -13,7 +13,7 @@ function Dashboard() {
 	const [budgetRules, setBudgetRules] = useState([]);
 	const [budgetRulesActual, setBudgetRulesActual] = useState([]);
 	const [budgetRuleList, setBudgetRuleList] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
+  	const [categoryList, setCategoryList] = useState([]);
 	const [wallets, setWallets] = useState([]);
 	const [incomes, setIncomes] = useState([]);
 
@@ -22,7 +22,7 @@ function Dashboard() {
 		getBudgetRulesTarget();
 		getBudgetRulesActual();
 		getListBudgetRuleFunc();
-    getListCategoryFunc();
+    	getListCategoryFunc();
 		getWalletsFunc();
 		getIncomesFunc();
 	}, []);
@@ -73,7 +73,7 @@ function Dashboard() {
 	// Card Saldo Start
 	const [selectedWallet, setSelectedWallet] = useState("All");
 	const [isShown, setIsShown] = useState(true);
-  const handleClick = () => {
+  	const handleClick = () => {
     setIsShown(!isShown);
   };
 
@@ -168,146 +168,149 @@ function Dashboard() {
 	
   return (
     <>
-			<h1 className="h3 mb-3">
-				Dashboard
-			</h1>
-			<div className="row">
-				{/* Saldo Start */}
-				<div className="col-lg-6 col-xxl-6 d-flex">
-					<div className="card flex-fill">
-						<div className="card-header">
-							<h5 className="card-title mb-0">Saldo</h5>
-						</div>
-						<div>
-							<div className="col-4 p-3">
-								<select
-									className="form-select mr-2 cursor-pointer"
-									value={selectedWallet}
-									onChange={(e) => setSelectedWallet(e.target.value)}
-								>
-									<option value="All">All Wallets</option>
-									{wallets.map((wallet) => (
-										<option key={wallet.id} value={wallet.name}>
-												{wallet.name}
-										</option>
-									))}
-								</select>
-							</div>
-						</div>
-						<div className="d-flex align-items-center justify-content-center my-3">
-							<BiWallet className="mx-3" style={{ fontSize: '45px' }} />
-							{isShown ? (
-								<span className="fs-2 fw-bold font-monospace">{formatRupiah(totalSaldo)}</span>
-							) : (
-								<span className="fs-2 fw-bold font-monospace">Rp **********</span>
-							)}
-							
-							{isShown ? (
-								<BiSolidShow className="fs-1 mx-3 cursor-pointer" onClick={handleClick} />
-							) : (
-								<BiSolidHide className="fs-1 mx-3 cursor-pointer" onClick={handleClick} />
-							)}
+		<h1 className="h2 mb-3">
+			<strong>Dashboard</strong>
+		</h1>
+		<div className="row">
+			{/* Saldo Start */}
+			<div className="col-lg-6 col-xxl-6 d-flex">
+				<div className="card flex-fill">
+					<div className="card-header">
+						<h5 className="card-title mb-0">Saldo</h5>
+					</div>
+					<div>
+						<div className="col-4 p-3">
+							<select
+								className="form-select mr-2 cursor-pointer"
+								value={selectedWallet}
+								onChange={(e) => setSelectedWallet(e.target.value)}
+							>
+								<option value="All">All Wallets</option>
+								{wallets.map((wallet) => (
+									<option key={wallet.id} value={wallet.name}>
+											{wallet.name}
+									</option>
+								))}
+							</select>
 						</div>
 					</div>
+					<div className="d-flex align-items-center justify-content-center my-3">
+						<BiWallet className="mx-3" style={{ fontSize: '45px' }} />
+						{isShown ? (
+							<span className="fs-2 fw-bold font-monospace">{formatRupiah(totalSaldo)}</span>
+						) : (
+							<span className="fs-2 fw-bold font-monospace">Rp **********</span>
+						)}
+						
+						{isShown ? (
+							<BiSolidShow className="fs-1 mx-3 cursor-pointer" onClick={handleClick} />
+						) : (
+							<BiSolidHide className="fs-1 mx-3 cursor-pointer" onClick={handleClick} />
+						)}
+					</div>
 				</div>
-				{/* Saldo End */}
-				{/* Catatan Keuangan Start */}
-				<div className="col-lg-6 col-xxl-6 d-flex">
-					<div className="card flex-fill">
-						<div className="card-header">
-							<h5 className="card-title mb-0">Catatan Keuangan</h5>
+			</div>
+			{/* Saldo End */}
+			{/* Catatan Keuangan Start */}
+			<div className="col-lg-6 col-xxl-6 d-flex">
+				<div className="card flex-fill">
+					<div className="card-header">
+						<h5 className="card-title mb-0">Catatan Keuangan</h5>
+					</div>
+					<div className="row p-3">
+						<div className="col-6">
+							<select
+								className="form-select mr-2 cursor-pointer"
+								value={selectedBudgetRule}
+								onChange={(e) => setSelectedBudgetRule(e.target.value)}
+							>
+								<option value="All">All Budget Rule</option>
+								{budgetRuleList.map((budget) => (
+									<option key={budget.id} value={budget.name}>
+											{budget.name}
+									</option>
+								))}
+							</select>
 						</div>
-						<div className="row p-3">
-							<div className="col-6">
-								<select
-									className="form-select mr-2 cursor-pointer"
-									value={selectedBudgetRule}
-									onChange={(e) => setSelectedBudgetRule(e.target.value)}
-								>
-									<option value="All">All Budget Rule</option>
-									{budgetRuleList.map((budget) => (
-										<option key={budget.id} value={budget.name}>
-												{budget.name}
-										</option>
-									))}
-								</select>
-							</div>
-							<div className="col-6">
-								<select
-									className="form-select mr-2 cursor-pointer"
-									value={selectedCategory}
-									onChange={(e) => setSelectedCategory(e.target.value)}
-								>
-									<option value="All">All Categories</option>
-									{filteredCategory.map((category) => (
-										<option key={category.id} value={category.name}>
-												{category.name}
-										</option>
-									))}
-								</select>
-							</div>
+						<div className="col-6">
+							<select
+								className="form-select mr-2 cursor-pointer"
+								value={selectedCategory}
+								onChange={(e) => setSelectedCategory(e.target.value)}
+							>
+								<option value="All">All Categories</option>
+								{filteredCategory.map((category) => (
+									<option key={category.id} value={category.name}>
+											{category.name}
+									</option>
+								))}
+							</select>
 						</div>
-						<div className="d-flex align-items-center justify-content-center my-3 row text-center">
-							<div>
-								<GiPayMoney className="fs-1 mx-3" />
-								<span className="fs-3 fw-bold font-monospace">{formatRupiah(totalOutcome)} [{percentageOutcome.toFixed(2)} %]</span>
-							</div>
-							<div className="py-3">
-								{totalOutcome === 0 ? (
+					</div>
+					<div className="d-flex align-items-center justify-content-center my-3 row text-center">
+						<div>
+							<GiPayMoney className="fs-1 mx-3" />
+							<span className="fs-3 fw-bold font-monospace">{formatRupiah(totalOutcome)} [{percentageOutcome.toFixed(2)} %]</span>
+						</div>
+						<div className="py-3">
+							{totalOutcome === 0 ? (
+								<span className="fs-4 fw-bold font-monospace">
+									Belum ada pengeluaran bulan ini
+								</span>
+							) : (
+								totalOutcome > nominalBudget ? (
 									<span className="fs-4 fw-bold font-monospace">
-										Belum ada pengeluaran bulan ini
+										Bulan ini kamu boros sebesar {formatRupiah(totalOutcome - nominalBudget)}
 									</span>
 								) : (
-									totalOutcome > nominalBudget ? (
-										<span className="fs-4 fw-bold font-monospace text-danger">
-											Bulan ini kamu boros sebesar {formatRupiah(totalOutcome - nominalBudget)}
-										</span>
-									) : (
-										<span className="fs-4 fw-bold font-monospace text-success">
-											Bulan ini kamu hemat sebesar {formatRupiah(nominalBudget - totalOutcome)}
-										</span>
-									)
-								)}
-							</div>
+									<span className="fs-4 fw-bold font-monospace">
+										Bulan ini kamu hemat sebesar {formatRupiah(nominalBudget - totalOutcome)}
+									</span>
+								)
+							)}
 						</div>
 					</div>
 				</div>
-				{/* Catatan Keuangan End */}
-				{/* Outcome Target */}
-				<div className="col-lg-6 col-xxl-6 d-flex">
-					<div className="card flex-fill">
-						<div className="card-header">
-							<h5 className="card-title mb-0">Outcome Target</h5>
-						</div>
-						<div className="card-body">
-							<table className="table table-hover my-0">
-								<thead>
-									<tr>
-										<th>Budget Rule</th>
-										<th>Percentage</th>
-										<th>Nominal</th>
+			</div>
+			{/* Catatan Keuangan End */}
+			{/* Outcome Target */}
+			<div className="col-lg-6 col-xxl-6 d-flex">
+				<div className="card flex-fill">
+					<div className="card-header">
+						<h5 className="card-title mb-0">Outcome Target</h5>
+					</div>
+
+					<div className="table-responsive">
+						<table className="table text-center">
+							<thead>
+								<tr>
+									<th>Budget Rule</th>
+									<th>Percentage</th>
+									<th>Nominal</th>
+								</tr>
+							</thead>
+							<tbody>
+								{budgetRules.map((budgetRule) => (
+									<tr key={budgetRule.id}>
+										<td>{budgetRule.name}</td>
+										<td>{budgetRule.percentage}%</td>
+										<td>{formatRupiah(budgetRule.percentage/100*totalIncome)}</td>
 									</tr>
-								</thead>
-								<tbody>
-									{budgetRules.map((budgetRule) => (
-										<tr key={budgetRule.id}>
-											<td>{budgetRule.name}</td>
-											<td>{budgetRule.percentage}%</td>
-											<td>{formatRupiah(budgetRule.percentage/100*totalIncome)}</td>
-										</tr>
-									))}
-								</tbody>
-							</table>
-						</div>
+								))}
+							</tbody>
+						</table>
 					</div>
+					
 				</div>
-				{/* Outcome Report */}
-				<div className="col-lg-6 col-xxl-6 d-flex">
-					<div className="card flex-fill">
-						<div className="card-header">
-							<h5 className="card-title mb-0">Outcome Report</h5>
-						</div>
-						<table className="table table-hover my-0">
+			</div>
+			{/* Outcome Report */}
+			<div className="col-lg-6 col-xxl-6 d-flex">
+				<div className="card flex-fill">
+					<div className="card-header">
+						<h5 className="card-title mb-0">Outcome Report</h5>
+					</div>
+					<div className='table-responsive'>
+						<table className="table text-center">
 							<thead>
 								<tr>
 									<th>Budget Rule</th>
@@ -328,6 +331,7 @@ function Dashboard() {
 					</div>
 				</div>
 			</div>
+		</div>
     </>
   )
 }

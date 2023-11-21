@@ -62,7 +62,7 @@ function Recap() {
 		})
 		.slice(indexOfFirstItemMonthly, indexOfLastItemMonthly);
 
-	const filteredMonthlyRecap = recap.filter((recap) => {
+		const filteredMonthlyRecap = recap.filter((recap) => {
 		const transactionMatchMonthly = selectedTransactionMonthly === "All" || recap.transaction_type === selectedTransactionMonthly;
 		const categoryMatchMonthly = selectedCategoryMonthly === "All" || recap.category === selectedCategoryMonthly;
 		const budgetRuleMatchMonthly = selectedBudgetRuleMonthly === "All" || recap.budgetrule === selectedBudgetRuleMonthly;
@@ -91,7 +91,7 @@ function Recap() {
 						</div>
 						<div className="card-body">
 							{/* Filter Start */}
-							<div className="d-flex mb-5" style={{ width: "100%" }}>
+							<div className="row mb-5" style={{ width: "100%" }}>
 								<div className="col-2 px-1">
 									<select
 										className="form-select mr-2"
@@ -182,33 +182,38 @@ function Recap() {
 								</div>
 							</div>
 							{/* Filter End */}
-
-							<table className="table table-hover my-0">
-								<thead>
-									<tr>
-										<th>Tanggal</th>
-										<th>Keterangan</th>
-										<th>Budget Rule</th>
-										<th>Kategori</th>
-										<th>Nominal</th>
-										<th>Wallet</th>
-									</tr>
-								</thead>
-								<tbody>
-									{currentItemsMonthly.map((l) => (
-										<tr key={l.id}>
-											<td>{moment(l.tanggal).format('DD-MM-YYYY')}</td>
-											<td>{l.keterangan}</td>
-											<td>{l.budgetrule}</td>
-											<td>{l.category}</td>
-											<td><span className={l.transaction_type !== "Outcome" ? "badge bg-success" : "badge bg-danger"}>{formatRupiah(l.balance ? l.balance : l.nominal)}</span></td>
-											<td>{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
+							<div className='table-responsive'>
+								<table className="table text-center">
+									<thead>
+										<tr>
+											<th>Tanggal</th>
+											<th>Keterangan</th>
+											<th>Budget Rule</th>
+											<th>Kategori</th>
+											<th>Nominal</th>
+											<th>Wallet</th>
 										</tr>
-									))}
-								</tbody>
-							</table>
+									</thead>
+									<tbody>
+										{currentItemsMonthly.map((l) => (
+											<tr key={l.id}>
+												<td >{moment(l.tanggal).format('DD-MM-YYYY')}</td>
+												<td >{l.keterangan}</td>
+												<td >{l.budgetrule}</td>
+												<td >{l.category}</td>
+												<td >
+													<span className={l.transaction_type !== "Outcome" ? "badge bg-success" : "badge bg-danger"}>
+													{formatRupiah(l.balance ? l.balance : l.nominal)}
+													</span>
+												</td>
+												<td >{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
+											</tr>
+										))}
+									</tbody>
+								</table>
+							</div>
 							{/* Pagination buttons */}
-							<div className="d-flex justify-content-between align-items-center mt-5">
+							<div className="d-flex flex-column flex-md-row justify-content-md-between align-items-center mt-5">
 								<button
 									className="btn btn-primary"
 									onClick={() => handlePageChangeMonthly(currentPageMonthly - 1)}
@@ -216,7 +221,7 @@ function Recap() {
 								>
 									Prev
 								</button>
-								<div>
+								<div className='text-center mb-2 mb-md-0'>
 									Page { currentPageMonthly } of { totalPagesMonthly } Total Pages ({(itemsPerPageMonthly * (currentPageMonthly-1)) + 1} - {(itemsPerPageMonthly * (currentPageMonthly-1)) + 5 > filteredMonthlyRecap.length ? filteredMonthlyRecap.length : (itemsPerPageMonthly * (currentPageMonthly-1)) + 5} of {filteredMonthlyRecap.length})
 								</div>
 								<button

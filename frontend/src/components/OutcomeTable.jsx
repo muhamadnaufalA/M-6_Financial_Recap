@@ -98,8 +98,8 @@ export default function OutcomeTable() {
         <div className="card-body">
 
           {/* Filter Start */}
-          <div className="d-flex mb-5" style={{ width: "50%" }}>
-            <div className="col-6 px-1">
+          <div className="d-flex col-md-6 mb-3">
+            <div className="col-md-6 px-1">
               <select
                 className={currentPage === 1 ? "form-select mr-2 cursor-pointer" : "form-select mr-2"}
                 value={selectedBudgetRule}
@@ -115,7 +115,7 @@ export default function OutcomeTable() {
                 ))}
               </select>
             </div>
-            <div className="col-6 px-1">
+            <div className="col-md-6 px-1">
               <select
                 className={currentPage === 1 ? "form-select mr-2 cursor-pointer" : "form-select mr-2"}
                 value={selectedCategory}
@@ -133,54 +133,57 @@ export default function OutcomeTable() {
             </div>
           </div>
           {/* Filter End */}
-
-          <table className="table table-hover my-0">
-            <thead>
-              <tr>
-                <th style={{ width: '12%' }}>Tanggal</th>
-                <th style={{ width: '15%' }}>Keterangan</th>
-                <th style={{ width: '15%' }}>Nominal</th>
-                <th style={{ width: '15%' }}>Budget Rule</th>
-                <th style={{ width: '15%' }}>Category</th>
-                <th style={{ width: '12%' }}>Wallet</th>
-                <th className="text-center" style={{ width: '12%' }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentItems.map((outcome) => (
-                <tr key={outcome.id}>
-                  <td>{moment(outcome.tanggal_pengeluaran).format('DD-MM-YYYY')}</td>
-                  <td>{outcome.name}</td>
-                  <td>{formatRupiah(outcome.nominal)}</td>
-                  <td>{outcome.budgetrule ? outcome.budgetrule.name : 'Belum ditentukan'}</td>
-                  <td>{outcome.category ? outcome.category.name : 'Belum ditentukan'}</td>
-                  <td>{outcome.wallet ? outcome.wallet.name : 'Belum ditentukan'}</td>
-                  <td className="text-center">
-                    <Link to={`edit-outcome/${outcome.id}`} className="btn btn-sm btn-info me-2">
-                      <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-                    </Link>
-                    <button onClick={() => deleteOutcome(outcome.id)} className="btn btn-sm btn-danger">
-                      <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-                    </button>
-                  </td>
+          <div className="table-responsive card border">
+            <table className="table text-center">
+              <thead>
+                <tr>
+                  <th style={{ width: '12%' }}>Tanggal</th>
+                  <th style={{ width: '15%' }}>Keterangan</th>
+                  <th style={{ width: '15%' }}>Nominal</th>
+                  <th style={{ width: '15%' }}>Budget Rule</th>
+                  <th style={{ width: '15%' }}>Category</th>
+                  <th style={{ width: '12%' }}>Wallet</th>
+                  <th className="text-center" style={{ width: '12%' }}>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {currentItems.map((outcome) => (
+                  <tr key={outcome.id}>
+                    <td>{moment(outcome.tanggal_pengeluaran).format('DD-MM-YYYY')}</td>
+                    <td>{outcome.name}</td>
+                    <td>{formatRupiah(outcome.nominal)}</td>
+                    <td>{outcome.budgetrule ? outcome.budgetrule.name : 'Belum ditentukan'}</td>
+                    <td>{outcome.category ? outcome.category.name : 'Belum ditentukan'}</td>
+                    <td>{outcome.wallet ? outcome.wallet.name : 'Belum ditentukan'}</td>
+                    <td className="text-center">
+                      <div className="btn-group">
+                        <Link to={`edit-outcome/${outcome.id}`} className="btn btn-sm btn-info me-2">
+                          <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                        </Link>
+                        <button onClick={() => deleteOutcome(outcome.id)} className="btn btn-sm btn-danger">
+                          <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           {/* Pagination buttons */}
-          <div className="d-flex justify-content-between align-items-center mt-5">
+          <div className="d-flex justify-content-between align-items-center mt-3">
             <button
-              className="btn btn-outline-secondary"
+              className="btn btn-primary"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
               Prev
             </button>
-            <div>
+            <div className="p-2">
               Page {currentPage} of {totalPages} Total Pages ({(itemsPerPage * (currentPage - 1)) + 1} - {(itemsPerPage * (currentPage - 1)) + 5 > filteredOutcomes.length ? filteredOutcomes.length : (itemsPerPage * (currentPage - 1)) + 5} of {filteredOutcomes.length})
             </div>
             <button
-              className="btn btn-outline-secondary"
+              className="btn btn-primary"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
             >
