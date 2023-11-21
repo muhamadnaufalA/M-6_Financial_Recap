@@ -53,49 +53,42 @@ const EditBudgetRule = () => {
 
   return (
     <div className="card flex-fill">
-      <div className="card-header">
-        <h5 className="card-title mb-0">Edit Budget Rule</h5>
-      </div>
-      <div className="row justify-content-center">
-        <div className="col-5 p-5">
-          <form onSubmit={updateBudgetRule} className="box">
-            <p className="has-text-center has-text-danger">{message}</p>
-            <div className="row">
-              <div className="col-md-5">
-                <div className="control">
-                  <input 
-                    type="text" 
-                    className="input" 
-                    value={name} 
-                    onChange={(e)=> setName(e.target.value)}
-                    placeholder='Budget Rule Name'
-                  />
-                </div>
-              </div>
-              <div className="col-md-7 row">
-                <div className="control col-9">
-                  <input 
-                    type="number" 
-                    className="input" 
-                    value={percentage} 
-                    onChange={(e)=> setPercentage(e.target.value)}
-                    placeholder='Percentage'
-                  />
-                </div>
-                <div className="col-2 d-flex align-items-center">
-                  <BiSolidHelpCircle 
-                    style={{ marginLeft: -10 }}
-                    title="Persentase dari Total Pemasukan"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="field mt-3 d-flex justify-content-start">
-              <button className="btn btn-lg btn-success">Tambahkan</button>
-            </div>
-          </form>
+        <div className="card-header">
+            <h5 className="card-title mb-0">Edit Budget Rule</h5>
         </div>
-      </div>
+        <div className="row justify-content-center">
+            <div className="col-md-5 p-5">
+                <form onSubmit={updateBudgetRule} className="box">
+                    <p className="text-center text-danger">{message}</p>
+                    <div className="row mb-3">
+                        <div className="col-md-5">
+                            <div className="form-group">
+                                <label htmlFor="name" className="form-label">Budget Rule Name</label>
+                                <input type="text" className="form-control" id="name" value={name} onChange={(e)=>
+                                setName(e.target.value)}
+                                placeholder="Budget Rule Name"
+                                />
+                            </div>
+                        </div>
+                        <div className="col-md-7 row">
+                            <div className="form-group col-9">
+                                <label htmlFor="percentage" className="form-label">Percentage</label>
+                                <input type="number" className="form-control" id="percentage" value={percentage}
+                                    onChange={(e)=> setPercentage(e.target.value)}
+                                placeholder="Percentage"
+                                />
+                            </div>
+                            <div className="col-2 d-flex align-items-center">
+                                <BiSolidHelpCircle style={{ marginLeft: -10 }} title="Persentase dari Total Pemasukan" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="form-group mt-3 d-flex justify-content-start">
+                        <button className="btn btn-lg btn-success">Tambahkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
   )
 }

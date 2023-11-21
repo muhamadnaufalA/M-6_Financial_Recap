@@ -26,54 +26,65 @@ const Register = () => {
   }
 
   return (
-    <section className="hero has-background-grey-light is-fullheight is-fullwidth">
-      <div className="hero-body">
-        <div className="container">
-            <div className="columns is-centered">
-                <div className="column is-4">
-                    <form onSubmit={ RegisterFunc } className="box"> 
-                    <h1 className="h2 mb-3 text-center">
-                        <strong>Register</strong>
-                    </h1>
-                    <p className='has-text-center has-text-danger'>{msg}</p>
-                        <div className="field mt-5">
-                            <div className="label">Username</div>
-                            <div className="controls">
-                                <input type="text" className='input' placeholder='Username'
-                                value={username} onChange={(e) => setUsername(e.target.value)}/>
-                            </div>
+    <section className="hero bg-light is-fullheight is-fullwidth" style={{ background: 'linear-gradient(to right, #8e9eab, #eef2f3)' }}>
+    <div className="hero-body">
+        <div className="container" style={{ minHeight: '100vh' }}>
+            <div className="row justify-content-center">
+                <div className="col-12 col-md-6" style={{paddingTop:'150px'}}>
+                    <form onSubmit={RegisterFunc} className="card p-4">
+                        <h1 className="h2 mb-3 text-center">
+                            <strong>Register</strong>
+                        </h1>
+                        <p className="text-center text-danger">{msg}</p>
+                        <div className="mb-3">
+                            <label htmlFor="username" className="form-label">Username</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="username"
+                                placeholder="Username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
                         </div>
-                        <div className="field mt-5">
-                            <div className="label">Password</div>
-                            <div className="controls">
-                                <input type="password" className='input' placeholder='**********'
-                                value={password} onChange={(e) => setPassword(e.target.value)}/>
-                            </div>
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label">Password</label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                id="password"
+                                placeholder="**********"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                         </div>
-                        <div className="field mt-5">
-                            <div className="label">Confirm Password</div>
-                            <div className="controls">
-                                <input type="password" className='input' placeholder='**********'
-                                value={confPassword} onChange={(e) => setConfPassword(e.target.value)}/>
-                            </div>
+                        <div className="mb-3">
+                            <label htmlFor="confPassword" className="form-label">Confirm Password</label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                id="confPassword"
+                                placeholder="**********"
+                                value={confPassword}
+                                onChange={(e) => setConfPassword(e.target.value)}
+                            />
                         </div>
-                        <div className="field mt-5">
-                            <p className='has-text-centered'>
-                                <button className='button is-success is-rounded'>Register</button>
+                        <div className="mb-3 text-center">
+                            <button type="submit" className="btn btn-success rounded-pill">Register</button>
+                        </div>
+                        <div className="mb-3 text-center">
+                            <p>
+                                Already Have an Account?{' '}
+                                <Link to="/">Login here</Link>
                             </p>
-                        </div>
-                        <div className="field">
-                        <p className="has-text-centered">
-                            Already Have an Account?{' '}
-                            <Link to="/">Login here</Link>
-                        </p>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-      </div>
-    </section>
+    </div>
+</section>
+
   )
 }
 

@@ -102,139 +102,141 @@ export default function OutcomeForm() {
         return `Rp${numberFormat.format(angka)}`;
     };
 
+    const filteredCategory = categories.filter((c) => {
+		const budgetRuleMatch = formData.outcomeType === "" || c.budgetruleId === parseInt(formData.outcomeType);
+		return budgetRuleMatch;
+	})
+
     return (
-        <div className="card flex-fill">
-            <div className="card-header">
-                <h5 className="card-title mb-0">Outcome</h5>
-            </div>
-            <div className="row justify-content-center">
-                <div className="col-12">
-                    <form onSubmit={handleSubmit} className="box">
-                        <p className="has-text-center has-text-danger">{msg}</p>
-                        <div className="row">
-                            <div className="col-md-5">
-                                <div className="control">
+    <div className="card flex-fill">
+        <div className="card-header">
+            <h5 className="card-title mb-0">
+               Outcome
+            </h5>
+        </div>
+        <div className="row justify-content-center">
+            <div className="col-12">
+                <form onSubmit={handleSubmit} className="card-body">
+                    <p className="text-center text-danger">{msg}</p>
+                    <div className="row">
+                        <div className="col-md-4">
+                            <div className="mb-3">
+                                <input
+                                    className="form-control"
+                                    style={{ backgroundColor: '#f7f7f7' }}
+                                    id="outcomeName"
+                                    type="text"
+                                    name="outcomeName"
+                                    placeholder="Nama atau Keterangan Pengeluaran"
+                                    value={formData.outcomeName}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div className="col-md-4">
+                            <div className="mb-3">
+                                <input
+                                    className="form-control"
+                                    style={{ backgroundColor: '#f7f7f7' }}
+                                    id="amount"
+                                    type="text"
+                                    name="amount"
+                                    placeholder="Nominal Pengeluaran"
+                                    value={formatRupiah(formData.amount)}
+                                    onChange={(e) => {
+                                        const value = e.target.value.replace(/\D/g, '');
+                                        setFormData({
+                                            ...formData,
+                                            amount: value,
+                                        });
+                                    }}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div className="col-md-4">
+                            <div className="mb-3 row align-items-center">
+                                <div className="col-12">
                                     <input
-                                        className="input"
-                                        style={{ backgroundColor: '#f7f7f7' }}
-                                        id="outcomeName"
-                                        type="text"
-                                        name="outcomeName"
-                                        placeholder="Nama atau Keterangan Pengeluaran"
-                                        value={formData.outcomeName}
+                                        className="form-control"
+                                        id="date"
+                                        type="date"
+                                        name="date"
+                                        value={formData.date}
                                         onChange={handleChange}
                                         required
                                     />
                                 </div>
                             </div>
-                            <div className="col-md-4">
-                                <div className="control">
-                                    <input
-                                        className="input"
-                                        style={{ backgroundColor: '#f7f7f7' }}
-                                        id="amount"
-                                        type="text"
-                                        name="amount"
-                                        placeholder="Nominal Pengeluaran"
-                                        value={formatRupiah(formData.amount)}
-                                        onChange={(e) => {
-                                            const value = e.target.value.replace(/\D/g, '');
-                                            setFormData({
-                                                ...formData,
-                                                amount: value,
-                                            });
-                                        }}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div className="control row">
-                                    <div className="col-10">
-                                        <input
-                                            className="input"
-                                            id="date"
-                                            type="date"
-                                            name="date"
-                                            value={formData.date}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="col-2 d-flex align-items-center">
-                                        <BiSolidHelpCircle 
-                                            style={{ marginLeft: -10 }}
-                                            title="Tanggal Pengeluaran"
-                                        />
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div className="row mt-4">
+                        <div className="col-4">
+                            <div className="mb-3">
+                                <select
+                                    className="form-select cursor-pointer"
+                                    id="outcomeType"
+                                    name="outcomeType"
+                                    value={formData.outcomeType}
+                                    onChange={handleChange}
+                                    required
+                                >
+                                    <option value={""}>Pilih Budget Rule</option>
+                                    {budgetRules.map((budgetRule) => (
+                                        <option key={budgetRule.id} value={budgetRule.id}>
+                                            {budgetRule.name}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
-                        <div className="row mt-5">
-                            <div className="col-4">
-                                <div className="control">
-                                    <select
-                                        className="input"
-                                        id="outcomeType"
-                                        name="outcomeType"
-                                        value={formData.outcomeType}
-                                        onChange={handleChange}
-                                        required
-                                    >
-                                        <option value={""}>Pilih Budget Rule</option>
-                                        {budgetRules.map((budgetRule) => (
-                                            <option key={budgetRule.id} value={budgetRule.id}>
-                                                {budgetRule.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="control">
-                                    <select
-                                        className="input"
-                                        id="category"
-                                        name="category"
-                                        value={formData.category}
-                                        onChange={handleChange}
-                                        required
-                                    >
-                                        <option value={""}>Pilih Kategori</option>
-                                        {categories.map((category) => (
-                                            <option key={category.id} value={category.id}>
-                                                {category.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="control">
-                                    <select
-                                        className="input"
-                                        id="wallet"
-                                        name="wallet"
-                                        value={formData.wallet}
-                                        onChange={handleChange}
-                                        required
-                                    >
-                                        <option value={""}>Pilih Wallet</option>
-                                        {wallets.map((wallet) => (
-                                            <option key={wallet.id} value={wallet.id}>
-                                                {wallet.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
+                        <div className="col-4">
+                            <div className="mb-3">
+                                <select
+                                    className="form-select cursor-pointer"
+                                    id="category"
+                                    name="category"
+                                    value={formData.category}
+                                    onChange={handleChange}
+                                    required
+                                >
+                                    <option value={""}>Pilih Kategori</option>
+                                    {filteredCategory.map((category) => (
+                                        <option key={category.id} value={category.id}>
+                                            {category.name}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
-                        <div className="field mt-5 d-flex justify-content-end">
-                            <button className="btn btn-lg btn-success">Tambahkan</button>
+                        <div className="col-4">
+                            <div className="mb-3">
+                                <select
+                                    className="form-select cursor-pointer"
+                                    id="wallet"
+                                    name="wallet"
+                                    value={formData.wallet}
+                                    onChange={handleChange}
+                                    required
+                                >
+                                    <option value={""}>Pilih Wallet</option>
+                                    {wallets.map((wallet) => (
+                                        <option key={wallet.id} value={wallet.id}>
+                                            {wallet.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <div className="d-flex justify-content-end mt-4">
+                        <button className="btn btn-lg btn-success">Tambahkan</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+    
     )
 }
