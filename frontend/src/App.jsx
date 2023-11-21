@@ -1,5 +1,6 @@
 import {BrowserRouter, Switch, Route} from "react-router-dom"
 
+//Pages
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Income from "./pages/Income";
@@ -13,8 +14,11 @@ import EditOutcome from "./pages/EditOutcome";
 import BudgetRule from "./pages/BudgetRule";
 import Recap from "./pages/Recap";
 import EditBudgetRule from "./pages/EditBudgetRule";
-
 import Dashboard from "./pages/Dashboard";
+
+// import ProtectedRoute from "./routes/protected";
+
+//Components
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -46,66 +50,67 @@ function App() {
           <Register/>
         </Route>
 
-         {/* Dashboard */}
-          <Route exact path="/dashboard">
-            <Layout><Dashboard/></Layout>
+        {/* <ProtectedRoute> */}
+          {/* Dashboard */}
+            <Route exact path="/dashboard">
+              <Layout><Dashboard/></Layout>
+            </Route>
+          
+          {/* Recap */}
+          <Route exact path="/recap">
+            <Layout><Recap/></Layout>
           </Route>
-        
-        {/* Recap */}
-        <Route exact path="/recap">
-          <Layout><Recap/></Layout>
-        </Route>
 
-        {/* Income Page */}
-        <Route exact path="/income">
-          <Layout><Income/></Layout>        
-        </Route>
+          {/* Income Page */}
+          <Route exact path="/income">
+            <Layout><Income/></Layout>        
+          </Route>
 
-        {/* Edit Income Page */}
-        <Route exact path="/editIncome/:id">
-          <Layout><EditIncome/></Layout>      
-        </Route>
+          {/* Edit Income Page */}
+          <Route exact path="/editIncome/:id">
+            <Layout><EditIncome/></Layout>      
+          </Route>
 
-        {/* Outcome Page */}
-        <Route exact path="/outcome">
-          <Layout><Outcome/></Layout>     
-        </Route>
+          {/* Outcome Page */}
+          <Route exact path="/outcome">
+            <Layout><Outcome/></Layout>     
+          </Route>
 
-        {/* Edit Outcome Page */}
-        <Route exact path="/edit-outcome/:id">
-          <Layout><EditOutcome/></Layout>
-        </Route>
+          {/* Edit Outcome Page */}
+          <Route exact path="/edit-outcome/:id">
+            <Layout><EditOutcome/></Layout>
+          </Route>
 
-        {/* Budget Rule Page */}
-        <Route exact path="/budgetrule">
-          <Layout><BudgetRule/></Layout>    
-        </Route>
+          {/* Budget Rule Page */}
+          <Route exact path="/budgetrule">
+            <Layout><BudgetRule/></Layout>    
+          </Route>
 
-        {/* Category Page */}
-        <Route exact path="/category">
-          <Layout><Category/></Layout> 
-        </Route>
+          {/* Category Page */}
+          <Route exact path="/category">
+            <Layout><Category/></Layout> 
+          </Route>
 
-        {/* Edit Category Page */}
-        <Route exact path="/editCategory/:id">
-          <Layout><EditCategory/></Layout>
-        </Route>
+          {/* Edit Category Page */}
+          <Route exact path="/editCategory/:id">
+            <Layout><EditCategory/></Layout>
+          </Route>
 
-        {/* Wallet Page */}
-        <Route exact path="/wallet">
-          <Layout><Wallet/></Layout>
-        </Route>
+          {/* Wallet Page */}
+          <Route exact path="/wallet">
+            <Layout><Wallet/></Layout>
+          </Route>
 
-        {/* Edit Wallet Page */}
-        <Route exact path="/editWallet/:id">
-          <Layout><EditWallet/></Layout>
-        </Route>
+          {/* Edit Wallet Page */}
+          <Route exact path="/editWallet/:id">
+            <Layout><EditWallet/></Layout>
+          </Route>
 
-        {/* Edit Wallet Page */}
-        <Route exact path="/edit-budget-rule/:id">
-          <Layout><EditBudgetRule/></Layout>
-        </Route>
-        
+          {/* Edit Wallet Page */}
+          <Route exact path="/edit-budget-rule/:id">
+            <Layout><EditBudgetRule/></Layout>
+          </Route>
+        {/* </ProtectedRoute> */}
       </Switch>
     </BrowserRouter>
   );
