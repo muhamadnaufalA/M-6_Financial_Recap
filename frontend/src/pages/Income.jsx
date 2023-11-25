@@ -189,8 +189,8 @@ const Income = () => {
           </div>
 
           <div className="card-body">
-              <div className="d-flex mb-5" style={{ width: "40%" }}>
-                  <div className="col-5 px-1">
+              <div className="d-flex col-md-5 mb-3">
+                  <div className="col-md-5 px-1">
                       <select className="form-select mr-2 cursor-pointer" value={selectedWallet} onChange={(e)=>
                           setSelectedWallet(e.target.value)}
                           disabled={currentPage !== 1}
@@ -203,10 +203,6 @@ const Income = () => {
                           </option>
                           ))}
                       </select>
-                  </div>
-
-                  <div className="col-2 px-1">
-                      <BiSolidHelpCircle style={{}} title="Filter hanya aktif ketika berada di page 1" />
                   </div>
               </div>
               
@@ -246,15 +242,15 @@ const Income = () => {
 
               
               {/* PAGINATION */}
-                <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-center mt-5">
+                <div className="d-flex justify-content-between align-items-center mt-3">
                     <button
-                        className="btn btn-primary mb-2 mb-md-0"
+                        className="btn btn-primary"
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
                     >
                         Prev
                     </button>
-                    <div className="text-center mb-2 mb-md-0">
+                    <div className="p-2">
                         Page {currentPage} of {totalPages} Total Pages (
                         {(itemsPerPage * (currentPage - 1)) + 1} -{' '}
                         {(itemsPerPage * (currentPage - 1)) + 5 > filteredIncomes.length
