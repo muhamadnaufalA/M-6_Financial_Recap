@@ -176,7 +176,7 @@ function Dashboard() {
 			<div className="col-lg-6 col-xxl-6 d-flex">
 				<div className="card flex-fill">
 					<div className="card-header">
-						<h5 className="card-title mb-0">Saldo</h5>
+						<h5 className="card-title mb-0 text-dark">Saldo</h5>
 					</div>
 					<div>
 						<div className="col-4 p-3">
@@ -194,19 +194,21 @@ function Dashboard() {
 							</select>
 						</div>
 					</div>
-					<div className="d-flex align-items-center justify-content-center my-3">
-						<BiWallet className="mx-3" style={{ fontSize: '45px' }} />
-						{isShown ? (
-							<span className="fs-2 fw-bold font-monospace">{formatRupiah(totalSaldo)}</span>
-						) : (
-							<span className="fs-2 fw-bold font-monospace">Rp **********</span>
-						)}
-						
-						{isShown ? (
-							<BiSolidShow className="fs-1 mx-3 cursor-pointer" onClick={handleClick} />
-						) : (
-							<BiSolidHide className="fs-1 mx-3 cursor-pointer" onClick={handleClick} />
-						)}
+					<div className='card border mx-3 my-4'>
+						<div className="d-flex align-items-center justify-content-center my-3">
+							<BiWallet className="mx-3 text-dark" style={{ fontSize: '45px' }} />
+							{isShown ? (
+								<span className="fs-2 fw-bold text-dark">{formatRupiah(totalSaldo)}</span>
+							) : (
+								<span className="fs-2 fw-bold text-dark">Rp **********</span>
+							)}
+							
+							{isShown ? (
+								<BiSolidShow className="fs-1 mx-3 cursor-pointer text-dark" onClick={handleClick} />
+							) : (
+								<BiSolidHide className="fs-1 mx-3 cursor-pointer text-dark" onClick={handleClick} />
+							)}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -215,10 +217,10 @@ function Dashboard() {
 			<div className="col-lg-6 col-xxl-6 d-flex">
 				<div className="card flex-fill">
 					<div className="card-header">
-						<h5 className="card-title mb-0">Catatan Keuangan</h5>
+						<h5 className="card-title mb-0 text-dark">Catatan Keuangan</h5>
 					</div>
 					<div className="row p-3">
-						<div className="col-6">
+						<div className="col-md-6">
 							<select
 								className="form-select mr-2 cursor-pointer"
 								value={selectedBudgetRule}
@@ -232,7 +234,7 @@ function Dashboard() {
 								))}
 							</select>
 						</div>
-						<div className="col-6">
+						<div className="col-md-6">
 							<select
 								className="form-select mr-2 cursor-pointer"
 								value={selectedCategory}
@@ -247,27 +249,29 @@ function Dashboard() {
 							</select>
 						</div>
 					</div>
-					<div className="d-flex align-items-center justify-content-center my-3 row text-center">
-						<div>
-							<GiPayMoney className="fs-1 mx-3" />
-							<span className="fs-3 fw-bold font-monospace">{formatRupiah(totalOutcome)} [{percentageOutcome.toFixed(2)} %]</span>
-						</div>
-						<div className="py-3">
-							{totalOutcome === 0 ? (
-								<span className="fs-4 fw-bold font-monospace">
-									Belum ada pengeluaran bulan ini
-								</span>
-							) : (
-								totalOutcome > nominalBudget ? (
-									<span className="fs-4 fw-bold font-monospace text-danger">
-										Bulan ini kamu boros sebesar {formatRupiah(totalOutcome - nominalBudget)}
+					<div className='card border mx-3'>
+						<div className="d-flex align-items-center justify-content-center my-3 row text-center">
+							<div>
+								<GiPayMoney className="mx-3 text-dark" style={{ fontSize: '45px' }} />
+								<span className="fs-3 fw-bold text-dark">{formatRupiah(totalOutcome)} [{percentageOutcome.toFixed(2)} %]</span>
+							</div>
+							<div className="py-3">
+								{totalOutcome === 0 ? (
+									<span className="fs-4 fw-bold">
+										Belum ada pengeluaran bulan ini
 									</span>
 								) : (
-									<span className="fs-4 fw-bold font-monospace text-success">
-										Bulan ini kamu hemat sebesar {formatRupiah(nominalBudget - totalOutcome)}
-									</span>
-								)
-							)}
+									totalOutcome > nominalBudget ? (
+										<span className="fs-4 fw-bold text-danger">
+											Bulan ini kamu boros sebesar {formatRupiah(totalOutcome - nominalBudget)}
+										</span>
+									) : (
+										<span className="fs-4 fw-bold text-success">
+											Bulan ini kamu hemat sebesar {formatRupiah(nominalBudget - totalOutcome)}
+										</span>
+									)
+								)}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -277,11 +281,11 @@ function Dashboard() {
 			<div className="col-lg-6 col-xxl-6 d-flex">
 				<div className="card flex-fill">
 					<div className="card-header">
-						<h5 className="card-title mb-0">Outcome Target</h5>
+						<h5 className="card-title mb-0 text-dark">Outcome Target</h5>
 					</div>
 
-					<div className="table-responsive">
-						<table className="table text-center">
+					<div className="table-responsive card border mx-2">
+						<table className="table table-hover table-striped text-center">
 							<thead>
 								<tr>
 									<th>Budget Rule</th>
@@ -307,10 +311,10 @@ function Dashboard() {
 			<div className="col-lg-6 col-xxl-6 d-flex">
 				<div className="card flex-fill">
 					<div className="card-header">
-						<h5 className="card-title mb-0">Outcome Report</h5>
+						<h5 className="card-title mb-0 text-dark">Outcome Report</h5>
 					</div>
-					<div className='table-responsive'>
-						<table className="table text-center">
+					<div className='table-responsive card border mx-2'>
+						<table className="table table-hover table-striped text-center">
 							<thead>
 								<tr>
 									<th>Budget Rule</th>

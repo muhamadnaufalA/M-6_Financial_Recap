@@ -34,7 +34,7 @@ function Navbar() {
 
         <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-            <span className="text-dark">{NameUser}</span>
+            <span className="text-dark mx-3" style={{ textTransform: 'uppercase' }}>{NameUser}</span>
           </a>
           <div className="dropdown-menu dropdown-menu-end">
             <a className="dropdown-item" href="/">Log out</a>

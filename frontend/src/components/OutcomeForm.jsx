@@ -110,7 +110,7 @@ export default function OutcomeForm() {
     return (
     <div className="card flex-fill">
         <div className="card-header">
-            <h5 className="card-title mb-0">
+            <h5 className="card-title mb-0 text-dark">
                Outcome
             </h5>
         </div>

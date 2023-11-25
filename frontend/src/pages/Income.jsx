@@ -131,7 +131,7 @@ const Income = () => {
     <section>
       <div className="card flex-fill">
         <div className='card-header'>
-            <h1 className="card-title mb-0">
+            <h1 className="card-title mb-0 text-dark">
                 <strong>Income</strong>
             </h1>
         </div>
@@ -185,7 +185,7 @@ const Income = () => {
       {/* TABEL */}
       <div className="card flex-fill">
           <div className="card-header">
-              <h5 className="card-title mb-0">Income Table</h5>
+              <h5 className="card-title mb-0 text-dark">Income Table</h5>
           </div>
 
           <div className="card-body">
@@ -206,8 +206,8 @@ const Income = () => {
                   </div>
               </div>
               
-                <div className="table-responsive">
-                    <table className="table text-center">
+                <div className="table-responsive card border">
+                    <table className="table table-hover table-striped text-center">
                         <thead>
                             <tr>
                                 <th style={{ width: '20%' }}>Tanggal Pemasukan</th>
