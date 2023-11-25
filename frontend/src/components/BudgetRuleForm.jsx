@@ -46,7 +46,6 @@ export default function OutcomeForm() {
             <form onSubmit={handleSubmit} className="box">
                 <p className="text-center text-danger">{message}</p>
                 <div className="mb-3">
-                    <label htmlFor="budgetRuleName" className="form-label">Nama</label>
                     <input
                         className="form-control"
                         style={{ backgroundColor: '#f7f7f7' }}
@@ -60,8 +59,7 @@ export default function OutcomeForm() {
                     />
                 </div>
                 <div className="row mb-3">
-                    <div className="col-11">
-                        <label htmlFor="percentage" className="form-label">Budget (%)</label>
+                    <div>
                         <input
                             className="form-control"
                             style={{ backgroundColor: '#f7f7f7' }}
@@ -74,14 +72,8 @@ export default function OutcomeForm() {
                             required
                         />
                     </div>
-                    <div className="col-1 d-flex align-items-center">
-                        <BiSolidHelpCircle 
-                            style={{ marginLeft: -10 }}
-                            title="Persentase dari Total Pemasukan"
-                        />
-                    </div>
                 </div>
-                <div className="mb-3 d-flex justify-content-start">
+                <div className="mb-3 d-flex justify-content-center">
                     <button className="btn btn-lg btn-success">Tambahkan</button>
                 </div>
             </form>

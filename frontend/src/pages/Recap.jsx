@@ -80,21 +80,21 @@ function Recap() {
 
     return (
         <>
-            <h1 className="h3 mb-3">
-                <strong>Recap</strong>
-            </h1>
-            <div className="row">
-                <div className="col-12 col-lg-12 col-xxl-12 d-flex">
+				<h1 className="h3 mb-3">
+						<strong>Recap</strong>
+				</h1>
+				<div className="row">
+        	<div className="col-md-12 col-lg-12 col-xxl-12 d-flex">
 					<div className="card flex-fill">
 						<div className="card-header">
-							<h5 className="card-title mb-0">Monthly Recap</h5>
+							<h5 className="card-title mb-0 text-dark">Monthly Recap</h5>
 						</div>
 						<div className="card-body">
 							{/* Filter Start */}
-							<div className="row mb-5" style={{ width: "100%" }}>
-								<div className="col-2 px-1">
+							<div className="row mb-3 mx-0">
+								<div className="col-md-3 px-1">
 									<select
-										className="form-select mr-2"
+										className="form-select mr-2 cursor-pointer"
 										value={selectedTransactionMonthly}
 										onChange={(e) => setSelectedTransactionMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -105,9 +105,9 @@ function Recap() {
 										<option value="Outcome">Outcome</option>
 									</select>
 								</div>
-								<div className="col-2 px-1">
+								<div className="col-md-3 px-1">
 									<select
-										className="form-select mr-2"
+										className="form-select mr-2 cursor-pointer"
 										value={selectedBudgetRuleMonthly}
 										onChange={(e) => setSelectedBudgetRuleMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -121,9 +121,9 @@ function Recap() {
 										))}
 									</select>
 								</div>
-								<div className="col-2 px-1">
+								<div className="col-md-2 px-1">
 									<select
-										className="form-select"
+										className="form-select cursor-pointer"
 										value={selectedCategoryMonthly}
 										onChange={(e) => setSelectedCategoryMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -137,9 +137,9 @@ function Recap() {
 										))}
 									</select>
 								</div>
-								<div className="col-2 px-1">
+								<div className="col-md-2 px-1">
 									<select
-										className="form-select mr-2"
+										className="form-select mr-2 cursor-pointer"
 										value={selectedMonthMonthly}
 										onChange={(e) => setSelectedMonthMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -160,9 +160,9 @@ function Recap() {
 										<option value="12">December</option>
 									</select>
 								</div>
-								<div className="col-2 px-1">
+								<div className="col-md-2 px-1">
 									<select
-										className="form-select mr-2"
+										className="form-select mr-2 cursor-pointer"
 										value={selectedYearMonthly}
 										onChange={(e) => setSelectedYearMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -174,16 +174,10 @@ function Recap() {
 										<option value="2025">2025</option>
 									</select>
 								</div>
-								<div className="col-1 px-1">
-									<BiSolidHelpCircle 
-										style={{  }}
-										title="Filter hanya aktif ketika berada di page 1"
-									/>
-								</div>
 							</div>
 							{/* Filter End */}
-							<div className='table-responsive'>
-								<table className="table text-center">
+							<div className='table-responsive card border'>
+								<table className="table table-hover table-striped text-center">
 									<thead>
 										<tr>
 											<th>Tanggal</th>

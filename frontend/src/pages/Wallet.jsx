@@ -92,19 +92,18 @@ const Wallet = ()=> {
                       <form onSubmit={addWallet} className="border rounded p-4">
                           <p className="text-center text-danger">{msg}</p>
                           <div className="form-group">
-                              <label htmlFor="name" className="label">Name</label>
                               <div className="control">
                                   <input
                                       type="text"
                                       className="form-control"
                                       id="name"
-                                      placeholder="Contoh: BCA/BRI"
+                                      placeholder="Nama Wallet"
                                       value={name}
                                       onChange={(e) => setName(e.target.value)}
                                   />
                               </div>
                           </div>
-                          <div className="form-group mt-5">
+                          <div className="form-group mt-4">
                               <button className="btn btn-success d-flex justify-content-center align-items-center">Tambahkan</button>
                           </div>
                       </form>
@@ -114,13 +113,13 @@ const Wallet = ()=> {
       </div>
   
       {/* TABEL */}
-      <div className="hero has-background-white is-fullwidth">
+      <div className="hero has-background-white is-fullwidth mt-3">
           <div className="row justify-content-center">
-              <div className="col-8">
-                  <table className="table table-striped table-fullwidth">
+              <div className="col-md-8 table-responsive card border">
+                  <table className="table table-striped table-fullwidth table-hover text-center">
                       <thead>
                           <tr>
-                              <th>No</th>
+                              <th>No.</th>
                               <th>Name</th>
                               <th>Balance</th>
                               <th>Actions</th>
@@ -134,10 +133,10 @@ const Wallet = ()=> {
                                   <td>{formatRupiah(wallet.balance)}</td>
                                   <td>
                                       <div className="btn-group">
-                                          <Link to={`editWallet/${wallet.id}`} className="btn btn-info btn-sm">
+                                          <Link to={`editWallet/${wallet.id}`} className="btn btn-info btn-sm mx-1">
                                               <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
                                           </Link>
-                                          <button onClick={() => deleteWallet(wallet.id)} className="btn btn-danger btn-sm">
+                                          <button onClick={() => deleteWallet(wallet.id)} className="btn btn-danger btn-sm mx-1">
                                               <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
                                           </button>
                                       </div>

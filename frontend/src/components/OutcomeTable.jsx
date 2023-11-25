@@ -92,7 +92,7 @@ export default function OutcomeTable() {
     return (
       <section className="card flex-fill">
         <div className="card-header">
-          <h5 className="card-title mb-0">Outcome Table</h5>
+          <h5 className="card-title mb-0 text-dark">Outcome Table</h5>
         </div>
         {/* Tabel Start */}
         <div className="card-body">
@@ -134,7 +134,7 @@ export default function OutcomeTable() {
           </div>
           {/* Filter End */}
           <div className="table-responsive card border">
-            <table className="table text-center">
+            <table className="table table-hover table-striped text-center">
               <thead>
                 <tr>
                   <th style={{ width: '12%' }}>Tanggal</th>

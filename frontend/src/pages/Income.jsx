@@ -131,7 +131,7 @@ const Income = () => {
     <section>
       <div className="card flex-fill">
         <div className='card-header'>
-            <h1 className="card-title mb-0">
+            <h1 className="card-title mb-0 text-dark">
                 <strong>Income</strong>
             </h1>
         </div>
@@ -185,12 +185,12 @@ const Income = () => {
       {/* TABEL */}
       <div className="card flex-fill">
           <div className="card-header">
-              <h5 className="card-title mb-0">Income Table</h5>
+              <h5 className="card-title mb-0 text-dark">Income Table</h5>
           </div>
 
           <div className="card-body">
-              <div className="d-flex mb-5" style={{ width: "40%" }}>
-                  <div className="col-5 px-1">
+              <div className="d-flex mb-3" style={{ width: "40%" }}>
+                  <div className="col-md-5 px-1">
                       <select className="form-select mr-2 cursor-pointer" value={selectedWallet} onChange={(e)=>
                           setSelectedWallet(e.target.value)}
                           disabled={currentPage !== 1}
@@ -204,14 +204,10 @@ const Income = () => {
                           ))}
                       </select>
                   </div>
-
-                  <div className="col-2 px-1">
-                      <BiSolidHelpCircle style={{}} title="Filter hanya aktif ketika berada di page 1" />
-                  </div>
               </div>
               
-                <div className="table-responsive">
-                    <table className="table text-center">
+                <div className="table-responsive card border">
+                    <table className="table table-hover table-striped text-center">
                         <thead>
                             <tr>
                                 <th style={{ width: '20%' }}>Tanggal Pemasukan</th>

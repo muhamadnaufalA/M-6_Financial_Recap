@@ -145,10 +145,10 @@ const Category = () => {
     <section>
     <div className="card flex-fill">
         <div className="card-header">
-            <h5 className="card-title mb-0">Category</h5>
+            <h5 className="card-title mb-0 text-dark">Category</h5>
         </div>
         <div className="row justify-content-center">
-            <div className="col-12">
+            <div className="col-md-12">
                 <form onSubmit={addCatFunc} className="card-body">
                     <p className="text-center text-danger">{msg}</p>
                     <div className="row">
@@ -179,13 +179,13 @@ const Category = () => {
                         <div className="col-md-4">
                             <label htmlFor="budgetRuleId">Budget Rule</label>
                             <select
-                                className="form-control"
+                                className="form-select cursor-pointer"
                                 style={{ backgroundColor: '#f7f7f7' }}
                                 value={budgetruleid}
                                 onChange={(e) => setBudgetRuleId(e.target.value)}
                                 required
                             >
-                                <option value={""}>Pilih budget rule</option>
+                                <option value={""}>Pilih Budget Rule</option>
                                 {budgetRules.map((budgetRule) => (
                                     <option key={budgetRule.id} value={budgetRule.id}>
                                         {budgetRule.name}
@@ -194,7 +194,7 @@ const Category = () => {
                             </select>
                         </div>
                     </div>
-                    <div className="form-group mt-5">
+                    <div className="form-group mt-4">
                         <button className="btn btn-success d-flex justify-content-center align-items-center">Tambahkan</button>
                     </div>
                 </form>
@@ -204,14 +204,14 @@ const Category = () => {
     {/* TABEL */}
     <div className="card flex-fill">
         <div className="card-header">
-            <h5 className="card-title mb-0">Category Table</h5>
+            <h5 className="card-title mb-0 text-dark">Category Table</h5>
         </div>
         <div className="card-body">
             {/* Filter Start */}
-            <div className="d-flex mb-5" style={{ width: "40%" }}>
-                <div className="col-5 px-1">
+            <div className="d-flex mb-3">
+                <div className="col-md-3 px-1">
                     <select
-                        className="form-control mr-2"
+                        className="form-select mr-2 cursor-pointer"
                         value={selectedBudgetRule}
                         onChange={(e) => setSelectedBudgetRule(e.target.value)}
                         disabled={currentPage !== 1}
@@ -225,15 +225,10 @@ const Category = () => {
                         ))}
                     </select>
                 </div>
-                <div className="col-2 px-1">
-                    <BiSolidHelpCircle
-                        style={{}}
-                        title="Filter hanya aktif ketika berada di page 1"
-                    />
-                </div>
             </div>
             {/* Filter End */}
-            <table className="table text-center">
+            <div className="table-responsive">
+            <table className="table table-hover table-striped text-center border">
                 <thead>
                     <tr>
                         <th style={{ width: '20%' }}>Name</th>
@@ -249,7 +244,7 @@ const Category = () => {
                             <td>{formatRupiah(category.budget)}</td>
                             <td>{category.budgetrule ? category.budgetrule.name : 'Belum ditentukan'}</td>
                             <td className='text-center'>
-                                <div className="buttons">
+                                <div className="buttons btn-group">
                                     <Link to={`editCategory/${category.id}`} className="btn btn-sm btn-info me-2">
                                         <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
                                     </Link>
@@ -262,8 +257,9 @@ const Category = () => {
                     ))}
                 </tbody>
             </table>
+            </div>
             {/* Pagination buttons */}
-            <div className="d-flex justify-content-between align-items-center mt-5">
+            <div className="d-flex justify-content-between align-items-center mt-3">
                 <button
                     className="btn btn-primary"
                     onClick={() => handlePageChange(currentPage - 1)}
