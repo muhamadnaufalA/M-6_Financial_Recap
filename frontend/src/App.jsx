@@ -1,4 +1,5 @@
-import {BrowserRouter, Switch, Route} from "react-router-dom"
+import {BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
+import Cookies from "js-cookie";
 
 //Pages
 import Login from "./pages/Login";
@@ -16,14 +17,17 @@ import Recap from "./pages/Recap";
 import EditBudgetRule from "./pages/EditBudgetRule";
 import Dashboard from "./pages/Dashboard";
 
-// import ProtectedRoute from "./routes/protected";
-
 //Components
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 function App() { 
+  const isLogin = Cookies.get("userId");
+  const ProtectedRoute = ({ children }) => {
+    return isLogin ? children : <Redirect to="/" />;
+  };
+
   const Layout = ({ children }) => {
     return (
       <div className="wrapper">
@@ -38,7 +42,7 @@ function App() {
       </div>
     );
   };
-  
+
   return (
     <BrowserRouter>
       <Switch>
@@ -50,11 +54,11 @@ function App() {
           <Register/>
         </Route>
 
-        {/* <ProtectedRoute> */}
+        <ProtectedRoute>
           {/* Dashboard */}
-            <Route exact path="/dashboard">
-              <Layout><Dashboard/></Layout>
-            </Route>
+          <Route exact path="/dashboard">
+            <Layout><Dashboard/></Layout>
+          </Route>
           
           {/* Recap */}
           <Route exact path="/recap">
@@ -110,7 +114,7 @@ function App() {
           <Route exact path="/edit-budget-rule/:id">
             <Layout><EditBudgetRule/></Layout>
           </Route>
-        {/* </ProtectedRoute> */}
+        </ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );

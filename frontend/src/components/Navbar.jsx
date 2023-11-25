@@ -23,6 +23,12 @@ function Navbar() {
     }
   }, [UserId]);
 
+  //On click Logout
+  const logout = () => {
+    Cookies.remove("userId");
+    window.location.href = "/";
+  };
+
   return (
     <nav className="navbar navbar-expand navbar-light navbar-bg">
     <a className="sidebar-toggle js-sidebar-toggle">
@@ -37,7 +43,7 @@ function Navbar() {
             <span className="text-dark mx-3" style={{ textTransform: 'uppercase' }}>{NameUser}</span>
           </a>
           <div className="dropdown-menu dropdown-menu-end">
-            <a className="dropdown-item" href="/">Log out</a>
+            <a className="dropdown-item" onClick={logout}>Log out</a>
           </div>
         </li>
       </ul>
