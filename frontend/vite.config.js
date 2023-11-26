@@ -30,25 +30,25 @@ export default defineConfig({
               enabled: true,
             },
             manifest: {
-              name: 'BudgetBuddy',
-              short_name: 'BudgetBuddy',
+              name: 'M6-FinanceApp',
+              short_name: 'M6Finance',
               display: 'standalone',
               background_color: '#ffffff',
               theme_color: '#007bff',
-              description: 'Budget Buddy is a finance application',
+              description: 'M6-FinanceApp is a finance application',
               icons: [
                   {
-                    src: '/img/android-chrome-512x512.png',
+                    src: '/public/financeApp.png',
                     sizes: '512x512',
                     type: 'image/png',
                   },
                   {
-                    src: '/img/android-chrome-192x192.png',
+                    src: '/public/financeApp.png',
                     sizes: '192x192',
                     type: 'image/png',
                   },
                   {
-                    src: '/img/apple-touch-icon.png',
+                    src: '/public/financeApp.png',
                     sizes: '180x180',
                     type: 'image/png',
                   },

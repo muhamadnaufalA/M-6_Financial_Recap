@@ -23,10 +23,10 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 function App() { 
-  const isLogin = Cookies.get("userId");
-  const ProtectedRoute = ({ children }) => {
-    return isLogin ? children : <Redirect to="/" />;
-  };
+  // const isLogin = Cookies.get("userId");
+  // const ProtectedRoute = ({ children }) => {
+  //   return isLogin ? children : <Redirect to="/" />;
+  // };
 
   const Layout = ({ children }) => {
     return (
@@ -54,7 +54,7 @@ function App() {
           <Register/>
         </Route>
 
-        <ProtectedRoute>
+        {/* <ProtectedRoute> */}
           {/* Dashboard */}
           <Route exact path="/dashboard">
             <Layout><Dashboard/></Layout>
@@ -114,7 +114,7 @@ function App() {
           <Route exact path="/edit-budget-rule/:id">
             <Layout><EditBudgetRule/></Layout>
           </Route>
-        </ProtectedRoute>
+        {/* </ProtectedRoute> */}
       </Switch>
     </BrowserRouter>
   );
