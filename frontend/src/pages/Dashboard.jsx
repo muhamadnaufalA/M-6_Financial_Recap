@@ -121,8 +121,6 @@ function Dashboard() {
 		totalIncome += income.balance;
 	});
 
-	console.log(totalIncome)
-
 	let nominalBudgetList = []
 	budgetRules.map((br) => {
 		let nominal = (br.percentage / 100) * totalIncome;
