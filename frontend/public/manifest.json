@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "M6App",
+  "name": "M6-FinanceAPp",
   "icons": [
     {
       "src": "financeApp.png",
