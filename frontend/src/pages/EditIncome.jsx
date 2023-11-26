@@ -92,14 +92,16 @@ const EditIncome = () => {
                 <form onSubmit={UpdateIncome} className="card p-4">
                     <div className="mb-3">
                         <label htmlFor="name" className="form-label">Name</label>
-                        <input type="text" className="form-control" id="name" value={name} onChange={(e)=>
+                        <input type="text"  style={{ backgroundColor: '#f7f7f7' }}
+                        className="form-control" id="name" value={name} onChange={(e)=>
                         setName(e.target.value)}
                         placeholder='Contoh: Gaji Pokok'
                         />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="balance" className="form-label">Balance</label>
-                        <input type="text" className="form-control" id="balance" value={formatRupiah(balance)}
+                        <input type="text" style={{ backgroundColor: '#f7f7f7' }}
+                            className="form-control" id="balance" value={formatRupiah(balance)}
                             onChange={(e)=> setBalance(e.target.value.replace(/\D/g, ''))}
                         />
                     </div>

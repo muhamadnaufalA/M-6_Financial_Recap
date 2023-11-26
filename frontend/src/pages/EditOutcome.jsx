@@ -109,6 +109,7 @@ const EditOutcome = () => {
                   <input
                     type="text"
                     className="form-control"
+                    style={{ backgroundColor: '#f7f7f7' }}
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -120,6 +121,7 @@ const EditOutcome = () => {
                   <input
                     type="text"
                     className="form-control"
+                    style={{ backgroundColor: '#f7f7f7' }}
                     id="nominal"
                     value={formatRupiah(nominal)}
                     onChange={(e) => {

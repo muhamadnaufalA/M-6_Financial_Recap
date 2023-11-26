@@ -194,8 +194,8 @@ const Category = () => {
                             </select>
                         </div>
                     </div>
-                    <div className="form-group mt-4">
-                        <button className="btn btn-success d-flex justify-content-center align-items-center">Tambahkan</button>
+                    <div className="d-flex justify-content-end mt-4">
+                        <button className="btn btn-lg btn-success">Tambahkan</button>
                     </div>
                 </form>
             </div>

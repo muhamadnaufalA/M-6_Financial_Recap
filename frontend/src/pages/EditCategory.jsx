@@ -99,7 +99,7 @@ const EditCategory = () => {
 
     return (
     <section>
-        <div className="card flex-fill">
+        <div className="container">
             <div className="d-flex justify-content-start m-2">
                 <Link to={`/category`} className="btn btn-sm btn-info">
                     <BiArrowBack style={{ fontSize: '20px', verticalAlign: 'middle' }} /> Back
@@ -109,43 +109,36 @@ const EditCategory = () => {
                 <strong>Edit Category</strong>
             </h1>
             <div className="row justify-content-center">
-                <div className="col-12 col-md-8 col-lg-6">
-                    <form onSubmit={UpdateCategory} className="box">
-                        <div className="row">
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label htmlFor="name">Nama atau Keterangan Category</label>
-                                    <input
-                                        className="form-control"
-                                        style={{ backgroundColor: '#f7f7f7' }}
-                                        type="text"
-                                        placeholder="Nama atau Keterangan Category"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label htmlFor="budget">Budget</label>
-                                    <input
-                                        className="form-control"
-                                        style={{ backgroundColor: '#f7f7f7' }}
-                                        type="text"
-                                        placeholder="Budget"
-                                        value={formatRupiah(budget)}
-                                        onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="budgetruleid">Budget Rule</label>
-                            <select
+                <div className="col-md-6">
+                    <form onSubmit={UpdateCategory} className="card p-4">
+                        <div className="mb-3">
+                            <label htmlFor="name" className="form-label">Nama atau Keterangan Category</label>
+                            <input
                                 className="form-control"
                                 style={{ backgroundColor: '#f7f7f7' }}
+                                type="text"
+                                placeholder="Nama atau Keterangan Category"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="budget" className="form-label">Budget</label>
+                            <input
+                                className="form-control"
+                                style={{ backgroundColor: '#f7f7f7' }}
+                                type="text"
+                                placeholder="Budget"
+                                value={formatRupiah(budget)}
+                                onChange={(e) => setBudget(e.target.value.replace(/\D/g, ''))}
+                                required
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="budgetruleid" className="form-label">Budget Rule</label>
+                            <select
+                                className="form-select"
                                 value={budgetruleid}
                                 onChange={(e) => setBudgetRuleId(e.target.value)}
                                 required
@@ -158,8 +151,8 @@ const EditCategory = () => {
                                 ))}
                             </select>
                         </div>
-                        <div className="form-group mt-5 mb-3">
-                            <button className="btn btn-success btn-block">Tambahkan</button>
+                        <div className="mb-3 text-end">
+                            <button type='submit' className="btn btn-success">Tambahkan</button>
                         </div>
                     </form>
                 </div>
