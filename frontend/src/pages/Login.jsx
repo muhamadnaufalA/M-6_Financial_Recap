@@ -39,7 +39,7 @@ const Login = () => {
                             <FaMoneyBillTransfer className="display-4" style={{ color: '#222e3c' }}/>
                         </div>
                         <h1 className="h2 mb-2">
-                            <strong>Login to PWA-2 Finance App</strong>
+                            <strong>Login to NabungYuk Finance App</strong>
                         </h1>
                         <p className="text-center text-danger">{msg}</p>
                         <div className="mb-3">
