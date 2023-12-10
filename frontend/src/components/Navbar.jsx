@@ -35,11 +35,11 @@ function Navbar() {
       <i className="hamburger align-self-center"></i>
     </a>
 
-    <div className="navbar-collapse collapse">
+    <div className="navbar-collapse">
       <ul className="navbar-nav navbar-align">
 
         <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+          <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
             <span className="text-dark mx-3" style={{ textTransform: 'uppercase' }}>{NameUser}</span>
           </a>
           <div className="dropdown-menu dropdown-menu-end">
