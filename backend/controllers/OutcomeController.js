@@ -143,7 +143,7 @@ export const updateOutcome = async(req, res) => {
         });
     }
     try {
-        if (wallet.balance >= req.body.nominal) {
+        if (wallet.balance + req.body.nominal >= req.body.nominal) {
             await Outcome.update(req.body, {
                 where: {
                     id: req.params.id,

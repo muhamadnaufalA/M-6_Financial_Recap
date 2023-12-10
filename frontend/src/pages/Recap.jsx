@@ -80,11 +80,12 @@ function Recap() {
 
     return (
         <>
-				<h1 className="h3 mb-3">
-						<strong>Recap</strong>
-				</h1>
-				<div className="row">
-        	<div className="col-md-12 col-lg-12 col-xxl-12 d-flex">
+		<section>
+			<h1 className="h3 mb-3">
+				<strong>Recap</strong>
+			</h1>
+			<div className="row">
+				<div className="col-md-12 col-lg-12 col-xxl-12 d-flex">
 					<div className="card flex-fill">
 						<div className="card-header">
 							<h5 className="card-title mb-0 text-dark">Monthly Recap</h5>
@@ -93,58 +94,50 @@ function Recap() {
 							{/* Filter Start */}
 							<div className="row mb-3 mx-0">
 								<div className="col-md-3 px-1">
-									<select
-										className="form-select mr-2 cursor-pointer"
-										value={selectedTransactionMonthly}
-										onChange={(e) => setSelectedTransactionMonthly(e.target.value)}
+									<select className="form-select mr-2 cursor-pointer" value={selectedTransactionMonthly}
+										onChange={(e)=> setSelectedTransactionMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
 										title={currentPageMonthly !== 1 ? "Kembali ke page awal untuk memilih jenis transaksi" : ""}
-									>
+										>
 										<option value="All">All Transactions</option>
 										<option value="Income">Income</option>
 										<option value="Outcome">Outcome</option>
 									</select>
 								</div>
 								<div className="col-md-3 px-1">
-									<select
-										className="form-select mr-2 cursor-pointer"
-										value={selectedBudgetRuleMonthly}
-										onChange={(e) => setSelectedBudgetRuleMonthly(e.target.value)}
+									<select className="form-select mr-2 cursor-pointer" value={selectedBudgetRuleMonthly}
+										onChange={(e)=> setSelectedBudgetRuleMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
 										title={currentPageMonthly !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
-									>
+										>
 										<option value="All">All Budget Rules</option>
 										{budgetRuleList.map((budgetRule) => (
-												<option key={budgetRule.id} value={budgetRule.name}>
-														{budgetRule.name}
-												</option>
+										<option key={budgetRule.id} value={budgetRule.name}>
+											{budgetRule.name}
+										</option>
 										))}
 									</select>
 								</div>
 								<div className="col-md-2 px-1">
-									<select
-										className="form-select cursor-pointer"
-										value={selectedCategoryMonthly}
-										onChange={(e) => setSelectedCategoryMonthly(e.target.value)}
+									<select className="form-select cursor-pointer" value={selectedCategoryMonthly} onChange={(e)=>
+										setSelectedCategoryMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
 										title={currentPageMonthly !== 1 ? "Kembali ke page awal untuk memilih category" : ""}
-									>
+										>
 										<option value="All">All Categories</option>
 										{categoryList.map((category) => (
-												<option key={category.id} value={category.name}>
-														{category.name}
-												</option>
+										<option key={category.id} value={category.name}>
+											{category.name}
+										</option>
 										))}
 									</select>
 								</div>
 								<div className="col-md-2 px-1">
-									<select
-										className="form-select mr-2 cursor-pointer"
-										value={selectedMonthMonthly}
-										onChange={(e) => setSelectedMonthMonthly(e.target.value)}
+									<select className="form-select mr-2 cursor-pointer" value={selectedMonthMonthly} onChange={(e)=>
+										setSelectedMonthMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
 										title={currentPageMonthly !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
-									>
+										>
 										<option value="All">All Months</option>
 										<option value="01">January</option>
 										<option value="02">February</option>
@@ -161,13 +154,11 @@ function Recap() {
 									</select>
 								</div>
 								<div className="col-md-2 px-1">
-									<select
-										className="form-select mr-2 cursor-pointer"
-										value={selectedYearMonthly}
-										onChange={(e) => setSelectedYearMonthly(e.target.value)}
+									<select className="form-select mr-2 cursor-pointer" value={selectedYearMonthly} onChange={(e)=>
+										setSelectedYearMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
 										title={currentPageMonthly !== 1 ? "Kembali ke page awal untuk memilih budget rule" : ""}
-									>
+										>
 										<option value="All">All Years</option>
 										<option value="2023">2023</option>
 										<option value="2024">2024</option>
@@ -190,46 +181,47 @@ function Recap() {
 									</thead>
 									<tbody>
 										{currentItemsMonthly.map((l) => (
-											<tr key={l.id}>
-												<td >{moment(l.tanggal).format('DD-MM-YYYY')}</td>
-												<td >{l.keterangan}</td>
-												<td >{l.budgetrule}</td>
-												<td >{l.category}</td>
-												<td >
-													<span className={l.transaction_type !== "Outcome" ? "badge bg-success" : "badge bg-danger"}>
+										<tr key={l.id}>
+											<td>{moment(l.tanggal).format('DD-MM-YYYY')}</td>
+											<td>{l.keterangan}</td>
+											<td>{l.budgetrule}</td>
+											<td>{l.category}</td>
+											<td>
+												<span className={l.transaction_type !=="Outcome" ? "badge bg-success"
+													: "badge bg-danger" }>
 													{formatRupiah(l.balance ? l.balance : l.nominal)}
-													</span>
-												</td>
-												<td >{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
-											</tr>
+												</span>
+											</td>
+											<td>{l.wallet ? l.wallet : 'Belum ditentukan'}</td>
+										</tr>
 										))}
 									</tbody>
 								</table>
 							</div>
 							{/* Pagination buttons */}
 							<div className="d-flex flex-column flex-md-row justify-content-md-between align-items-center mt-5">
-								<button
-									className="btn btn-primary"
-									onClick={() => handlePageChangeMonthly(currentPageMonthly - 1)}
+								<button className="btn btn-primary" onClick={()=> handlePageChangeMonthly(currentPageMonthly - 1)}
 									disabled={currentPageMonthly === 1}
-								>
+									>
 									Prev
 								</button>
 								<div className='text-center mb-2 mb-md-0'>
-									Page { currentPageMonthly } of { totalPagesMonthly } Total Pages ({(itemsPerPageMonthly * (currentPageMonthly-1)) + 1} - {(itemsPerPageMonthly * (currentPageMonthly-1)) + 5 > filteredMonthlyRecap.length ? filteredMonthlyRecap.length : (itemsPerPageMonthly * (currentPageMonthly-1)) + 5} of {filteredMonthlyRecap.length})
+									Page { currentPageMonthly } of { totalPagesMonthly } Total Pages ({(itemsPerPageMonthly *
+									(currentPageMonthly-1)) + 1} - {(itemsPerPageMonthly * (currentPageMonthly-1)) + 5 >
+									filteredMonthlyRecap.length ? filteredMonthlyRecap.length : (itemsPerPageMonthly *
+									(currentPageMonthly-1)) + 5} of {filteredMonthlyRecap.length})
 								</div>
-								<button
-									className="btn btn-primary"
-									onClick={() => handlePageChangeMonthly(currentPageMonthly + 1)}
+								<button className="btn btn-primary" onClick={()=> handlePageChangeMonthly(currentPageMonthly + 1)}
 									disabled={currentPageMonthly === totalPagesMonthly}
-								>
+									>
 									Next
 								</button>
 							</div>
 						</div>
 					</div>
 				</div>
-            </div>
+			</div>
+		</section>
         </>
         
     )

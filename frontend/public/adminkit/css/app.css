@@ -16097,6 +16097,11 @@ span.flatpickr-weekday {
     width: 260px
 }
 
+.overflow-hidden {
+    overflow: hidden;
+}
+
+
 /* .bebas{
     position: absolute;
     z-index: 999;

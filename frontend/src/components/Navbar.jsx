@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { BiAlignLeft } from "react-icons/bi";
 // import { BiLogOutCircle } from "react-icons/bi";
 
 function Navbar() {
@@ -32,7 +33,7 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand navbar-light navbar-bg">
     <a className="sidebar-toggle js-sidebar-toggle">
-      <i className="hamburger align-self-center"></i>
+       <BiAlignLeft style={{fontSize: '50px'}} className='align-self-center'/>
     </a>
 
     <div className="navbar-collapse collapse">

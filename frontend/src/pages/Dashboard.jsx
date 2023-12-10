@@ -166,6 +166,7 @@ function Dashboard() {
 	
   return (
     <>
+	<section>
 		<h1 className="h2 mb-3">
 			<strong>Dashboard</strong>
 		</h1>
@@ -292,13 +293,13 @@ function Dashboard() {
 								</tr>
 							</thead>
 							<tbody>
-								{budgetRules.map((budgetRule) => (
-									<tr key={budgetRule.id}>
-										<td>{budgetRule.name}</td>
-										<td>{budgetRule.percentage}%</td>
-										<td>{formatRupiah(budgetRule.percentage/100*totalIncome)}</td>
-									</tr>
-								))}
+							{budgetRules.map((budgetRule) => (
+								<tr key={budgetRule.id}>
+									<td>{budgetRule.name}</td>
+									<td>{budgetRule.percentage}%</td>
+									<td>{formatRupiah(budgetRule.percentage / 100 * totalIncome)}</td>
+								</tr>
+							))}
 							</tbody>
 						</table>
 					</div>
@@ -321,19 +322,20 @@ function Dashboard() {
 								</tr>
 							</thead>
 							<tbody>
-								{budgetRulesActual.map((budgetRuleActual, i) => (
-									<tr key={budgetRuleActual.id}>
-										<td>{budgetRuleActual.name}</td>
-										<td>{formatRupiah(budgetRuleActual.totalPengeluaran)}</td>
-										<td>{(budgetRuleActual.totalPengeluaran / totalIncome * 100).toFixed(2)}%</td>
-									</tr>
-								))}
+							{budgetRulesActual.map((budgetRuleActual, i) => (
+								<tr key={budgetRuleActual.id}>
+									<td>{budgetRuleActual.name}</td>
+									<td>{formatRupiah(budgetRuleActual.totalPengeluaran)}</td>
+									<td>{(budgetRuleActual.totalPengeluaran / totalIncome * 100).toFixed(2)}%</td>
+								</tr>
+							))}
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
+		</section>
     </>
   )
 }
