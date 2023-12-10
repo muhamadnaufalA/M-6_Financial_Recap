@@ -178,7 +178,7 @@ function Dashboard() {
 						<h5 className="card-title mb-0 text-dark">Saldo</h5>
 					</div>
 					<div>
-						<div className="col-4 p-3">
+						<div className="col-md-4 p-3">
 							<select
 								className="form-select mr-2 cursor-pointer"
 								value={selectedWallet}
@@ -219,7 +219,7 @@ function Dashboard() {
 						<h5 className="card-title mb-0 text-dark">Catatan Keuangan</h5>
 					</div>
 					<div className="row p-3">
-						<div className="col-md-6">
+						<div className="col-md-6 mb-2">
 							<select
 								className="form-select mr-2 cursor-pointer"
 								value={selectedBudgetRule}

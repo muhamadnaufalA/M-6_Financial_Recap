@@ -32,35 +32,37 @@ export default function BudgetRuleTable() {
         <section className="col-md-8">
         <div className="box">
             <p className="text-center text-danger">{message}</p>
-            <table className="table table-hover table-striped border">
-                <thead>
-                    <tr>
-                        <th style={{ width: '5%' }}>No.</th>
-                        <th style={{ width: '30%' }}>Budget Name</th>
-                        <th style={{ width: '10%' }}>Percent</th>
-                        <th className="text-center" style={{ width: '30%' }}>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {budgetRules.map((budgetRule, index) => (
-                        <tr key={budgetRule.id}>
-                            <td>{index + 1}</td>
-                            <td>{budgetRule.name}</td>
-                            <td>{budgetRule.percentage} %</td>
-                            <td className="text-center">
-                                <div className="btn-group">
-                                    <Link to={`edit-budget-rule/${budgetRule.id}`} className="btn btn-sm btn-info me-2">
-                                        <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-                                    </Link>
-                                    <button onClick={() => deleteBudgetRule(budgetRule.id)} className="btn btn-sm btn-danger">
-                                        <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
-                                    </button>
-                                </div>
-                            </td>
+            <div className='table-responsive'>
+                <table className="table table-hover table-striped border">
+                    <thead>
+                        <tr>
+                            <th style={{ width: '5%' }}>No.</th>
+                            <th style={{ width: '30%' }}>Budget Name</th>
+                            <th style={{ width: '10%' }}>Percent</th>
+                            <th className="text-center" style={{ width: '30%' }}>Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {budgetRules.map((budgetRule, index) => (
+                            <tr key={budgetRule.id}>
+                                <td>{index + 1}</td>
+                                <td>{budgetRule.name}</td>
+                                <td>{budgetRule.percentage} %</td>
+                                <td className="text-center">
+                                    <div className="btn-group">
+                                        <Link to={`edit-budget-rule/${budgetRule.id}`} className="btn btn-sm btn-info me-2">
+                                            <BiEdit style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                                        </Link>
+                                        <button onClick={() => deleteBudgetRule(budgetRule.id)} className="btn btn-sm btn-danger">
+                                            <BiTrash style={{ fontSize: '20px', verticalAlign: 'middle' }} />
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
     

@@ -93,7 +93,7 @@ function Recap() {
 						<div className="card-body">
 							{/* Filter Start */}
 							<div className="row mb-3 mx-0">
-								<div className="col-md-3 px-1">
+								<div className="col-md-3 px-1 mb-2">
 									<select className="form-select mr-2 cursor-pointer" value={selectedTransactionMonthly}
 										onChange={(e)=> setSelectedTransactionMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -104,7 +104,7 @@ function Recap() {
 										<option value="Outcome">Outcome</option>
 									</select>
 								</div>
-								<div className="col-md-3 px-1">
+								<div className="col-md-3 px-1 mb-2">
 									<select className="form-select mr-2 cursor-pointer" value={selectedBudgetRuleMonthly}
 										onChange={(e)=> setSelectedBudgetRuleMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -118,7 +118,7 @@ function Recap() {
 										))}
 									</select>
 								</div>
-								<div className="col-md-2 px-1">
+								<div className="col-md-2 px-1 mb-2">
 									<select className="form-select cursor-pointer" value={selectedCategoryMonthly} onChange={(e)=>
 										setSelectedCategoryMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -132,7 +132,7 @@ function Recap() {
 										))}
 									</select>
 								</div>
-								<div className="col-md-2 px-1">
+								<div className="col-md-2 px-1 mb-2">
 									<select className="form-select mr-2 cursor-pointer" value={selectedMonthMonthly} onChange={(e)=>
 										setSelectedMonthMonthly(e.target.value)}
 										disabled={currentPageMonthly !== 1}
@@ -199,13 +199,13 @@ function Recap() {
 								</table>
 							</div>
 							{/* Pagination buttons */}
-							<div className="d-flex flex-column flex-md-row justify-content-md-between align-items-center mt-5">
+							<div className="d-flex justify-content-between align-items-center mt-3">
 								<button className="btn btn-primary" onClick={()=> handlePageChangeMonthly(currentPageMonthly - 1)}
 									disabled={currentPageMonthly === 1}
 									>
 									Prev
 								</button>
-								<div className='text-center mb-2 mb-md-0'>
+								<div className='p-2'>
 									Page { currentPageMonthly } of { totalPagesMonthly } Total Pages ({(itemsPerPageMonthly *
 									(currentPageMonthly-1)) + 1} - {(itemsPerPageMonthly * (currentPageMonthly-1)) + 5 >
 									filteredMonthlyRecap.length ? filteredMonthlyRecap.length : (itemsPerPageMonthly *

@@ -267,7 +267,7 @@ const Category = () => {
                 >
                     Prev
                 </button>
-                <div>
+                <div className='p-2'>
                     Page {currentPage} of {totalPages} Total Pages ({(itemsPerPage * (currentPage - 1)) + 1} - {(itemsPerPage * (currentPage - 1)) + 5 > filteredCategory.length ? filteredCategory.length : (itemsPerPage * (currentPage - 1)) + 5} of {filteredCategory.length})
                 </div>
                 <button
