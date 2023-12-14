@@ -13,7 +13,7 @@ const Register = () => {
   const RegisterFunc = async(e) => {
     e.preventDefault();
     try {
-        await axios.post('http://localhost:5000/users',{
+        await axios.post('https://api-nabugyuk.agilearn.id/users',{
             username: username,
             password: password,
             confPassword: confPassword

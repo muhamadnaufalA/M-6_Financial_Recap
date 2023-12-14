@@ -32,17 +32,17 @@ const EditOutcome = () => {
     }, []);
   
     const getListWalletFunc = async () =>{
-      const response = await axios.get(`http://localhost:5000/users/${UserId}/wallets`);
+      const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/wallets`);
       setListWallet(response.data);
     }
 
     const getListBudgetRuleFunc = async () =>{
-      const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
+      const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/budgetrule`);
       setListBudgetRule(response.data);
     }
 
     const getListCategoryFunc = async () =>{
-      const response = await axios.get(`http://localhost:5000/users/${UserId}/category`);
+      const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/category`);
       setListCategory(response.data);
     }
   
@@ -58,7 +58,7 @@ const EditOutcome = () => {
         idCategory = temp3
       }
       try{
-          await axios.put(`http://localhost:5000/Outcomes/${id}`, {
+          await axios.put(`https://api-nabugyuk.agilearn.id/Outcomes/${id}`, {
               name,
               nominal: parseInt(nominal),
               tanggal_pengeluaran,
@@ -73,7 +73,7 @@ const EditOutcome = () => {
     };
   
     const getIncomeById = async () => {
-      const response = await axios.get(`http://localhost:5000/Outcomes/${id}`);
+      const response = await axios.get(`https://api-nabugyuk.agilearn.id/Outcomes/${id}`);
       setName(response.data.name);
       setNominal(response.data.nominal);
       setTanggalPengeluaran(response.data.tanggal_pengeluaran);

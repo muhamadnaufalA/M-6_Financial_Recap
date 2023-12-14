@@ -15,13 +15,13 @@ export default function BudgetRuleTable() {
     }, []);
 
     const getListBudgetRuleFunc = async () =>{
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
+        const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/budgetrule`);
         setBudgetRuleList(response.data);
     }
 
     const deleteBudgetRule = async (id) => {
         try{
-            await axios.delete(`http://localhost:5000/budgetrule/${id}`);
+            await axios.delete(`https://api-nabugyuk.agilearn.id/budgetrule/${id}`);
             getListBudgetRuleFunc();
         } catch (error) {
             setMessage(error.response.data.message);

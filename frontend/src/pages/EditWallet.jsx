@@ -15,7 +15,7 @@ const EditWallet = () => {
   }, []);
 
   const getWalletById = async () => {
-    const response = await axios.get(`http://localhost:5000/wallets/${id}`);
+    const response = await axios.get(`https://api-nabugyuk.agilearn.id/wallets/${id}`);
     setName(response.data.name);
   }
 
@@ -32,7 +32,7 @@ const EditWallet = () => {
       return;
     }
     try{
-        const respon = await axios.patch(`http://localhost:5000/wallets/${id}`, {
+        const respon = await axios.patch(`https://api-nabugyuk.agilearn.id/wallets/${id}`, {
             name
         });
         if (respon.status === 200) {

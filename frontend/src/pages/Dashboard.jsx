@@ -28,37 +28,37 @@ function Dashboard() {
 	}, []);
 
 	const getRecap = async () => {
-		const response = await axios.get(`http://localhost:5000/users/${UserId}/recap`);
+		const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/recap`);
 		setRecap(response.data);
 	}
 
 	const getBudgetRulesTarget = async () => {
-		const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
+		const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/budgetrule`);
 		setBudgetRules(response.data);
 	}
 
 	const getBudgetRulesActual = async () => {
-		const response = await axios.get(`http://localhost:5000/users/${UserId}/report`);
+		const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/report`);
 		setBudgetRulesActual(response.data);
 	}
 
 	const getListBudgetRuleFunc = async () => {
-		const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`)
+		const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/budgetrule`)
 		setBudgetRuleList(response.data);
 	}
 
 	const getListCategoryFunc = async () => {
-		const response = await axios.get(`http://localhost:5000/users/${UserId}/category`)
+		const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/category`)
 		setCategoryList(response.data);
 	}
 
 	const getWalletsFunc = async () => {
-		const response = await axios.get(`http://localhost:5000/users/${UserId}/wallets`)
+		const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/wallets`)
 		setWallets(response.data)
 	}
 
 	const getIncomesFunc = async () => {
-		const response = await axios.get(`http://localhost:5000/users/${UserId}/incomes`)
+		const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/incomes`)
 		setIncomes(response.data)
 	}
 

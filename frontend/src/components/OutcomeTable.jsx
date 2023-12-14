@@ -20,23 +20,23 @@ export default function OutcomeTable() {
     }, []);
 
     const getListOutcomeFunc = async () => {
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/outcomes`);
+        const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/outcomes`);
         setOutcome(response.data);
     }
 
     const getListBudgetRuleFunc = async () => {
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`)
+        const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/budgetrule`)
         setBudgetRule(response.data);
     }
 
     const getListCategoryFunc = async () => {
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/category`)
+        const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/category`)
         setCategory(response.data);
     }
 
     const deleteOutcome = async (id) => {
         try{
-            await axios.delete(`http://localhost:5000/Outcomes/${id}`);
+            await axios.delete(`https://api-nabugyuk.agilearn.id/Outcomes/${id}`);
             getListOutcomeFunc();
         } catch (error) {
             console.log(error);

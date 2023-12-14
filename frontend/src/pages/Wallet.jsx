@@ -27,7 +27,7 @@ const Wallet = ()=> {
       return;
     }
     try {
-        const respon = await axios.post(`http://localhost:5000/users/${UserId}/wallets`,{
+        const respon = await axios.post(`https://api-nabugyuk.agilearn.id/users/${UserId}/wallets`,{
             name: name,
             balance: 0,
         });
@@ -49,7 +49,7 @@ const Wallet = ()=> {
   }
   const listWallet = async() => {
     try {
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/wallets`);
+        const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/wallets`);
         setWallet(response.data);
     } catch (error) {
         if(error.response){
@@ -59,7 +59,7 @@ const Wallet = ()=> {
   }
   const deleteWallet = async(id) => {
     try {
-        const respon = await axios.delete(`http://localhost:5000/wallets/${id}`);
+        const respon = await axios.delete(`https://api-nabugyuk.agilearn.id/wallets/${id}`);
         listWallet();
         if (respon.status === 200) {
           await Swal.fire({

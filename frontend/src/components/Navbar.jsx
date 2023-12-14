@@ -12,7 +12,7 @@ function Navbar() {
   useEffect(() => {
     const getIncomeById = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/users/${UserId}`);
+        const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}`);
         setName(response.data.username);
       } catch (error) {
         console.error('Error fetching user data', error);
