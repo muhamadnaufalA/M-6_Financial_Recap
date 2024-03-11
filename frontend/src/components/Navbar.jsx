@@ -27,7 +27,7 @@ function Navbar() {
   //On click Logout
   const logout = () => {
     Cookies.remove("userId");
-    window.location.href = "/";
+    window.location.href = "/login";
   };
 
   return (
