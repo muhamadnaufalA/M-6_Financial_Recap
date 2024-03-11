@@ -15,7 +15,7 @@ const Login = () => {
   const LoginFunc = async(e) => {
     e.preventDefault();
     try {
-        const response = await axios.post('http://localhost:5000/login', {
+        const response = await axios.post('https://api-nabugyuk.agilearn.id/login', {
             username: username,
             password: password
           });

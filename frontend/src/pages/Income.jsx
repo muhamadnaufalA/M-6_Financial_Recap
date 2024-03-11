@@ -28,19 +28,19 @@ const Income = () => {
   }, []);
 
   const getListWalletFunc = async () =>{
-    const response = await axios.get(`http://localhost:5000/users/${UserId}/wallets`);
+    const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/wallets`);
     setListWallet(response.data);
   }
 
   const getListIncomeFunc = async () =>{
-    const response = await axios.get(`http://localhost:5000/users/${UserId}/incomes`);
+    const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/incomes`);
     setIncome(response.data);
   }
 
   const addIncomeFunc = async(e) => {
     e.preventDefault();
     try {
-        const respon = await axios.post(`http://localhost:5000/users/${UserId}/incomes`,{
+        const respon = await axios.post(`https://api-nabugyuk.agilearn.id/users/${UserId}/incomes`,{
             name: name,
             balance: parseInt(balance),
             tanggal_pemasukan: tanggalPemasukan,
@@ -83,7 +83,7 @@ const Income = () => {
 
   const deleteIncome = async (id) => {
     try{
-        await axios.delete(`http://localhost:5000/incomes/${id}`);
+        await axios.delete(`https://api-nabugyuk.agilearn.id/incomes/${id}`);
         getListIncomeFunc();
     } catch (error) {
         Swal.fire({

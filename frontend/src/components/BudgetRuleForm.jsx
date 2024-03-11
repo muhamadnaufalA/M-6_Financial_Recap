@@ -25,7 +25,7 @@ export default function OutcomeForm() {
         e.preventDefault();
         console.log(formData);
         try {
-            await axios.post(`http://localhost:5000/users/${UserId}/budgetrule`,{
+            await axios.post(`https://api-nabugyuk.agilearn.id/users/${UserId}/budgetrule`,{
                 name: formData.budgetRuleName,
                 percentage: parseInt(formData.percentage)
             });

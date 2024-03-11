@@ -22,12 +22,12 @@ const EditBudgetRule = () => {
   }, []);
 
   const getBudgetRulesFunc = async () =>{
-    const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
+    const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/budgetrule`);
     setBudgetRules(response.data);
   }
 
   const getBudgetRuleById = async () => {
-    const response = await axios.get(`http://localhost:5000/budgetrule/${id}`);
+    const response = await axios.get(`https://api-nabugyuk.agilearn.id/budgetrule/${id}`);
     setName(response.data.name);
     setPercentage(response.data.percentage);
 
@@ -41,7 +41,7 @@ const EditBudgetRule = () => {
     }
 
     try {
-        await axios.put(`http://localhost:5000/budgetrule/${id}`, {
+        await axios.put(`https://api-nabugyuk.agilearn.id/budgetrule/${id}`, {
           name,
           percentage: parseInt(percentage)
         });

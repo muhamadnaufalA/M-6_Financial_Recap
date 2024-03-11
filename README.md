@@ -1,1 +1,1 @@
-# M-6_Financial_Recap
+# NabungYuk-FinanceApp

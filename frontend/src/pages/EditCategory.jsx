@@ -40,7 +40,7 @@ const EditCategory = () => {
             budgetruleid = temp;
         }
         try{
-            const respon = await axios.put(`http://localhost:5000/category/${id}`, {
+            const respon = await axios.put(`https://api-nabugyuk.agilearn.id/category/${id}`, {
                 name: name,
                 budget: parseInt(budget),
                 budgetruleId: parseInt(budgetruleid),
@@ -79,7 +79,7 @@ const EditCategory = () => {
     };
 
     const getCatById = async () => {
-        const response = await axios.get(`http://localhost:5000/category/${id}`);
+        const response = await axios.get(`https://api-nabugyuk.agilearn.id/category/${id}`);
         setName(response.data.name);
         setBudget(response.data.budget);
         setBudgetRuleName(response.data.budgetrule.name);
@@ -88,7 +88,7 @@ const EditCategory = () => {
     }
 
     const getListBudgetRuleFunc = async () =>{
-        const response = await axios.get(`http://localhost:5000/users/${UserId}/budgetrule`);
+        const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/budgetrule`);
         setListBudgetRule(response.data);
     }
 

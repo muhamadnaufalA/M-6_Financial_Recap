@@ -24,7 +24,7 @@ const EditIncome = () => {
   }, []);
 
   const getListWalletFunc = async () =>{
-    const response = await axios.get(`http://localhost:5000/users/${UserId}/wallets`);
+    const response = await axios.get(`https://api-nabugyuk.agilearn.id/users/${UserId}/wallets`);
     setListWallet(response.data);
   }
 
@@ -34,7 +34,7 @@ const EditIncome = () => {
       idWallet = temp;
     }
     try{
-        const respon = await axios.patch(`http://localhost:5000/incomes/${id}`, {
+        const respon = await axios.patch(`https://api-nabugyuk.agilearn.id/incomes/${id}`, {
             name,
             balance: parseInt(balance),
             tanggal_pemasukan,
@@ -63,7 +63,7 @@ const EditIncome = () => {
   };
 
   const getIncomeById = async () => {
-    const response = await axios.get(`http://localhost:5000/incomes/${id}`);
+    const response = await axios.get(`https://api-nabugyuk.agilearn.id/incomes/${id}`);
     setName(response.data.name);
     setBalance(response.data.balance);
     setTanggalPemasukan(response.data.tanggal_pemasukan);
